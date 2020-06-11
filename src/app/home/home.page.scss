@@ -170,8 +170,6 @@ section {
   }
 }
 
-
-
 .toShowOnMobile,
 .MobileOnly {
   display: none;
@@ -351,10 +349,7 @@ section {
       text-align: left;
     }
   }
-
- 
 }
-
 
 .social_icon_ {
   display: flex;
@@ -377,5 +372,21 @@ section {
   ion-label {
     width: 100%;
     margin-left: 10px;
+  }
+}
+
+.mainHeader {
+  --background: black;
+  background-color: #000000;
+  --ion-background-color: #000000;
+
+  ion-toolbar {
+    background-color: #000000;
+    --ion-background-color: #000000;
+    --background: black;
+  }
+
+  ion-icon {
+    color: #ffffff;
   }
 }
