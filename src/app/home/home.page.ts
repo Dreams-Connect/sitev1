@@ -41,7 +41,7 @@ export class HomePage {
         revealSection.play();
       }
     }, {
-      threshold: .1
+      threshold: 0.1
     });
     //get all sections
     const sections = document.querySelectorAll('section');

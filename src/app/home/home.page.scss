@@ -206,8 +206,9 @@ section {
     display: none;
   }
 
-  .hero_Text {
-    font-size: 36px;
+  .hero_Text,
+  .align_center .hero_Text {
+    font-size: 36px !important;
   }
 
   .pText {
@@ -320,10 +321,14 @@ section {
 
   ion-card {
     background-color: #ffffff;
-    padding: 16px;
+    padding: 0px;
     text-align: center;
-    max-width: 300px;
-    max-height: 500px;
+    width: 190px;
+    height: 60px;
+
+    ion-card-title {
+      color: #29928f;
+    }
   }
 }
 
@@ -369,12 +374,12 @@ section {
   ion-button {
     color: #ffffff;
     background-color: transparent;
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
 
     ion-icon {
-      height: 40px;
-      width: 40px;
+      height: 25px;
+      width: 25px;
     }
   }
 }
@@ -435,14 +440,14 @@ section {
   }
 
   .someQuote {
-      animation: RevealQuote cubic-bezier(0.77, 0, 0.175, 1) 2.5s;
+    animation: RevealQuote cubic-bezier(0.77, 0, 0.175, 1) 2.5s;
 
-      p {
-        animation: none!important;
-      }
-      span {
-        animation: none!important;
-      }
+    p {
+      animation: none !important;
+    }
+    span {
+      animation: none !important;
+    }
   }
 }
 
@@ -455,12 +460,11 @@ section {
 }
 
 @keyframes RevealQuote {
-  0%{
+  0% {
     transform: translate(30px, -45px);
   }
 
-  100%{
-    
+  100% {
   }
 }
 
