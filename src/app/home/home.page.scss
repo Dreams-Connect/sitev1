@@ -38,7 +38,10 @@ ion-header {
     height: 50px;
     background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 50px;
-    padding: 16px;
+
+    ion-text {
+      padding: 16px;
+    }
   }
 }
 
@@ -51,7 +54,10 @@ ion-header {
   height: 50px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 50px;
-  padding: 16px;
+
+  ion-text {
+    padding: 16px;
+  }
 }
 
 .green_bg {
@@ -142,7 +148,7 @@ section {
 }
 
 .scroll_indicator {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   display: flex;
@@ -150,6 +156,7 @@ section {
   align-items: center;
   transform: matrix(0, -1, 1, 0, 0, 0) translate(-40px, -90px);
   top: 0;
+  z-index: -1;
 
   span:first-child {
     width: 105px;
@@ -293,7 +300,6 @@ section {
 }
 
 .whoAreSection {
-  text-align: center;
   p,
   h3 {
     width: 100%;
@@ -330,16 +336,22 @@ section {
   }
 
   ion-button {
-    color: #29928f;
-    height: 100%;
-    background-color: #ffffff;
     border-radius: 12px;
+    height: 100%;
     margin: 16px;
-    padding: 10px;
+    background-color: #ffffff;
+    color: #29928f;
+
+    ion-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1px;
+    }
 
     ion-icon {
-      height: 44px;
-      width: 44px;
+      height: 60px;
+      width: 60px;
       font-size: 40px;
     }
 
@@ -354,6 +366,7 @@ section {
 .social_icon_ {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   ion-button {
     color: #ffffff;
     background-color: transparent;
@@ -376,17 +389,30 @@ section {
 }
 
 .mainHeader {
-  --background: black;
-  background-color: #000000;
-  --ion-background-color: #000000;
-
-  ion-toolbar {
-    background-color: #000000;
-    --ion-background-color: #000000;
-    --background: black;
-  }
-
+  transition: .2s  ease-in-out;
   ion-icon {
     color: #ffffff;
   }
+}
+
+.align_center {
+  text-align: center;
+  max-width: 100%;
+
+  .pText,
+  .hero_Text {
+    width: 100% !important;
+    text-align: center !important;
+    max-width: 100%;
+  }
+
+  .hero_Text {
+    font-size: 52px;
+  }
+}
+.applyBorder {
+  background-color: #000000;
+  --ion-background-color: #000000;
+  border-bottom: 1px solid #29928f15;
+  transition: .5s  ease-in-out;
 }
