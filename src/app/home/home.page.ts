@@ -20,7 +20,7 @@ export class HomePage {
     this.scrollObserver = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting === true) {
         // set page is scrolling to apply border to header
-        this.isScrolling = true;
+        this.isScrolling = true; // fix this -> it cause some sorta intersection bug on header
         // apply reveal animation to sections
         const revealSection = this.animationCtrl.create().addElement(entries[0].target)
           .fromTo('transform', 'translate(0,5%)', 'translate(0,0)')

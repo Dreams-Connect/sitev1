@@ -321,13 +321,21 @@ section {
 
   ion-card {
     background-color: #ffffff;
-    padding: 0px;
+    padding: 10px;
     text-align: center;
-    width: 190px;
-    height: 60px;
+    max-width: 300px;
+    max-height: 500px;
 
     ion-card-title {
       color: #29928f;
+    }
+  }
+
+  @media (max-width: 800px) {
+    ion-card {
+      padding: 0px !important;
+      width: 190px !important;
+      height: 60px !important;
     }
   }
 }
@@ -374,8 +382,6 @@ section {
   ion-button {
     color: #ffffff;
     background-color: transparent;
-    height: 100%;
-    width: 100%;
 
     ion-icon {
       height: 25px;
