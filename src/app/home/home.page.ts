@@ -10,26 +10,38 @@ export class HomePage {
 
   private scrollObserver: IntersectionObserver;
   isScrolling = false;
+  
   constructor(
-    animationCtrl: AnimationController,
+    private animationCtrl: AnimationController,
   ) { }
 
   ngAfterViewInit() {
-    //scroll animation with intersection observer
+    // scroll animation with intersection observer
     this.scrollObserver = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting === true) {
-        // page is scrolling
+        // set page is scrolling to apply border to header
         this.isScrolling = true;
-        // apply border bottom to header
-
         // apply reveal animation to sections
+        const revealSection = this.animationCtrl.create().addElement(entries[0].target)
+          .fromTo('transform', 'translate(0,5%)', 'translate(0,0)')
+          .fromTo('opacity', '0', '1')
+          .duration(1000)
+          .delay(50)
+        revealSection.play();
       }
       else {
         // page is not scrolling
         this.isScrolling = false;
+        // apply reveal animation to sections
+        const revealSection = this.animationCtrl.create().addElement(entries[0].target)
+          .fromTo('transform', 'translate(0,0)', 'translate(0,5%)')
+          .fromTo('opacity', '1', '0')
+          .duration(1200)
+          .delay(500)
+        revealSection.play();
       }
     }, {
-      threshold: .3
+      threshold: .1
     });
     //get all sections
     const sections = document.querySelectorAll('section');
@@ -37,7 +49,9 @@ export class HomePage {
     for (let i = 1; i < sections.length; i++) {
       this.scrollObserver.observe(sections[i])
     }
+ 
   }
 
+ 
 
 }
