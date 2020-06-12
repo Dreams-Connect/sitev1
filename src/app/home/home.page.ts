@@ -10,7 +10,7 @@ export class HomePage {
 
   private scrollObserver: IntersectionObserver;
   isScrolling = false;
-  
+
   constructor(
     private animationCtrl: AnimationController,
   ) { }
@@ -49,9 +49,15 @@ export class HomePage {
     for (let i = 1; i < sections.length; i++) {
       this.scrollObserver.observe(sections[i])
     }
- 
+
   }
 
- 
 
+  ngOnDestroy() {
+    this.scrollObserver.disconnect();
+  }
+
+  ionViewWillEnter() {
+
+  }
 }
