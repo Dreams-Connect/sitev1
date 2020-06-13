@@ -13,23 +13,25 @@
     </ion-title>
 
     <ion-buttons slot="primary" class="middle_menus">
-      <ion-button color="">
+      <ion-button color="" routerLink='category'>
         Category
       </ion-button>
-      <ion-button color="">
+      <ion-button color="" routerLink='blog'>
         Blog
       </ion-button>
     </ion-buttons>
 
     <ion-buttons slot="primary" class="">
-      <ion-button color="" class="login_btn toHideonMobile">
+      <ion-button color="" class="login_btn toHideonMobile" routerLink='login'>
         Login
       </ion-button>
-      <ion-button color="" class="large_button toHideonMobile">
+      <ion-button color="" class="large_button toHideonMobile" routerLink='new'>
         <ion-text>Create Event</ion-text>
       </ion-button>
       <ion-button color="" class="toShowOnMobile">
-        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+        <ion-menu-button>
+          <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+        </ion-menu-button>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -53,14 +55,10 @@
     </ion-label>
 
     <ion-buttons slot="primary" class="section_1getStarted">
-      <ion-button class="large_button green_bg" color="" size="large">
+      <ion-button class="large_button green_bg" color="" size="large" routerLink='login'>
         <ion-text> Get Started </ion-text>
       </ion-button>
     </ion-buttons>
-
-    <div class="">
-
-    </div>
 
     <ion-label class="someQuote">
       <p>"Productivity is never an accident. It is always the result of a commitment to excellence, intelligent
@@ -76,7 +74,7 @@
       <h3 class="section_large_text hero_Text">Our Favourite Collections</h3>
     </ion-label>
     <ion-list class="FeaturedEvents">
-      <ion-item button>
+      <ion-item button [routerLink]="['/','event', 1]">
         <ion-card>
           <img
             src="https://images.pexels.com/photos/2982149/pexels-photo-2982149.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" />
@@ -88,7 +86,7 @@
         </ion-card>
       </ion-item>
 
-      <ion-item button>
+      <ion-item button [routerLink]="['/','event', 2]">
         <ion-card>
           <img
             src="https://images.pexels.com/photos/4555685/pexels-photo-4555685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -100,7 +98,7 @@
         </ion-card>
       </ion-item>
 
-      <ion-item button>
+      <ion-item button [routerLink]="['/','event', 1]" detail>
         <ion-card>
           <img
             src="https://images.pexels.com/photos/2982149/pexels-photo-2982149.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" />
@@ -112,17 +110,17 @@
         </ion-card>
       </ion-item>
 
-     <ion-item button>
-      <ion-card>
-        <img
-          src="https://images.pexels.com/photos/4555685/pexels-photo-4555685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-        <ion-card-header>
-          <ion-card-title> 2020 Ain't Cancelled!</ion-card-title>
-          <ion-card-subtitle>Tue, June 16, 2020</ion-card-subtitle>
-          <ion-card-subtitle>4:00 AM GST</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-     </ion-item>
+      <ion-item button [routerLink]="['/','event', 1]">
+        <ion-card>
+          <img
+            src="https://images.pexels.com/photos/4555685/pexels-photo-4555685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+          <ion-card-header>
+            <ion-card-title> 2020 Ain't Cancelled!</ion-card-title>
+            <ion-card-subtitle>Tue, June 16, 2020</ion-card-subtitle>
+            <ion-card-subtitle>4:00 AM GST</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
     </ion-list>
   </section>
 
@@ -136,7 +134,7 @@
 
 
     <ion-list class="FturedEvents" detail>
-      <ion-item detail button>
+      <ion-item detail button [routerLink]="['/','event', 2]">
         <ion-thumbnail slot="start">
           <ion-img
             src="https://images.pexels.com/photos/2982149/pexels-photo-2982149.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
@@ -149,7 +147,7 @@
         </ion-label>
       </ion-item>
 
-      <ion-item detail button>
+      <ion-item detail button [routerLink]="['/','event', 2]">
         <ion-thumbnail slot="start">
           <ion-img
             src="https://images.pexels.com/photos/4555685/pexels-photo-4555685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -162,7 +160,7 @@
         </ion-label>
       </ion-item>
 
-      <ion-item detail button>
+      <ion-item detail button [routerLink]="['/','event', 2]">
         <ion-thumbnail slot="start">
           <ion-img
             src="https://images.pexels.com/photos/4555685/pexels-photo-4555685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -185,7 +183,7 @@
       <h3 class="section_large_text hero_Text">Find out all about <span>Events</span> in <span>one place</span></h3>
     </ion-label>
     <ion-buttons slot="primary" class="section_1getStarted">
-      <ion-button class="large_button green_bg" color="" size="large">
+      <ion-button class="large_button green_bg" color="" size="large" routerLink='events'>
         <ion-text> Browse All Events</ion-text>
       </ion-button>
     </ion-buttons>
@@ -200,7 +198,7 @@
 
     <!--who you are type options-->
     <ion-list>
-      <ion-item button>
+      <ion-item button routerLink='login'>
         <ion-card>
           <svg xmlns="http://www.w3.org/2000/svg" width="412.614" height="367.485" viewBox="0 0 412.614 367.485">
             <defs>
@@ -362,7 +360,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item button>
+      <ion-item button routerLink='login'>
         <ion-card>
           <svg xmlns="http://www.w3.org/2000/svg" width="562" height="455.321" viewBox="0 0 562 455.321">
             <g transform="translate(-637 -3872.552)">
@@ -545,7 +543,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item button>
+      <ion-item button routerLink='login'>
         <ion-card>
           <ion-card-header>
             <ion-card-title>I want to do both</ion-card-title>
@@ -601,24 +599,25 @@
 
     <!-- social icons -->
     <ion-buttons slot="primary" collapse="true" class="social_icon_ align_center">
-      <ion-button>
+      <ion-button href="https://www.facebook.com/Dreams-Connect-281825192711588/" target="_blank">
         <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
         <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button href="https://twitter.com/dreams_connect" target=_blank>
         <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
         <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
         <ion-icon slot="icon-only" name="logo-youtube"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button href="https://api.whatsapp.com/send?phone=+2348082330500" target=_blank>
         <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
       </ion-button>
     </ion-buttons>
   </section>
 </ion-content>
+

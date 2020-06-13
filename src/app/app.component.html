@@ -1,4 +1,68 @@
 <ion-app>
-   
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu-toggle>
+    <ion-menu side="end" type="overlay" contentId="main" class="mobileMenu">
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-buttons slot="primary">
+            <ion-button color="" (click)="closeMenu()">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list lines="none">
+          <ion-item button routerLink='category'>
+            <ion-text>Category</ion-text>
+          </ion-item>
+          <ion-item button routerLink='blog'>
+            <ion-text>
+              Blog
+            </ion-text>
+          </ion-item>
+          <ion-item button routerLink='login'>
+            <ion-text>
+              Login
+            </ion-text>
+          </ion-item>
+          <ion-item>
+           <ion-buttons>
+            <ion-button routerLink='new'>
+              Create Event
+            </ion-button>
+           </ion-buttons>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+      <ion-footer>
+         <ion-toolbar>
+          <ion-buttons slot="primary" collapse="true" class="social_icon_ align_center">
+            <ion-button href="https://www.facebook.com/Dreams-Connect-281825192711588/" target="_blank">
+              <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+            </ion-button>
+            <ion-button href="https://twitter.com/dreams_connect" target=_blank>
+              <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-youtube"></ion-icon>
+            </ion-button>
+            <ion-button href="https://api.whatsapp.com/send?phone=+2348082330500" target=_blank>
+              <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+         </ion-toolbar>
+      </ion-footer>
+    </ion-menu>
+  </ion-menu-toggle>
+
+
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

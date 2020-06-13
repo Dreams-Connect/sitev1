@@ -1,0 +1,35 @@
+.mobileMenu {
+    --ion-background-color: #ffffff;
+  
+    ion-header {
+      ion-button{
+        color: #000000;
+      }
+    }
+  
+  ion-item {
+    ion-text {
+      text-align: center;
+      width: 100%;
+    }
+  
+    ion-buttons {
+      margin: auto;
+      background-color:#29928f;
+      color: #000000;
+      border-radius: 24px;
+      padding: 6px;
+    }
+  }
+
+  ion-footer {
+    ion-icon {
+      color: #000000;
+    }
+
+    ion-buttons {
+      overflow: auto;
+    }
+  }
+  }
+  

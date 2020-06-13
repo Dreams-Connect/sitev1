@@ -24,16 +24,26 @@ const routes: Routes = [
     loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
   },
   {
-    path: 'event-category',
+    path: 'category',
     loadChildren: () => import('./event-category/event-category.module').then( m => m.EventCategoryPageModule)
   },
   {
-    path: 'all-event',
+    path: 'events',
     loadChildren: () => import('./all-event/all-event.module').then( m => m.AllEventPageModule)
   },
   { 
-    path: 'selected-event',
-    loadChildren: () => import('./selected-event/selected-event.module').then( m => m.SelectedEventPageModule)
+    path: 'event',
+    children: [
+      {
+        path:':eventId',
+        loadChildren: () => import('./selected-event/selected-event.module').then( m => m.SelectedEventPageModule)
+      }
+    ]
+    
+  },
+  {
+    path: 'new',
+    loadChildren: () => import('./create-event/create-event.module').then( m => m.CreateEventPageModule)
   },
 ];
 

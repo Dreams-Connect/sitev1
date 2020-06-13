@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AnimationController } from '@ionic/angular';
+import { AnimationController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +12,7 @@ export class HomePage {
   isScrolling = false;
 
   constructor(
+    private menuCtrl: MenuController,
     private animationCtrl: AnimationController,
   ) { }
 
@@ -59,5 +60,9 @@ export class HomePage {
 
   ionViewWillEnter() {
 
+  }
+
+  closeMenu() {
+    this.menuCtrl.close()
   }
 }
