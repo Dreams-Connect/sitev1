@@ -205,6 +205,10 @@ section {
 }
 
 @media (max-width: 800px) {
+  .mainHeader {
+    padding-bottom: 7px;
+    padding-top: 7px;
+  }
   .hideSomeQuote {
     display: none;
   }
@@ -403,6 +407,7 @@ section {
 }
 
 .mainHeader {
+
   transition: 0.2s ease-in-out;
   ion-icon {
     color: #ffffff;
@@ -428,7 +433,7 @@ section {
   background-color: #000000;
   --ion-background-color: #000000;
   border-bottom: 1px solid #29928f15;
-  transition: 0.5s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 // apply animation to landing section
@@ -507,4 +512,3 @@ section {
     }
   }
 }
-

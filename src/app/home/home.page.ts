@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AnimationController, MenuController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,6 +10,7 @@ import { AnimationController, MenuController } from '@ionic/angular';
 export class HomePage {
 
   private scrollObserver: IntersectionObserver;
+  private scrollObserverWindow: IntersectionObserver;
   isScrolling = false;
 
   constructor(
@@ -17,11 +19,25 @@ export class HomePage {
   ) { }
 
   ngAfterViewInit() {
+    this.scrollObserverWindow = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting === true) {
+      
+      
+      }
+      else {
+        this.isScrolling = false;
+      
+      }
+    }, {
+      threshold: .009
+    });
+
+
     // scroll animation with intersection observer
     this.scrollObserver = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting === true) {
-        // set page is scrolling to apply border to header
-        this.isScrolling = true; // fix this -> it cause some sorta intersection bug on header
+          // set page is scrolling to apply border to header
+          this.isScrolling = true;
         // apply reveal animation to sections
         const revealSection = this.animationCtrl.create().addElement(entries[0].target)
           .fromTo('transform', 'translate(0,5%)', 'translate(0,0)')
@@ -31,7 +47,6 @@ export class HomePage {
         revealSection.play();
       }
       else {
-        // page is not scrolling
         this.isScrolling = false;
         // apply reveal animation to sections
         const revealSection = this.animationCtrl.create().addElement(entries[0].target)
@@ -49,13 +64,15 @@ export class HomePage {
     // loop over all section and ignore the first section
     for (let i = 1; i < sections.length; i++) {
       this.scrollObserver.observe(sections[i])
+     
+      this.scrollObserverWindow.observe(sections[i])
     }
-
   }
 
 
   ngOnDestroy() {
     this.scrollObserver.disconnect();
+    this.scrollObserverWindow.disconnect();
   }
 
   ionViewWillEnter() {
