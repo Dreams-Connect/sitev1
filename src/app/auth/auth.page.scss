@@ -1,0 +1,55 @@
+.backHeader {
+    position: absolute;
+    z-index: 999999999;
+}
+.mainHeader {
+    ion-title {
+        text-align: center;
+    }
+}
+
+ion-content {
+    background-color: #ffffff;
+}
+
+.nextBtn {
+    height: 100%;
+    justify-content: flex-end;
+
+    ion-icon {
+        font-size: 70px;
+    }
+}
+
+.personaCategory {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    ion-card {
+        max-width: 25%;
+        ion-card-content {
+            text-align: center;
+        }
+        ion-card-title {
+            padding: 16px;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 800px) {
+        ion-card {
+            max-width: 100%;
+        }
+    }
+}
+
+.selected {
+    background-color: #29928f;
+    --background: #29928f;
+    --ion-background-color: #29928f;
+
+    *{
+        color: #000000;
+    }
+}

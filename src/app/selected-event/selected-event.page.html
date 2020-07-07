@@ -1,116 +1,146 @@
-<ion-header class="header ion-no-border ion-padding">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button shape="round" text="" icon="chevron-back-outline"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<!-- desktop -->
+<ion-content class="mainContainer" [fullscreen]="fullscreen">
+  <ion-grid>
+    <ion-row>
+      <!-- left -->
+      <ion-col>
+        <ion-header class="ion-no-border">
+          <ion-list>
+            <ion-item class="eventTitle">
+              <ion-label>
+                <h1>THE SHOW MUST GO ON!</h1>
+              </ion-label>
+            </ion-item>
 
-<div class="mobile_bg"></div>
+            <!-- TIME AND DATE -->
+            <ion-item class="dateContainer" lines="none">
+              <ion-label>
+                <h1>Fri, June 18, 2020 </h1>
+                <ion-button fill="none" class="normalButton">Add to Calendar</ion-button>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-header>
 
-<ion-content [fullscreen]="true" >
-  <ion-item lines="none">
-    <ion-label class="ion-text-center ion-text-wrap whiteColor TopTitle">
-      <h1>The Afro-Peruvian Sextet's Livestreaming Experience</h1>
-      <p>Join us for a discussion about raising antiracist kids with author of the new book, AntiRacist Baby, Ibram
-        X.Kendi in conversation with Derecka Purnell</p>
-      <p> by <ion-text>Ime Omobong</ion-text>
-        <ion-button size="small" fill="outline">Follow</ion-button>
-      </p>
-    </ion-label>
-  </ion-item>
-  <ion-toolbar>
-    <ion-buttons slot="end" class="bookmark_or_save">
-      <ion-button>
-        <ion-icon name="bookmark" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+        <!-- attendee counter-->
+        <ion-content class="attendeeCounter">
+          <ion-label>
+            <h1>1,543</h1>
+            <p>people attending this event</p>
+          </ion-label>
+        </ion-content>
 
-  <ion-content class="selectedEventContent">
-    <ion-toolbar>
-      <ion-buttons slot="end" class="bookmark_or_save" shape="round">
-        <ion-button>
-          <ion-icon name="compass" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
+        <ion-footer class="ion-no-border">
+          <ion-toolbar>
+            <ion-buttons>
+              <ion-title>$5</ion-title>
+              <ion-button>BUY TICKETS</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-footer>
+      </ion-col>
 
-    <ion-list class="event_timings" lines="none">
-      <ion-item>
-        <ion-buttons slot="start">
-          <ion-button>
-            <ion-icon name="calendar-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-        <ion-label>
-          <p>Data & Time</p>
-          <p>Fri, June 18, 2020</p>
-          <ion-buttons>
-            <ion-button>Add to Calendar</ion-button>
-          </ion-buttons>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-buttons slot="start">
-          <ion-button>
-            <ion-icon name="location-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-        <ion-label>
-          <p>Location</p>
-          <p>Gamgam Pack lagos Lowland</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+      <!-- right-->
+      <ion-col>
+        <ion-content>
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-back-button></ion-back-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-list lines="none">
+            <!-- large title -->
+            <ion-item>
+              <ion-label>
+                <h1>THE SHOW MUST GO ON! The Afro-Peruvian Sextet's Livestreaming Experience</h1>
+                <p>Post by <ion-text>Jazz Peru LLC</ion-text>
+                </p>
+                <ion-button fill="none" class="normalButton">Add to Calendar</ion-button>
+              </ion-label>
+            </ion-item>
+            <!-- event description -->
+            <ion-item>
+              <ion-label>
+                <p>Join us for a discussion about raising antiracist kids with author of the new book, AntiRacist Baby,
+                  Ibram X.Kendi in conversation with Derecka Purnell. A new uprising across the country demanding racial
+                  justice is a powerful reminder that families of all backgrounds need to be pro-active in raising
+                  children to understand racism and discrimination, and helping our kids to be a force for anti-racist
+                  change in the world. How do families raise actively anti-racist children? AntiRacist Baby written by
+                  Ibram X. Kendi; illustrated by Ashley Lukashevsky (Kokila Books; on sale June 16, 2020; ages 0-3)
+                  Early review of AntiRacist Baby from Publishers Weekly: “Boldly outlined, inclusive illustrations by
+                  Lukashevsky complement the text by showing a world populated by people of various skin tones, sizes,
+                  identities and orientations, religions, and abilities….[A] mindful companion for families striving
+                  together toward a more equitable future.” For readers of Woke Baby by Mahogany L. Browne and Baby
+                  Feminists by Libby Babbott-Klein, AntiRacist Baby communicates a critically important idea and
+                  intellectual framework in a way that is accessible and empowering for the next generation of
+                  changemakers. Take your first steps with AntiRacist Baby! Or rather, follow AntiRacist Baby's nine
+                  easy steps for building a more equitable world.
+                </p>
+              </ion-label>
+            </ion-item>
+            <!-- refund policy -->
+            <ion-item>
+              <ion-label>
+                <p>Refund Policy</p>
+                <p>Contact the organizer to request a refund. DC fee is nonrefundable.</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
 
-    <ion-list lines="none" class="aboutEvent">
-      <ion-item>
-        <ion-label>
-          <p>About this Event</p>
-          <p>Join us for a discussion about raising antiracist kids with author of the new book, AntiRacist Baby, Ibram X.Kendi in conversation with Derecka Purnell. A new uprising across the country demanding racial justice is a powerful reminder that families of all backgrounds need to be pro-active in raising children to understand racism and discrimination, and helping our kids to be a force for anti-racist change in the world. How do families raise actively anti-racist children? AntiRacist Baby written by Ibram X. Kendi; illustrated by Ashley Lukashevsky (Kokila Books; on sale June 16, 2020; ages 0-3) Early review of AntiRacist Baby from Publishers Weekly: “Boldly outlined, inclusive illustrations by Lukashevsky complement the text by showing a world populated by people of various skin tones, sizes, identities and orientations, religions, and abilities….[A] mindful companion for families striving together toward a more equitable future.” For readers of Woke Baby by Mahogany L. Browne and Baby Feminists by Libby Babbott-Klein, AntiRacist Baby communicates a critically important idea and intellectual framework in a way that is accessible and empowering for the next generation of changemakers. Take your first steps with AntiRacist Baby! Or rather, follow AntiRacist Baby's nine easy steps for building a more equitable world.</p>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <p>Refund Policy</p>
-          <p>Contact the organizer to request a refund. DC fee is nonrefundable.</p>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          <p>Share with Friends</p>
-          <ion-buttons slot="" collapse="true" class="share_With_friends">
-            <ion-button href="" target="_blank">
-              <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
-            </ion-button>
-            <ion-button href="" target=_blank>
-              <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
-            </ion-button>
-            <ion-button href="" target=_blank>
-              <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
-            </ion-button>
-            <ion-button href="" target=_blank>
-              <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
-            </ion-button>
-            <ion-button href="">
-              <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+          <!-- event date and location -->
+          <div class="dateLocationContainer">
+            <!-- date and time -->
+            <ion-item>
+              <ion-icon slot="start" name="calendar-outline"></ion-icon>
+              <ion-label>
+                <p>Date & Time </p>
+                <p>Fri, Jun 18, 2020</p>
+                <ion-button fill="none" class="normalButton">Add to Calendar</ion-button>
+              </ion-label>
+            </ion-item>
+            <!-- location -->
+            <ion-item>
+              <ion-icon slot="start" name="pin-outline"></ion-icon>
+              <ion-label>
+                <p>Location </p>
+                <p>Gamgam Pack lagos Lowland</p>
+              </ion-label>
+            </ion-item>
+          </div>
+
+          <!-- share to social media -->
+          <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button>Share</ion-fab-button>
+            <ion-fab-list side="top">
+              <ion-fab-button>
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="logo-twitter"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="logo-facebook"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button>
+                <ion-icon name="logo-instagram"></ion-icon>
+              </ion-fab-button>
+            </ion-fab-list>
+          </ion-fab>
+
+          <!-- Google map -->
+          <ion-item>
+
+          </ion-item>
+        </ion-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
 
-
-
-
-<ion-footer class="ion-padding ion-no-border" class="buy_Ticket_Footer">
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-title>$5</ion-title>
-      <ion-button>Buy Ticket</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+<!-- mobile -->
