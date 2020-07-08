@@ -1,4 +1,6 @@
+import { AuthService } from './auth.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-auth',
@@ -6,14 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-  constructor() { }
+  constructor(private authService: AuthService) { }
+  // user details
+  FNAME = ''
+  LNAME = ''
+  phone = ''
+  email = ''
+  password = ''
+  cname = ''
+  vision = ''
+
+  newUser: User;
+
   forms = {
-    'personalInformation': false,
+    'personalInformation': true,
     'loginInformation': false,
     'personaInformation': false,
-    'communityInformation': true,
+    'communityInformation': false,
+    'precompanyInformation': false,
   }
-
   pCategoryIsSelected = '';
   communitySelectedList = [];
   communityList = [
@@ -69,22 +82,64 @@ export class AuthPage implements OnInit {
   }
 
   onSubmit(form, fname) {
+    console.log(form.value)
+
+    // set form values
+    this.FNAME = form.value.FNAME === undefined ? this.FNAME : form.value.FNAME;
+    this.LNAME = form.value.LNAME === undefined ? this.LNAME : form.value.LNAME;
+    this.phone = form.value.phone === undefined ? this.phone : form.value.phone;
+    this.email = form.value.email === undefined ? this.email : form.value.email;
+    this.password = form.value.password === undefined ? this.password : form.value.password;
+    this.cname = form.value.cname === undefined ? this.cname : form.value.cname;
+    this.vision = form.value.vision === undefined ? this.vision : form.value.vision;
+
     let keys = Object.keys(this.forms)
-    var nextFormKey = keys.indexOf(fname) + 1;
+
     // hide all form
     Object.keys(this.forms).map(key => this.forms[fname] != key ? this.forms[key] = false : '')
-    // show next form
-    this.forms[keys[nextFormKey]] = true
 
+    // determine user type to navigate what form is next
+    if (this.pCategoryIsSelected === 'LEARN') {
+      this.forms.communityInformation = true;
+    }
+    else if (this.pCategoryIsSelected === 'CONTENT PROVIDER') {
+      this.forms.precompanyInformation = true;
+    }
+    else if (this.pCategoryIsSelected === 'EMPLOYER') {
+      this.forms.precompanyInformation = true;
+    }
+    else {
+      var nextFormKey = keys.indexOf(fname) + 1;
+      // show next form
+      this.forms[keys[nextFormKey]] = true;
+    }
 
-    // if last form?
-
+    // last form all user
+    if (fname === 'precompanyInformation' || fname === 'communityInformation') {
+      // register user
+      this.registerUser()
+    }
   }
 
+  registerUser() {
+    this.newUser = new User(
+      this.FNAME,
+      this.LNAME,
+      this.phone,
+      this.email,
+      this.password,
+      this.pCategoryIsSelected,
+      this.communitySelectedList,
+      this.cname,
+      this.vision)
+
+    this.authService.register_With_Email_Password(JSON.parse(JSON.stringify(this.newUser)))
+  }
+  // sace user category
   onCatSelect(category) {
-    this.pCategoryIsSelected = category
+    this.pCategoryIsSelected = category;
   }
-
+  // add user selected community to list
   onComSelect(selected) {
     if (!this.communitySelectedList.includes(selected)) {
       this.communitySelectedList.push(selected)

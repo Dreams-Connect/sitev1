@@ -134,7 +134,6 @@
     </ion-grid>
   </form>
 
-
   <!-- Get interest communities -->
   <ion-item detail="false" lines="none" *ngIf="forms?.communityInformation">
     <ion-label>
@@ -173,5 +172,43 @@
     </ion-grid>
   </form>
 
+  <!-- Company details -->
+  <ion-item detail="false" lines="none" *ngIf="forms?.precompanyInformation">
+    <ion-label>
+      <h1>Yay, That's it!</h1>
+      <h2>Finally, Let's understand your passion</h2>
+    </ion-label>
+  </ion-item>
 
+  <form #precompanyInformation="ngForm" (ngSubmit)="onSubmit(precompanyInformation,'precompanyInformation')"
+    *ngIf="forms.precompanyInformation">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="8">
+          <ion-list>
+            <!-- company name -->
+            <ion-item>
+              <ion-label position="stacked">
+                COMPANY OR BRAND NAME
+              </ion-label>
+              <ion-input type="text" ngModel name="cname" #cname="ngModel" required></ion-input>
+            </ion-item>
+            <!-- vision -->
+            <ion-item>
+              <ion-label position="stacked">VISION</ion-label>
+              <ion-textarea type="text" ngModel name="vision" #vision="ngModel"></ion-textarea>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+        <ion-col size-sm="12" size-lg="4" [hidden]="!precompanyInformation.valid">
+          <ion-buttons class="nextBtn">
+            <ion-button type="submit">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
