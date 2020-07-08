@@ -10,11 +10,39 @@ export class AuthPage implements OnInit {
   forms = {
     'personalInformation': false,
     'loginInformation': false,
-    'personaInformation': true,
+    'personaInformation': false,
+    'communityInformation': true,
   }
 
   pCategoryIsSelected = '';
-  
+  communitySelectedList = [];
+  communityList = [
+    {
+      title: 'TECHNOLOGY'
+    },
+    {
+      title: 'LAW'
+    },
+    {
+      title: 'BUSINESS'
+    },
+    {
+      title: 'MEDICINE'
+    },
+    {
+      title: 'ART'
+    },
+    {
+      title: 'ACADEMICS'
+    },
+    {
+      title: 'ENTERTAINMENT'
+    },
+    {
+      title: 'MEDIA'
+    }
+  ]
+
   categoryList = [
     {
       title: 'LEARN',
@@ -55,5 +83,13 @@ export class AuthPage implements OnInit {
 
   onCatSelect(category) {
     this.pCategoryIsSelected = category
+  }
+
+  onComSelect(selected) {
+    if (!this.communitySelectedList.includes(selected)) {
+      this.communitySelectedList.push(selected)
+    } else {
+      this.communitySelectedList = this.communitySelectedList.filter(el => el !== selected)
+    }
   }
 }

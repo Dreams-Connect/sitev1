@@ -111,7 +111,8 @@
       <ion-row>
         <ion-col size="12" size-lg="10">
           <div class="personaCategory">
-            <ion-card button *ngFor="let category of categoryList" (click)="onCatSelect(category.title)" [ngClass]="{'selected': pCategoryIsSelected == category.title}">
+            <ion-card button *ngFor="let category of categoryList" (click)="onCatSelect(category.title)"
+              [ngClass]="{'selected': pCategoryIsSelected == category.title}">
               <ion-card-title>{{category.title}}</ion-card-title>
               <ion-card-content>
                 <ion-label>
@@ -133,6 +134,44 @@
     </ion-grid>
   </form>
 
+
+  <!-- Get interest communities -->
+  <ion-item detail="false" lines="none" *ngIf="forms?.communityInformation">
+    <ion-label>
+      <h1>You're all set up!</h1>
+      <h2>What communities interest you more? <br> You may select more than one</h2>
+    </ion-label>
+  </ion-item>
+
+  <form #communityInformation="ngForm" (ngSubmit)="onSubmit(communityInformation,'communityInformation')"
+    *ngIf="forms.communityInformation">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="10">
+          <div class="personaCategory">
+            <ion-card button *ngFor="let community of communityList" (click)="onComSelect(community.title)"
+              [ngClass]="{'selected': communitySelectedList.includes(community.title) == true}">
+              <ion-card-title>{{community.title}}</ion-card-title>
+              <!-- <ion-card-content>
+                <ion-label>
+                  {{community.description}}
+                </ion-label>
+              </ion-card-content> -->
+            </ion-card>
+          </div>
+        </ion-col>
+
+        <ion-col size-sm="12" size-lg="2" [hidden]="communitySelectedList.length == 0">
+          <ion-buttons class="nextBtn">
+            <ion-button type="submit">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 
 
 </ion-content>
