@@ -10,9 +10,12 @@ export class AuthGuard implements CanLoad {
   constructor(private authService: AuthService, private router: Router) { }
 
   canLoad(route: Route, segments: import("@angular/router").UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
-    if (!this.authService.userIsAuthenticated) {
-      this.router.navigateByUrl('/auth');
+    if (localStorage.getItem('dcUser') == null || !this.authService._userIsAuthenticated) {
+      this.router.navigateByUrl('/auth')
     }
-    return this.authService.userIsAuthenticated;
+    else {
+      return this.authService._userIsAuthenticated;
+    }
+
   }
 }

@@ -57,7 +57,16 @@ const routes: Routes = [
   },
   {
     path: 'feed',
-    loadChildren: () => import('./feed/feed.module').then( m => m.FeedPageModule)
+    loadChildren: () => import('./feed/feed.module').then( m => m.FeedPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'cp',
+    loadChildren: () => import('./contentprovider/contentprovider.module').then( m => m.ContentproviderPageModule)
+  },
+  {
+    path: 'employer',
+    loadChildren: () => import('./employer/employer.module').then( m => m.EmployerPageModule)
   },
 ];
 

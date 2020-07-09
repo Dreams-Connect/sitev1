@@ -82,8 +82,6 @@ export class AuthPage implements OnInit {
   }
 
   onSubmit(form, fname) {
-    console.log(form.value)
-
     // set form values
     this.FNAME = form.value.FNAME === undefined ? this.FNAME : form.value.FNAME;
     this.LNAME = form.value.LNAME === undefined ? this.LNAME : form.value.LNAME;
@@ -133,7 +131,7 @@ export class AuthPage implements OnInit {
       this.cname,
       this.vision)
 
-    this.authService.register_With_Email_Password(JSON.parse(JSON.stringify(this.newUser)))
+    this.authService.register_With_Email_Password(this.newUser)
   }
   // sace user category
   onCatSelect(category) {

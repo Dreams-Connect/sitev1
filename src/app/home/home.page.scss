@@ -1,6 +1,13 @@
 .mainContent {
 }
 
+.mainHeader {
+ 
+  *{
+    --background: transparent;
+  }
+}
+
 .dc_logo {
   svg {
     height: 40px;

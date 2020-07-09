@@ -22,12 +22,16 @@
     </ion-buttons>
 
     <ion-buttons slot="primary" class="">
-      <ion-button color="" class="login_btn toHideonMobile" routerLink='/login'>
+      <ion-button color="" class="login_btn toHideonMobile" routerLink='/login' [hidden]="isAuthenticated">
         Login
       </ion-button>
-      <ion-button color="" class="large_button toHideonMobile" routerLink='/auth'>
+      <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
+        Logout
+      </ion-button>
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/new' *ngIf="userType == 'CONTENT PROVIDER'">
         <ion-text>Create Event</ion-text>
       </ion-button>
+
       <ion-button color="" class="toShowOnMobile">
         <ion-menu-button>
           <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
@@ -42,7 +46,7 @@
   <span>C</span>
 </div>
 
-<ion-content  class="mainContent">
+<ion-content class="mainContent">
   <div class="scroll_indicator">
     <span></span>
     <span>SCROLL DOWN</span>
@@ -55,7 +59,10 @@
     </ion-label>
 
     <ion-buttons slot="primary" class="section_1getStarted">
-      <ion-button class="large_button green_bg" color="" size="large" routerLink='login'>
+      <ion-button class="large_button green_bg" color="" size="large" routerLink='/login' *ngIf="!isAuthenticated">
+        <ion-text> Get Started </ion-text>
+      </ion-button>
+      <ion-button class="large_button green_bg" color="" size="large" routerLink='/events' *ngIf="isAuthenticated">
         <ion-text> Get Started </ion-text>
       </ion-button>
     </ion-buttons>
@@ -73,7 +80,7 @@
       <p class="section_green_text pText">Featured Events</p>
       <h3 class="section_large_text hero_Text">Our Favourite Collections</h3>
     </ion-label>
-    <ion-list class="FeaturedEvents">
+    <ion-list class="FeaturedEvents" lines="none">
       <ion-item button [routerLink]="['/','event', 1]">
         <ion-card>
           <img
@@ -133,7 +140,7 @@
     </ion-label>
 
 
-    <ion-list class="FturedEvents" detail>
+    <ion-list class="FturedEvents" detail lines="none">
       <ion-item detail button [routerLink]="['/','event', 2]">
         <ion-thumbnail slot="start">
           <ion-img
@@ -197,8 +204,8 @@
     </ion-label>
 
     <!--who you are type options-->
-    <ion-list>
-      <ion-item button routerLink='login'>
+    <ion-list lines="none">
+      <ion-item button routerLink='login' detail="false">
         <ion-card>
           <svg xmlns="http://www.w3.org/2000/svg" width="412.614" height="367.485" viewBox="0 0 412.614 367.485">
             <defs>
@@ -620,4 +627,3 @@
     </ion-buttons>
   </section>
 </ion-content>
-
