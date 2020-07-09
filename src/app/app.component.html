@@ -27,18 +27,27 @@
           </ion-item>
           <ion-item button routerLink='podcast'>
             <ion-text>
-            Podcast
+              Podcast
             </ion-text>
           </ion-item>
           <ion-item button routerLink='books'>
             <ion-text>
-            Books
+              Books
             </ion-text>
           </ion-item>
-          <ion-item *ngIf="userType == 'CONTENT PROVIDER'">
+          <ion-item>
             <ion-buttons>
-              <ion-button routerLink='new'>
-                Create Event
+              <!-- user types -->
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/new' *ngIf="userType == 'LEARN'">
+                <ion-text>Profile</ion-text>
+              </ion-button>
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/cp'
+                *ngIf="userType == 'CONTENT PROVIDER'">
+                <ion-text>Profile</ion-text>
+              </ion-button>
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/employer'
+                *ngIf="userType == 'EMPLOYER'">
+                <ion-text>Dashboard</ion-text>
               </ion-button>
             </ion-buttons>
           </ion-item>

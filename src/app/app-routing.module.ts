@@ -85,6 +85,10 @@ const routes: Routes = [
     loadChildren: () => import('./books/books.module').then(m => m.BooksPageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'sophomore',
+    loadChildren: () => import('./sophomore/sophomore.module').then( m => m.SophomorePageModule)
+  },
 ];
 
 @NgModule({

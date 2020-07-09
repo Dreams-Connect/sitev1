@@ -27,16 +27,17 @@ export class AuthService {
   authenticationSubJect = new Subject();
   currentUserSubject = new Subject<currentUser>();
 
-  login_With_Email_Password(user: User) {
-    this.auth.signInWithEmailAndPassword(user.email, user.password).then(
+  login_With_Email_Password(email, password) {
+    this.auth.signInWithEmailAndPassword(email, password).then(
       resp => {
         this._userIsAuthenticated = true;
         // save to localStorage
         localStorage.setItem('dcUser', JSON.stringify(resp.user.providerData))
         // user login occured
         this.authenticationSubJect.next(this._userIsAuthenticated)
-        this.currentUser = user;
-        this.currentUserSubject.next(this.currentUser)
+        // get user UID
+        this.userUID = resp.user.uid;
+        localStorage.setItem('dcUserUID', this.userUID)
       }
     )
   }
@@ -46,6 +47,7 @@ export class AuthService {
     this.auth.signOut();
     // save to localStorage
     localStorage.removeItem('dcUser')
+    localStorage.removeItem('dcUserUID')
     this._userIsAuthenticated = false;
     this.authenticationSubJect.next(this._userIsAuthenticated)
     this.currentUserSubject.next(this.currentUser)
@@ -87,19 +89,22 @@ export class AuthService {
   // fetch user details by UID
   fetchCurrentUser() {
     this.userUID = localStorage.getItem('dcUserUID')
-    this.afs.doc<User>(`users/${this.userUID}`).valueChanges().subscribe(user => {
-      // build the user
-      this.currentUser = new currentUser(
-        user.firstname,
-        user.lastname,
-        user.phone,
-        user.email,
-        user.usertype,
-        user.community,
-        user.companyname,
-        user.vision)
-      this.currentUserSubject.next(this.currentUser);
-    })
+    // UID cannot be null
+    if (this.userUID != null) {
+      this.afs.doc<User>(`users/${this.userUID}`).valueChanges().subscribe(user => {
+        // build the user
+        this.currentUser = new currentUser(
+          user.firstname,
+          user.lastname,
+          user.phone,
+          user.email,
+          user.usertype,
+          user.community,
+          user.companyname,
+          user.vision)
+        this.currentUserSubject.next(this.currentUser);
+      })
+    }
   }
 
   getCurrentUser() {

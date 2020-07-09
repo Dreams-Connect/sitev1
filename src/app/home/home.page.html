@@ -37,8 +37,15 @@
       <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
         Logout
       </ion-button>
-      <ion-button color="" class="large_button toHideonMobile" routerLink='/new' *ngIf="userType == 'CONTENT PROVIDER'">
-        <ion-text>Create Event</ion-text>
+      <!-- user types -->
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore' *ngIf="userType == 'LEARN'">
+        <ion-text>Profile</ion-text>
+      </ion-button>
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/cp' *ngIf="userType == 'CONTENT PROVIDER'">
+        <ion-text>Profile </ion-text>
+      </ion-button>
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/employer' *ngIf="userType == 'EMPLOYER'">
+        <ion-text>Dashboard</ion-text>
       </ion-button>
 
       <ion-button color="" class="toShowOnMobile">
