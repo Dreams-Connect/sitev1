@@ -23,6 +23,7 @@ export class HomePage implements OnInit, OnDestroy {
   isAuthenticated;
   currentUser: currentUser;
   userType;
+
   // subscriptions
   private authenticationSub: Subscription;
   private currentUserSub: Subscription;
@@ -111,6 +112,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.scrollObserver.disconnect();
     this.scrollObserverWindow.disconnect();
     this.authenticationSub.unsubscribe();
+    this.currentUserSub.unsubscribe()
   }
 
 }

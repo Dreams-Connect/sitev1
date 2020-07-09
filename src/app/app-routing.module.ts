@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -14,28 +14,28 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'onboarding',
-    loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
+    loadChildren: () => import('./onboarding/onboarding.module').then(m => m.OnboardingPageModule)
   },
   {
     path: 'category',
-    loadChildren: () => import('./event-category/event-category.module').then( m => m.EventCategoryPageModule),
+    loadChildren: () => import('./event-category/event-category.module').then(m => m.EventCategoryPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'events',
-    loadChildren: () => import('./all-event/all-event.module').then( m => m.AllEventPageModule),
+    loadChildren: () => import('./all-event/all-event.module').then(m => m.AllEventPageModule),
     canLoad: [AuthGuard]
   },
-  { 
+  {
     path: 'event',
     children: [
       {
-        path:':eventId',
-        loadChildren: () => import('./selected-event/selected-event.module').then( m => m.SelectedEventPageModule),
+        path: ':eventId',
+        loadChildren: () => import('./selected-event/selected-event.module').then(m => m.SelectedEventPageModule),
         canLoad: [AuthGuard]
       }
     ],
@@ -43,30 +43,47 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    loadChildren: () => import('./create-event/create-event.module').then( m => m.CreateEventPageModule),
+    loadChildren: () => import('./create-event/create-event.module').then(m => m.CreateEventPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'community',
-    loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule),
+    loadChildren: () => import('./community/community.module').then(m => m.CommunityPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
   },
   {
     path: 'feed',
-    loadChildren: () => import('./feed/feed.module').then( m => m.FeedPageModule),
+    loadChildren: () => import('./feed/feed.module').then(m => m.FeedPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'cp',
-    loadChildren: () => import('./contentprovider/contentprovider.module').then( m => m.ContentproviderPageModule)
+    loadChildren: () => import('./contentprovider/contentprovider.module').then(m => m.ContentproviderPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'employer',
-    loadChildren: () => import('./employer/employer.module').then( m => m.EmployerPageModule)
+    loadChildren: () => import('./employer/employer.module').then(m => m.EmployerPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'courses',
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'podcast',
+    loadChildren: () => import('./podcast/podcast.module').then(m => m.PodcastPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'books',
+    loadChildren: () => import('./books/books.module').then(m => m.BooksPageModule),
+    canLoad: [AuthGuard]
   },
 ];
 

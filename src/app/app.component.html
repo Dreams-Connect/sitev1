@@ -4,7 +4,7 @@
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <ion-buttons slot="primary">
-            <ion-button color="" (click)="closeMenu()">
+            <ion-button color="">
               <ion-icon slot="icon-only" name="close-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -12,31 +12,41 @@
       </ion-header>
       <ion-content>
         <ion-list lines="none">
-          <ion-item button routerLink='category'>
-            <ion-text>Events</ion-text>
+          <ion-item button routerLink='feed'>
+            <ion-text>Home</ion-text>
           </ion-item>
-          <ion-item button routerLink='blog'>
+          <ion-item button routerLink='events'>
             <ion-text>
-              Community
+              Events
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='login'>
+          <ion-item button routerLink='courses'>
             <ion-text>
-              Login
+              Courses
             </ion-text>
           </ion-item>
-          <ion-item>
-           <ion-buttons>
-            <ion-button routerLink='new'>
-              Create Event
-            </ion-button>
-           </ion-buttons>
+          <ion-item button routerLink='podcast'>
+            <ion-text>
+            Podcast
+            </ion-text>
+          </ion-item>
+          <ion-item button routerLink='books'>
+            <ion-text>
+            Books
+            </ion-text>
+          </ion-item>
+          <ion-item *ngIf="userType == 'CONTENT PROVIDER'">
+            <ion-buttons>
+              <ion-button routerLink='new'>
+                Create Event
+              </ion-button>
+            </ion-buttons>
           </ion-item>
         </ion-list>
       </ion-content>
 
       <ion-footer>
-         <ion-toolbar>
+        <ion-toolbar>
           <ion-buttons slot="primary" collapse="true" class="social_icon_ align_center">
             <ion-button href="https://www.facebook.com/Dreams-Connect-281825192711588/" target="_blank">
               <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
@@ -57,7 +67,7 @@
               <ion-icon slot="icon-only" name="mail-open"></ion-icon>
             </ion-button>
           </ion-buttons>
-         </ion-toolbar>
+        </ion-toolbar>
       </ion-footer>
     </ion-menu>
   </ion-menu-toggle>

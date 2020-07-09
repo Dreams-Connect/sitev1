@@ -13,11 +13,20 @@
     </ion-title>
 
     <ion-buttons slot="primary" class="middle_menus">
+      <ion-button color="" routerLink='feed'>
+        Home
+      </ion-button>
       <ion-button color="" routerLink='category'>
         Events
       </ion-button>
-      <ion-button color="" routerLink='community'>
-        Community
+      <ion-button color="" routerLink='courses'>
+        Courses
+      </ion-button>
+      <ion-button color="" routerLink='podcast'>
+        Podcast
+      </ion-button>
+      <ion-button color="" routerLink='books'>
+        Books
       </ion-button>
     </ion-buttons>
 
@@ -75,11 +84,18 @@
 
   </section>
 
+  <!-- fav events -->
+  <!-- Desktop -->
   <section class="toHideonMobile">
     <ion-label>
       <p class="section_green_text pText">Featured Events</p>
       <h3 class="section_large_text hero_Text">Our Favourite Collections</h3>
+      <!-- view more -->
+      <ion-buttons slot="primary" class="more_Button">
+        <ion-button routerLink="/events"> View All</ion-button>
+      </ion-buttons>
     </ion-label>
+
     <ion-list class="FeaturedEvents" lines="none">
       <ion-item button [routerLink]="['/','event', 1]">
         <ion-card>
@@ -128,11 +144,14 @@
           </ion-card-header>
         </ion-card>
       </ion-item>
+
+
     </ion-list>
   </section>
 
 
-
+  <!-- fav events -->
+  <!-- Mobile  -->
   <section class="MobileOnly">
     <ion-label>
       <p class="section_green_text pText">Featured Events</p>
@@ -179,6 +198,12 @@
           <p>4:00 AM </p>
         </ion-label>
       </ion-item>
+
+      <ion-item detail button routerLink="/events">
+        <ion-label>
+          <h3>View All Events</h3>
+        </ion-label>
+      </ion-item>
     </ion-list>
 
   </section>
@@ -195,6 +220,8 @@
       </ion-button>
     </ion-buttons>
   </section>
+
+
 
   <!-- tell us who you are-->
   <section class="whoAreSection align_center">
@@ -626,4 +653,19 @@
       </ion-button>
     </ion-buttons>
   </section>
+
+  <!-- Note: Need to create a large and the very last mini footer -->
+
+  <!-- footer large -->
+  <!-- <section class="footerLarge ">
+
+</section> -->
+
+
+  <!-- footer -->
+  <!-- <ion-footer>
+    <ion-toolbar>
+      <ion-title>2020 © Dreams Connect</ion-title>
+    </ion-toolbar>
+  </ion-footer> -->
 </ion-content>

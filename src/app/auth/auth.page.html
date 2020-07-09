@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border backHeader">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -16,8 +16,8 @@
   <!-- Collect Personal information -->
   <ion-item detail="false" lines="none" *ngIf="forms?.personalInformation">
     <ion-label>
-      <h1>Hi!</h1>
-      <h2>Let's get to know you better. </h2>
+      <h1 class="reg_h1">Hi!</h1>
+      <h2 class="reg_h2">Let's get to know you better. </h2>
     </ion-label>
   </ion-item>
 
@@ -61,8 +61,8 @@
   <!-- Login details -->
   <ion-item detail="false" lines="none" *ngIf="forms?.loginInformation">
     <ion-label>
-      <h1>Just Chill a likkle!</h1>
-      <h2>Set your login details.</h2>
+      <h1 class="reg_h1">Just Chill a likkle!</h1>
+      <h2 class="reg_h2">Set your login details.</h2>
     </ion-label>
   </ion-item>
 
@@ -99,8 +99,8 @@
   <!-- Get persona -->
   <ion-item detail="false" lines="none" *ngIf="forms?.personaInformation">
     <ion-label>
-      <h1> Almost there!</h1>
-      <h2>What category do you belong?</h2>
+      <h1 class="reg_h1"> Almost there!</h1>
+      <h2 class="reg_h2">What category do you belong?</h2>
     </ion-label>
   </ion-item>
 
@@ -137,8 +137,8 @@
   <!-- Get interest communities -->
   <ion-item detail="false" lines="none" *ngIf="forms?.communityInformation">
     <ion-label>
-      <h1>You're all set up!</h1>
-      <h2>What communities interest you more? <br> You may select more than one</h2>
+      <h1 class="reg_h1">You're all set up!</h1>
+      <h2 class="reg_h2">What communities interest you more? <br> You may select more than one</h2>
     </ion-label>
   </ion-item>
 
@@ -175,8 +175,8 @@
   <!-- Company details -->
   <ion-item detail="false" lines="none" *ngIf="forms?.precompanyInformation">
     <ion-label>
-      <h1>Yay, That's it!</h1>
-      <h2>Finally, Let's understand your passion</h2>
+      <h1 class="reg_h1">Yay, That's it!</h1>
+      <h2 class="reg_h2">Finally, Let's understand your passion</h2>
     </ion-label>
   </ion-item>
 
