@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@800&display=swap");
+
+.backHeader {
+    position: absolute;
+    z-index: 999999999;
+}
+.mainHeader {
+    ion-title {
+        text-align: center;
+    }
+}
+
+ion-content {
+    background-color: #ffffff;
+}
+
+.nextBtn {
+    height: 100%;
+    justify-content: flex-end;
+
+    ion-icon {
+        font-size: 50px;
+    }
+}
+
+.personaCategory {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    ion-card {
+        max-width: 25%;
+        ion-card-content {
+            text-align: center;
+        }
+        ion-card-title {
+            padding: 16px;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 800px) {
+        ion-card {
+            max-width: 100%;
+        }
+    }
+}
+
+.selected {
+    background-color: #29928f;
+    --background: #29928f;
+    --ion-background-color: #29928f;
+
+    * {
+        color: #000000;
+    }
+}
+
+.reg_h1 {
+    font-family: "Grenze Gotisch", cursive;
+    font-size: 40px;
+    color: #000000;
+    white-space: normal;
+    font-weight: 500;
+}
+
+.reg_h2 {
+    font-size: 40px;
+    color: #acacac;
+    white-space: normal;
+}
+
+ion-footer {
+    * {
+        color: #ffffff;
+    }
+}
