@@ -55,6 +55,9 @@ export class AppComponent implements OnDestroy {
     // this.authServices.getCurrentUser();
   }
 
+  logout(){
+    this.authServices.logout();
+  }
 
   ngOnDestroy() {
     this.currentUserSub.unsubscribe()

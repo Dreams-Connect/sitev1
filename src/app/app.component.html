@@ -12,41 +12,48 @@
       </ion-header>
       <ion-content>
         <ion-list lines="none">
-          <ion-item button routerLink='feed'>
+          <ion-item button routerLink='feed' detail="false">
             <ion-text>Home</ion-text>
           </ion-item>
-          <ion-item button routerLink='events'>
+          <ion-item button routerLink='events' detail="false">
             <ion-text>
               Events
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='courses'>
+          <ion-item button routerLink='courses' detail="false">
             <ion-text>
               Courses
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='podcast'>
+          <ion-item button routerLink='podcast' detail="false">
             <ion-text>
               Podcast
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='books'>
+          <ion-item button routerLink='books' detail="false">
             <ion-text>
               Books
             </ion-text>
           </ion-item>
-          <ion-item>
+          <ion-item detail="false">
             <ion-buttons>
+              <ion-button color="" class="login_btn toHideonMobile" routerLink='/login' [hidden]="isAuthenticated">
+                Login
+              </ion-button>
+              <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
+                Logout
+              </ion-button>
               <!-- user types -->
-              <ion-button color="" class="large_button toHideonMobile" routerLink='/new' *ngIf="userType == 'LEARN'">
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore'
+                *ngIf="isAuthenticated && userType == 'LEARN'">
                 <ion-text>Profile</ion-text>
               </ion-button>
               <ion-button color="" class="large_button toHideonMobile" routerLink='/cp'
-                *ngIf="userType == 'CONTENT PROVIDER'">
+                *ngIf="isAuthenticated && userType == 'CONTENT PROVIDER'">
                 <ion-text>Profile</ion-text>
               </ion-button>
               <ion-button color="" class="large_button toHideonMobile" routerLink='/employer'
-                *ngIf="userType == 'EMPLOYER'">
+                *ngIf="isAuthenticated && userType == 'EMPLOYER'">
                 <ion-text>Dashboard</ion-text>
               </ion-button>
             </ion-buttons>

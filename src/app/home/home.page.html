@@ -38,13 +38,13 @@
         Logout
       </ion-button>
       <!-- user types -->
-      <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore' *ngIf="userType == 'LEARN'">
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore' *ngIf="isAuthenticated && userType == 'LEARN'">
         <ion-text>Profile</ion-text>
       </ion-button>
-      <ion-button color="" class="large_button toHideonMobile" routerLink='/cp' *ngIf="userType == 'CONTENT PROVIDER'">
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/cp' *ngIf="isAuthenticated && userType == 'CONTENT PROVIDER'">
         <ion-text>Profile </ion-text>
       </ion-button>
-      <ion-button color="" class="large_button toHideonMobile" routerLink='/employer' *ngIf="userType == 'EMPLOYER'">
+      <ion-button color="" class="large_button toHideonMobile" routerLink='/employer' *ngIf="isAuthenticated && userType == 'EMPLOYER'">
         <ion-text>Dashboard</ion-text>
       </ion-button>
 

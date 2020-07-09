@@ -1,21 +1,21 @@
 .mobileMenu {
-    --ion-background-color: #ffffff;
-  
-    ion-header {
-      ion-button{
-        color: #000000;
-      }
+  --ion-background-color: #ffffff;
+
+  ion-header {
+    ion-button {
+      color: #000000;
     }
-  
+  }
+
   ion-item {
     ion-text {
       text-align: center;
       width: 100%;
     }
-  
+
     ion-buttons {
       margin: auto;
-      background-color:#29928f;
+      background-color: #29928f;
       color: #000000;
       border-radius: 24px;
       padding: 6px;
@@ -31,5 +31,8 @@
       overflow: auto;
     }
   }
-  }
-  
+}
+
+.login_btn {
+  color: #000000;
+}

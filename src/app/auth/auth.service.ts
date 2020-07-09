@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { User, currentUser } from './../model/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -5,12 +6,17 @@ import { auth } from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(public auth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    public auth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.userCollection = afs.collection<User>('users');
 
     // check user login status
@@ -38,8 +44,32 @@ export class AuthService {
         // get user UID
         this.userUID = resp.user.uid;
         localStorage.setItem('dcUserUID', this.userUID)
+
+        // redirect user based on type LEARN | CONTENT PROVIDER | EMPLOYER
+        // loading spinner 
+        this.loadingController
+          .create({ keyboardClose: true, message: 'One sec' })
+          .then(loadingEl => {
+            loadingEl.present();
+            this.fetch_route_User()
+          })
       }
-    )
+    ).catch(err => {
+
+      this.alertModal("We cannot find your login credentials", "Please provide a valid login credentials");
+    })
+  }
+
+  // alert modal
+  async alertModal(subHeader, message) {
+    // user not found 
+    const alert = this.alertController.create({
+      cssClass: 'modal-css',
+      subHeader: subHeader,
+      message: message,
+      buttons: ['Retry']
+    });
+    (await alert).present()
   }
 
 
@@ -77,6 +107,14 @@ export class AuthService {
           }
           // save to localStorage
           localStorage.setItem('dcUser', JSON.stringify(resp.user.providerData))
+
+
+          // loading spinner 
+          this.loadingController
+            .create({ keyboardClose: true, message: 'One sec' })
+            .then(loadingEl => {
+              loadingEl.present();
+            })
         })
       }
     )
@@ -103,6 +141,38 @@ export class AuthService {
           user.companyname,
           user.vision)
         this.currentUserSubject.next(this.currentUser);
+      })
+    }
+  }
+
+  // login route
+  fetch_route_User() {
+    this.userUID = localStorage.getItem('dcUserUID')
+    // UID cannot be null
+    if (this.userUID != null) {
+      this.afs.doc<User>(`users/${this.userUID}`).valueChanges().subscribe(user => {
+        // build the user
+        this.currentUser = new currentUser(
+          user.firstname,
+          user.lastname,
+          user.phone,
+          user.email,
+          user.usertype,
+          user.community,
+          user.companyname,
+          user.vision)
+        this.currentUserSubject.next(this.currentUser);
+
+        // routes
+        if (this.currentUser.usertype === "LEARN") { // redesign this to be api driven
+          this.router.navigateByUrl('/feed')
+        }
+        if (this.currentUser.usertype === "CONTENT PROVIDER") {
+          this.router.navigateByUrl('/cp')
+        }
+        if (this.currentUser.usertype === "EMPLOYER") {
+          this.router.navigateByUrl('/employer')
+        }
       })
     }
   }

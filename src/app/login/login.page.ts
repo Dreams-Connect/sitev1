@@ -13,7 +13,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
   onSubmit(event) {
     this.authService.login_With_Email_Password(event.value.email,
       event.value.password)
