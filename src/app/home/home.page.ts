@@ -115,4 +115,17 @@ export class HomePage implements OnInit, OnDestroy {
     this.currentUserSub.unsubscribe()
   }
 
+
+  // show popup
+  showPopup = false;
+
+  onPopupClose() {
+    this.showPopup = false;
+  }
+
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.showPopup = true
+    }, 3000);
+  }
 }
