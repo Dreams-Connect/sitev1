@@ -33,7 +33,11 @@ export class AuthService {
   authenticationSubJect = new Subject();
   currentUserSubject = new Subject<currentUser>();
 
-  login_With_Email_Password(email, password) {
+  // spinner
+  spinner = this.loadingController.create({ keyboardClose: true, message: 'One sec' })
+
+  async login_With_Email_Password(email, password) {
+    (await this.spinner).present();
     this.auth.signInWithEmailAndPassword(email, password).then(
       resp => {
         this._userIsAuthenticated = true;
@@ -43,19 +47,17 @@ export class AuthService {
         this.authenticationSubJect.next(this._userIsAuthenticated)
         // get user UID
         this.userUID = resp.user.uid;
-        localStorage.setItem('dcUserUID', this.userUID)
+        localStorage.setItem('dcUserUID', this.userUID);
 
         // redirect user based on type LEARN | CONTENT PROVIDER | EMPLOYER
+        this.fetch_route_User();
         // loading spinner 
-        this.loadingController
-          .create({ keyboardClose: true, message: 'One sec' })
-          .then(loadingEl => {
-            loadingEl.present();
-            this.fetch_route_User()
-          })
+        this.spinner.then(dismiss => {
+          dismiss.dismiss()
+        })
       }
-    ).catch(err => {
-
+    ).catch(async err => {
+      (await this.spinner).dismiss();
       this.alertModal("We cannot find your login credentials", "Please provide a valid login credentials");
     })
   }

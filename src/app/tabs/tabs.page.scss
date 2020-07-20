@@ -1,0 +1,31 @@
+ion-tabs {
+    background: #ffffff;
+}
+
+
+.tab-selected {
+    * {
+        fill: #7a90a6;
+    }
+}
+
+svg {
+    fill: #d1d1d2;
+    max-width: 27px;
+    width: 27px;
+    height: 27px;
+
+    * {
+        fill: #d1d1d2;
+    }
+}
+
+.homeTab {
+    svg {
+        path {
+            &:last-child {
+                fill: #ffffff;
+            }
+        }
+    }
+}

@@ -8,6 +8,11 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'dc',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -61,6 +66,16 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'feeditem',
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./feed/feeditem/feeditem.module').then(m => m.FeeditemPageModule),
+        canLoad: [AuthGuard]
+      }
+    ]
+  },
+  {
     path: 'cp',
     loadChildren: () => import('./contentprovider/contentprovider.module').then(m => m.ContentproviderPageModule),
     canLoad: [AuthGuard]
@@ -87,7 +102,18 @@ const routes: Routes = [
   },
   {
     path: 'sophomore',
-    loadChildren: () => import('./sophomore/sophomore.module').then( m => m.SophomorePageModule)
+    loadChildren: () => import('./sophomore/sophomore.module').then(m => m.SophomorePageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'jobs',
+    loadChildren: () => import('./jobs/jobs.module').then(m => m.JobsPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'profilesettings',
+    loadChildren: () => import('./profilesettings/profilesettings.module').then(m => m.ProfilesettingsPageModule),
+    canLoad: [AuthGuard]
   },
 ];
 
