@@ -31,6 +31,9 @@ ion-content {
 .largeTopicText {
     font-size: 39px;
     font-weight: 800;
+    padding: 0;
+    padding-left: 8px;
+    text-align: left;
 }
 
 ion-item-group {
@@ -62,4 +65,3 @@ ion-item-group {
     display: contents;
     transition: 0.5s;
 }
-

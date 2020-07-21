@@ -40,9 +40,6 @@
               <ion-button color="" class="login_btn toHideonMobile" routerLink='/login' [hidden]="isAuthenticated">
                 Login
               </ion-button>
-              <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
-                Logout
-              </ion-button>
               <!-- user types -->
               <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore'
                 *ngIf="isAuthenticated && userType == 'LEARN'">
@@ -55,6 +52,10 @@
               <ion-button color="" class="large_button toHideonMobile" routerLink='/employer'
                 *ngIf="isAuthenticated && userType == 'EMPLOYER'">
                 <ion-text>Dashboard</ion-text>
+              </ion-button>
+
+              <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
+                Logout
               </ion-button>
             </ion-buttons>
           </ion-item>
