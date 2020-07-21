@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import videojs from 'video.js';
 
-
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.page.html',
@@ -11,15 +10,25 @@ export class FeedPage implements OnInit {
   constructor() { }
 
   scrollYPosition = 0;
-  scrollObserver: IntersectionObserver
+  scrollObserver: IntersectionObserver;
+  player: videojs.Player; //init player
+
+  // slide options
+  slideOpts = {
+    speed: 400
+  };
+
+
   ngOnInit() {
     /// auto play video on interception
     this.scrollObserver = new IntersectionObserver(entries => {
-      if(entries[0].isIntersecting){
-        console.log(entries[0])
+      this.player = videojs(entries[0].target, { preload: "auto", controls: false, fill: true })
+      if (entries[0].isIntersecting) {
+
+        this.player.play();
       }
       else {
-        console.log(entries[0])
+        this.player.pause();
       }
 
     }, {
@@ -43,4 +52,8 @@ export class FeedPage implements OnInit {
   }
 
   logScrollEnd() { }
+
+  play() {
+    this.player.play();
+  }
 }

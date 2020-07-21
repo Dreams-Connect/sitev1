@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,23 +26,33 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
-    --ion-background-color:#000000;
+    --ion-background-color: #000000;
 }
 
 * {
-    --ion-background-color:transparent;
+    --ion-background-color: transparent;
 
     text-rendering: optimizeLegibility;
 }
 
 .modal-css {
-    --background:#fff;
-    --ion-background:#fff;
+    --background: #fff;
+    --ion-background: #fff;
+}
+
+.vjs-big-play-button,
+.vjs-control-bar,
+.vjs-control-text {
+    display: none !important;
+}
+
+.vjs-modal-dialog.vjs-hidden.vjs-text-track-settings {
+    display: none !important;
 }

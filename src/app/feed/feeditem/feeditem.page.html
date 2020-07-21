@@ -1,9 +1,127 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>feeditem</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img
+          src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </ion-avatar>
+      <ion-label>
+        <h2>Ebom Vuxbom</h2>
+        <p>5 hours ago</p>
+      </ion-label> <br>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-list>
+    <ion-item-group>
+      <!-- Text placed here-->
+      <ion-item>
+        <ion-label>
+          <p>Thanks again to the team at IFFZA - International Free Fun Zone Authority - for keeping all of our clients
+            so happy. Top work from a great authority.</p>
+        </ion-label>
+      </ion-item>
+
+      <!-- add media to slide -->
+      <ion-slides pager="true">
+        <ion-slide>
+          <img
+            src="https://images.pexels.com/photos/3278763/pexels-photo-3278763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+        </ion-slide>
+        <ion-slide>
+          <!-- autoplay when in viewport -->
+          <video class="player" (click)="play()" controls="false">
+            <source
+              src="https://vod-progressive.akamaized.net/exp=1595308216~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4819%2F16%2F424099997%2F1835640002.mp4~hmac=b58ca0633a070e94488b36b5167c4e033f52e767c1dc7de3acf11af8889f5ed0/vimeo-prod-skyfire-std-us/01/4819/16/424099997/1835640002.mp4">
+          </video>
+        </ion-slide>
+      </ion-slides>
+      <!-- comments and stats -->
+      <ion-item class="cta_Start">
+        <ion-buttons>
+          <ion-button>
+            <ion-icon name="heart-outline"></ion-icon> 1234
+          </ion-button>
+
+          <ion-button>
+            <ion-icon name="chatbox-outline"></ion-icon> 1234
+          </ion-button>
+
+          <ion-button>
+            <ion-icon name="share-social-outline"></ion-icon> 1234
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+          <ion-button slot="primary" routerLink="/community">
+            TECH<ion-icon name="return-up-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-item-group>
+
+
+    <!--- comments -->
+    <ion-item>
+      <ion-avatar slot="start">
+        <img
+          src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </ion-avatar>
+      <ion-label>
+        <h2>Ebom Vuxbom</h2>
+        <p>5 hours ago</p>
+        <h3>For the first time ever in the history of humanity,
+          success is no longer due to an opportunity or educational background, race or color.
+          Success can be developed from the mind.
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img
+          src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </ion-avatar>
+      <ion-label>
+        <h2>Ebom Vuxbom</h2>
+        <p>5 hours ago</p>
+        <h3>Dude you read alot man. Robert F Smith Quotes
+        </h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img
+          src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </ion-avatar>
+      <ion-label>
+        <h2>Ebom Vuxbom</h2>
+        <p>5 hours ago</p>
+        <h3>yeah of vista equity...He's a billionaire
+        </h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item>
+        <ion-input placeholder="Write a comment"></ion-input>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon name="send"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

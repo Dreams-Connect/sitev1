@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import videojs from 'video.js';
 
 @Component({
   selector: 'app-feeditem',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feeditem.page.scss'],
 })
 export class FeeditemPage implements OnInit {
-
   constructor() { }
 
+  player: videojs.Player; //init player
   ngOnInit() {
   }
 
+
+  onplay() {
+    this.player = videojs(document.querySelector('video'), { preload: "auto", controls: false, fill: true })
+    this.player.play();
+  }
 }
