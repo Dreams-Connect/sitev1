@@ -24,13 +24,11 @@ export class FeedPage implements OnInit {
     this.scrollObserver = new IntersectionObserver(entries => {
       this.player = videojs(entries[0].target, { preload: "auto", controls: false, fill: true })
       if (entries[0].isIntersecting) {
-
         this.player.play();
       }
       else {
         this.player.pause();
       }
-
     }, {
       threshold: 1
     });
@@ -43,9 +41,7 @@ export class FeedPage implements OnInit {
   }
 
 
-  logScrollStart() {
-
-  }
+  logScrollStart() { }
 
   logScrolling(event) {
     this.scrollYPosition = event.detail.scrollTop;

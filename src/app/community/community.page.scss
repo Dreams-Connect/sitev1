@@ -1,0 +1,89 @@
+ion-header {
+    ion-toolbar {
+    }
+    background: #ffffff;
+    .dc_logo_avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            height: 40px;
+            width: 40px;
+        }
+    }
+
+    .profile_icon {
+        height: 100%;
+        width: 100%;
+        img {
+            width: 35px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+    }
+}
+
+ion-content {
+    background: #ffffff;
+}
+
+.largeTopicText {
+    font-size: 39px;
+    font-weight: 800;
+    padding: 0;
+    padding-left: 8px;
+    text-align: left;
+}
+
+ion-item-group {
+    p {
+        white-space: normal;
+    }
+}
+
+.fullWidth_noStart {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    img {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        object-fit: cover;
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        object-fit: cover;
+    }
+}
+
+.modify_header_onscroll {
+    display: contents;
+    transition: 0.5s;
+}
+
+.vjs_video_3-dimensions {
+    width: 100%;
+    height: 100%;
+}
+
+.cta_Start {
+    --padding-start: 0;
+}
+
+ion-slide {
+    img,
+    video {
+        width: 100%;
+        max-height: 490px;
+        object-fit: cover;
+    }
+}
+
+ion-slides {
+    background: rgba(221, 221, 221, 0.867);
+}
