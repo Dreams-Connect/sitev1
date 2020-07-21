@@ -49,27 +49,26 @@ ion-content {
     --background: #29928f;
     --ion-background-color: #29928f;
 
-    *{
+    * {
         color: #000000;
     }
 }
-
 
 .reg_h1 {
     font-size: 55px;
     color: #000000;
     white-space: normal;
-  }
-  
-  .reg_h2 {
+}
+
+.reg_h2 {
     font-size: 40px;
     color: #acacac;
     white-space: normal;
-  }
-  
-  ion-footer {
+}
 
-    *{
+ion-footer {
+    background: #000000;
+    * {
         color: #ffffff;
     }
-  }
+}

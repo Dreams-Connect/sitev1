@@ -115,6 +115,10 @@ const routes: Routes = [
     loadChildren: () => import('./profilesettings/profilesettings.module').then(m => m.ProfilesettingsPageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'portal',
+    loadChildren: () => import('./portal/portal.module').then( m => m.PortalPageModule)
+  },
 ];
 
 @NgModule({

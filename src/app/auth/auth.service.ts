@@ -85,16 +85,18 @@ export class AuthService {
     this.currentUserSubject.next(this.currentUser)
   }
 
-  register_With_Email_Password(user: User) {
+  async register_With_Email_Password(user: User) {
+    (await this.spinner).present();
     const newUser = JSON.parse(JSON.stringify(user))
 
     this.auth.createUserWithEmailAndPassword(newUser.email, newUser.password).then(
       resp => {
+
         // get user UID
         this.userUID = resp.user.uid;
         localStorage.setItem('dcUserUID', this.userUID)
         // add user details to database
-        this.userCollection.doc(resp.user.uid).set(newUser).then(res => {
+        this.userCollection.doc(resp.user.uid).set(newUser).then(async res => {
           this._userIsAuthenticated = true;
           this.authenticationSubJect.next(this._userIsAuthenticated)
           // redirect user based on type LEARN | CONTENT PROVIDER | EMPLOYER
@@ -109,17 +111,19 @@ export class AuthService {
           }
           // save to localStorage
           localStorage.setItem('dcUser', JSON.stringify(resp.user.providerData))
-
-
-          // loading spinner 
-          this.loadingController
-            .create({ keyboardClose: true, message: 'One sec' })
-            .then(loadingEl => {
-              loadingEl.present();
-            })
+          // dismiss spinner
+          this.spinner.then(dismiss => {
+            dismiss.dismiss()
+          })
         })
       }
-    )
+    ).catch(err => {
+      this.alertModal("Error", err)
+      // dismiss spinner
+      this.spinner.then(dismiss => {
+        dismiss.dismiss()
+      })
+    })
   }
 
   getUserIsAuthenticated() {

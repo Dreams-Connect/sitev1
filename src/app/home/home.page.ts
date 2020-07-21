@@ -29,6 +29,9 @@ export class HomePage implements OnInit, OnDestroy {
   private currentUserSub: Subscription;
 
   ngOnInit() {
+    // disable portal menu
+    this.menuCtrl.enable(false, 'portalMenu')
+
     this.authenticationSub = this.authServices.authenticationSubJect.subscribe(auth => {
       this.isAuthenticated = auth;
     })
