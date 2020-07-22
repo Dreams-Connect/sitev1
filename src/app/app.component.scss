@@ -51,3 +51,18 @@
     }
   }
 }
+
+.portalMenu {
+  background: #ffffff;
+  max-width: 305px;
+
+  ion-button {
+    margin-bottom: 0px;
+  }
+}
+
+.active-link {
+  * {
+    color: #3880ff;
+  }
+}

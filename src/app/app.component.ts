@@ -1,3 +1,4 @@
+import { PortalService } from './portal/services/portal.service';
 import { Component, OnDestroy } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -19,6 +20,7 @@ export class AppComponent implements OnDestroy {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authServices: AuthService,
+    private portal: PortalService,
   ) {
     this.initializeApp();
   }
@@ -32,8 +34,10 @@ export class AppComponent implements OnDestroy {
     });
   }
 
-
-
+  // admin authenticated
+  isAdminAuthenticated;
+  private adminSub: Subscription;
+  // user authenticated
   isAuthenticated;
   currentUser: currentUser;
   userType;
@@ -41,7 +45,7 @@ export class AppComponent implements OnDestroy {
   // subscriptions
   private authenticationSub: Subscription;
   private currentUserSub: Subscription
-  
+
   ngOnInit() {
     this.authenticationSub = this.authServices.authenticationSubJect.subscribe(auth => {
       this.isAuthenticated = auth;
@@ -53,15 +57,22 @@ export class AppComponent implements OnDestroy {
     })
     this.authServices.fetchCurrentUser();
     // this.authServices.getCurrentUser();
+    // get admin authentication
+    this.adminSub = this.portal.authenticationSubJect.subscribe(adminAuth => {
+      this.isAdminAuthenticated = adminAuth;
+    })
+
+    this.portal.getUserIsAuthenticated();
   }
 
-  logout(){
+  logout() {
     this.authServices.logout();
   }
 
   ngOnDestroy() {
     this.currentUserSub.unsubscribe()
     this.authenticationSub.unsubscribe();
+    this.adminSub.unsubscribe();
   }
 
 }

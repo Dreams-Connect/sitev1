@@ -13,19 +13,19 @@
     </ion-title>
 
     <ion-buttons slot="primary" class="middle_menus">
-      <ion-button color="" routerLink='feed'>
+      <ion-button color="" routerLink='dc/feed'>
         Home
       </ion-button>
-      <ion-button color="" routerLink='category'>
+      <ion-button color="" routerLink='dc/category'>
         Events
       </ion-button>
-      <ion-button color="" routerLink='courses'>
+      <ion-button color="" routerLink='dc/courses'>
         Courses
       </ion-button>
-      <ion-button color="" routerLink='podcast'>
+      <ion-button color="" routerLink='dc/podcast'>
         Podcast
       </ion-button>
-      <ion-button color="" routerLink='books'>
+      <ion-button color="" routerLink='dc/books'>
         Books
       </ion-button>
     </ion-buttons>
@@ -37,7 +37,7 @@
       <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
         Logout
       </ion-button>
-      <!-- user types -->
+      <!--navigate to user dashboard / profile user types | change this later and optimise for mobile and desktop -->
       <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore'
         *ngIf="isAuthenticated && userType == 'LEARN'">
         <ion-text>Profile</ion-text>
@@ -257,7 +257,7 @@
 
   <!-- tell us who you are-->
   <section class="whoAreSection align_center" style="display: none;">
-  
+
   </section>
 
 

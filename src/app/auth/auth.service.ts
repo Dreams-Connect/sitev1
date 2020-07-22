@@ -16,14 +16,16 @@ export class AuthService {
   constructor(
     public loadingController: LoadingController,
     public alertController: AlertController,
-    public auth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+    public auth: AngularFireAuth, 
+    private afs: AngularFirestore, 
+    private router: Router
+    
+    ) {
     this.userCollection = afs.collection<User>('users');
 
     // check user login status
     localStorage.getItem('dcUser') != null ? this._userIsAuthenticated = true : this._userIsAuthenticated = false;
     this.authenticationSubJect.next(this._userIsAuthenticated)
-
-
   }
 
   private userCollection: AngularFirestoreCollection<User>;
@@ -171,13 +173,13 @@ export class AuthService {
 
         // routes
         if (this.currentUser.usertype === "LEARN") { // redesign this to be api driven
-          this.router.navigateByUrl('/feed')
+          this.router.navigateByUrl('dc/feed')
         }
         if (this.currentUser.usertype === "CONTENT PROVIDER") {
-          this.router.navigateByUrl('/cp')
+          this.router.navigateByUrl('dc/cp')
         }
         if (this.currentUser.usertype === "EMPLOYER") {
-          this.router.navigateByUrl('/employer')
+          this.router.navigateByUrl('dc/employer')
         }
       })
     }

@@ -1,12 +1,12 @@
-import { MenuController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-portal',
-  templateUrl: './portal.page.html',
-  styleUrls: ['./portal.page.scss'],
+  selector: 'app-dcbooks',
+  templateUrl: './dcbooks.page.html',
+  styleUrls: ['./dcbooks.page.scss'],
 })
-export class PortalPage implements OnInit {
+export class DcbooksPage implements OnInit {
 
   constructor(private menu: MenuController) { }
 
@@ -14,5 +14,4 @@ export class PortalPage implements OnInit {
     this.menu.enable(true, 'portalMenu')
     this.menu.open('portalMenu')
   }
-
 }

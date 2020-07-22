@@ -28,3 +28,30 @@ export class currentUser {
 
     }
 }
+
+
+// admin 
+export class adminUser {
+    constructor(
+        public firstname: string,
+        public lastname: string,
+        public password: string,
+        public phone: string,
+        public email: string,
+        public permissions: any,
+    ) {
+
+    }
+}
+
+export class currentAdmin {
+    constructor(
+        public firstname: string,
+        public lastname: string,
+        public phone: string,
+        public email: string,
+        public permissions: any,
+    ) {
+
+    }
+}

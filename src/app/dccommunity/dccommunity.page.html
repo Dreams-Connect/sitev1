@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" color="primary" [routerLink]="['/', 'updateform','community']">Add Community</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <!-- list of communities -->
+  <div>
+    <ion-card *ngFor="let community of communitList">
+      <ion-card-title>{{community.title}}</ion-card-title>
+      <ion-card-subtitle>{{community.description}}</ion-card-subtitle>
+    </ion-card>
+  </div>
+</ion-content>

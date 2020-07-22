@@ -1,13 +1,12 @@
-import { MenuController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-portal',
-  templateUrl: './portal.page.html',
-  styleUrls: ['./portal.page.scss'],
+  selector: 'app-dccourses',
+  templateUrl: './dccourses.page.html',
+  styleUrls: ['./dccourses.page.scss'],
 })
-export class PortalPage implements OnInit {
-
+export class DccoursesPage implements OnInit {
   constructor(private menu: MenuController) { }
 
   ngOnInit() {
