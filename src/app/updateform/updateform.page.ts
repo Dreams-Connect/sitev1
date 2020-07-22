@@ -16,13 +16,13 @@ export class UpdateformPage implements OnInit {
     private navCtrl: NavController,
     private portalService: PortalService
   ) { }
+
   updateType;
 
   newUpdate;
 
   ngOnInit() {
-    this.menu.enable(true, 'portalMenu')
-    this.menu.open('portalMenu')
+
 
     this.acRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {

@@ -2,39 +2,43 @@
 <!-- <ion-menu-toggle menuId="portalMenu" auto-hide="false"> -->
 
 <ion-split-pane contentId="adminMain">
-  <ion-menu contentId="adminMain">
+  <ion-menu contentId="adminMain" id="portalMenu" menuId="portalMenus">
     <ion-header>
       <ion-toolbar>
         <ion-title>DC Portal</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-list>
-        <ion-item button routerLink='/portal/dccommunity' routerLinkActive="active-link" routerDirection="root"
-          detail="false">
-          <ion-text>Community</ion-text>
-        </ion-item>
-        <ion-item button routerLink='/portal/dcevent' routerLinkActive="active-link" routerDirection="root" detail="false">
-          <ion-text>
-            Events
-          </ion-text>
-        </ion-item>
-        <ion-item button routerLink='/portal/dccourses' routerLinkActive="active-link" detail="false">
-          <ion-text>
-            Courses
-          </ion-text>
-        </ion-item>
-        <ion-item button routerLink='/portal/dcpodcast' routerLinkActive="active-link" detail="false">
-          <ion-text>
-            Podcast
-          </ion-text>
-        </ion-item>
-        <ion-item button routerLink='/portal/dcbooks' routerLinkActive="active-link" detail="false">
-          <ion-text>
-            Books
-          </ion-text>
-        </ion-item>
-      </ion-list>
+
+      <ion-menu-toggle menu="portalMenus" autoHide="false">
+        <ion-list>
+          <ion-item button routerLink='/portal/dccommunity' routerLinkActive="active-link" routerDirection="root"
+            detail="false">
+            <ion-text>Community</ion-text>
+          </ion-item>
+          <ion-item button routerLink='/portal/dcevent' routerLinkActive="active-link" routerDirection="root"
+            detail="false">
+            <ion-text>
+              Events
+            </ion-text>
+          </ion-item>
+          <ion-item button routerLink='/portal/dccourses' routerLinkActive="active-link" detail="false">
+            <ion-text>
+              Courses
+            </ion-text>
+          </ion-item>
+          <ion-item button routerLink='/portal/dcpodcast' routerLinkActive="active-link" detail="false">
+            <ion-text>
+              Podcast
+            </ion-text>
+          </ion-item>
+          <ion-item button routerLink='/portal/dcbooks' routerLinkActive="active-link" detail="false">
+            <ion-text>
+              Books
+            </ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
     </ion-content>
 
     <ion-footer>
@@ -47,7 +51,5 @@
       </ion-toolbar>
     </ion-footer>
   </ion-menu>
-
   <ion-router-outlet id="adminMain"></ion-router-outlet>
 </ion-split-pane>
-

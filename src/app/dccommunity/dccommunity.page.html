@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button fill="solid" color="primary" [routerLink]="['/', 'updateform','community']">Add Community</ion-button>
+      <ion-menu-button menu="portalMenus"></ion-menu-button>
+      <ion-button fill="solid" color="primary" [routerLink]="['/', 'portal','updateform','community']">Add Community
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -28,5 +30,3 @@
   </ion-list>
 
 </ion-content>
-
-

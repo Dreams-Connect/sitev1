@@ -29,3 +29,13 @@ ion-header,
 ion-footer {
     background: #ffffff;
 }
+
+ion-split-pane {
+    --side-max-width: 14%;
+
+    ion-footer {
+        ion-button{
+            margin-bottom: 0px;
+        }
+    }
+}
