@@ -34,9 +34,7 @@ export class AppComponent implements OnDestroy {
     });
   }
 
-  // admin authenticated
-  isAdminAuthenticated;
-  private adminSub: Subscription;
+
   // user authenticated
   isAuthenticated;
   currentUser: currentUser;
@@ -57,12 +55,6 @@ export class AppComponent implements OnDestroy {
     })
     this.authServices.fetchCurrentUser();
     // this.authServices.getCurrentUser();
-    // get admin authentication
-    this.adminSub = this.portal.authenticationSubJect.subscribe(adminAuth => {
-      this.isAdminAuthenticated = adminAuth;
-    })
-
-    this.portal.getUserIsAuthenticated();
   }
 
   logout() {
@@ -72,7 +64,6 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy() {
     this.currentUserSub.unsubscribe()
     this.authenticationSub.unsubscribe();
-    this.adminSub.unsubscribe();
   }
 
 }

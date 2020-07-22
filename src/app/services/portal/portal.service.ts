@@ -1,3 +1,4 @@
+import { Community } from 'src/app/model/portalModel/portalModel';
 import { LoadingController } from '@ionic/angular';
 import { Community } from './../../model/portalModel/portalModel';
 import { Injectable } from '@angular/core';
@@ -34,7 +35,14 @@ export class PortalService {
   newCommunity(community: Community) {
     this.loadingSpinner();
     const id = this.afs.createId(); // generate id
-    this.afs.collection<Community>('community').doc(id).set(JSON.parse(JSON.stringify(community)))
+    // build new community
+    const newCommunity = new Community(
+      id,
+      community.title,
+      community.description,
+      community.route
+    )
+    this.afs.collection<Community>('community').doc(id).set(JSON.parse(JSON.stringify(newCommunity)))
       .then(async resp => {
         (await this.presentToast(community.title)).present()
         this.route.navigateByUrl('dccommunity')
@@ -44,6 +52,11 @@ export class PortalService {
         alert(err)
         this.spinner.dismiss()
       })
+  }
+
+  // delete item 
+  delete(id, type) {
+    this.afs.collection(type).doc(id).delete();
   }
 
   fetchCommunity() {
@@ -59,7 +72,7 @@ export class PortalService {
 
   presentToast(item) {
     return this.toastController.create({
-      message: item + 'added',
+      message: item + ' added',
       position: 'top',
       duration: 2000
     })

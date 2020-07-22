@@ -1,3 +1,4 @@
+import { MenuController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PortalService } from '../../services/portal.service';
 
@@ -7,9 +8,12 @@ import { PortalService } from '../../services/portal.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-  constructor(private portalAuth: PortalService) { }
+  constructor(private portalAuth: PortalService,
+    private menu: MenuController
+  ) { }
 
   ngOnInit() {
+    this.menu.enable(false, 'userMenu')
   }
 
   onSubmit(form) {

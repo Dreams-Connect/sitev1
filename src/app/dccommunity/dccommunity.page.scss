@@ -2,3 +2,16 @@ ion-header,
 ion-content {
     background-color: #ffffff;
 }
+
+div {
+    ion-card {
+        ion-card-title {
+            padding-left: 16px;
+            padding-top: 16px;
+        }
+
+        ion-card-subtitle {
+            padding-left: 16px;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.menuButtons {
+    flex-direction: column;
+    ion-button {
+        width: 145px;
+        background-color: #29928f;
+        margin-bottom: 16px;
+        border-radius: 24px;
+        height: 45px;
+
+        &:last-child {
+            background-color: #dddddd;
+        }
+    }
+}
+
+.active-link {
+    * {
+        color: #3880ff;
+    }
+}
+
+#mobileMenuToggle {
+    // --side-min-width: 0;
+    // --side-max-width: 100%;
+}
+
+ion-content,
+ion-header,
+ion-footer {
+    background: #ffffff;
+}

@@ -70,6 +70,7 @@ export class PortalService {
     this._adminIsAuthenticated = false;
     this.authenticationSubJect.next(this._adminIsAuthenticated)
     this.currentAdminSubject.next(this.currentAdmin)
+    this.router.navigateByUrl('/')
   }
 
   // register with email and password

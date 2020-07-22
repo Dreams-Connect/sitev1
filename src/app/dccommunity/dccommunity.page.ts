@@ -17,9 +17,7 @@ export class DccommunityPage implements OnInit, OnDestroy {
   communitList: Community[] = [];
   communitySub: Subscription;
   ngOnInit() {
-    this.menu.enable(true, 'portalMenu')
-    this.menu.open('portalMenu')
-
+ 
     // get community list
     this.communitySub = this.portalService.fetchCommunity().subscribe(
       communities => {
@@ -28,6 +26,14 @@ export class DccommunityPage implements OnInit, OnDestroy {
   }
 
 
+  // crud
+  onUpdate(community) {
+
+  }
+
+  onDelete(community: Community) {
+    this.portalService.delete(community.id, 'community')
+  }
   ngOnDestroy() {
     this.communitySub.unsubscribe();
   }

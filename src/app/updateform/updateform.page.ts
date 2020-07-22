@@ -37,12 +37,7 @@ export class UpdateformPage implements OnInit {
   // 
   onSubmit(form) {
     if (this.updateType == 'community') {
-      this.newUpdate = new Community(
-        form.title,
-        form.description,
-        form.route
-      )
-      this.portalService.newCommunity(this.newUpdate)
+      this.portalService.newCommunity(form)
     }
   }
 }

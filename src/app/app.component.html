@@ -1,149 +1,93 @@
 <ion-app>
-  <ion-split-pane contentId="main">
-    <ion-menu-toggle  *ngIf="!isAdminAuthenticated == true">
-      <ion-menu side="end" type="overlay" contentId="main" class="mobileMenu">
-        <ion-header class="ion-no-border">
-          <ion-toolbar>
-            <ion-buttons slot="primary">
-              <ion-button color="">
-                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content>
-          <ion-list lines="none">
-            <ion-item button routerLink='dc/feed' detail="false">
-              <ion-text>Home</ion-text>
-            </ion-item>
-            <ion-item button routerLink='dc/events' detail="false">
-              <ion-text>
-                Events
-              </ion-text>
-            </ion-item>
-            <ion-item button routerLink='dc/courses' detail="false">
-              <ion-text>
-                Courses
-              </ion-text>
-            </ion-item>
-            <ion-item button routerLink='dc/podcast' detail="false">
-              <ion-text>
-                Podcast
-              </ion-text>
-            </ion-item>
-            <ion-item button routerLink='dc/books' detail="false">
-              <ion-text>
-                Books
-              </ion-text>
-            </ion-item>
-            <ion-item detail="false">
-              <ion-buttons class="menuButtons">
-                <ion-button color="" class="login_btn toHideonMobile" routerLink='/login' [hidden]="isAuthenticated">
-                  Login
-                </ion-button>
-                <!-- user types -->
-                <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore'
-                  *ngIf="isAuthenticated && userType == 'LEARN'">
-                  <ion-text>Profile</ion-text>
-                </ion-button>
-                <ion-button color="" class="large_button toHideonMobile" routerLink='/cp'
-                  *ngIf="isAuthenticated && userType == 'CONTENT PROVIDER'">
-                  <ion-text>Profile</ion-text>
-                </ion-button>
-                <ion-button color="" class="large_button toHideonMobile" routerLink='/employer'
-                  *ngIf="isAuthenticated && userType == 'EMPLOYER'">
-                  <ion-text>Dashboard</ion-text>
-                </ion-button>
-
-                <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
-                  Logout
-                </ion-button>
-              </ion-buttons>
-            </ion-item>
-          </ion-list>
-        </ion-content>
-
-        <ion-footer>
-          <ion-toolbar>
-            <ion-buttons slot="primary" collapse="true" class="social_icon_ align_center">
-              <ion-button href="https://www.facebook.com/Dreams-Connect-281825192711588/" target="_blank">
-                <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
-              </ion-button>
-              <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
-                <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
-              </ion-button>
-              <ion-button href="https://twitter.com/dreams_connect" target=_blank>
-                <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
-              </ion-button>
-              <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
-                <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
-              </ion-button>
-              <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
-                <ion-icon slot="icon-only" name="logo-youtube"></ion-icon>
-              </ion-button>
-              <ion-button href="mailto:dreams2connect@gmail.com?body=Hi%20there%2C">
-                <ion-icon slot="icon-only" name="mail-open"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-footer>
-      </ion-menu>
-    </ion-menu-toggle>
-
-
-    <!-- portal menu -->
-    <!-- <ion-menu-toggle menuId="portalMenu" auto-hide="false"> -->
-    <ion-menu side="start" type="push" contentId="main" class="portalMenu" menuId="portalMenu"
-      *ngIf="isAdminAuthenticated == true">
-      <ion-header>
+  <ion-menu-toggle>
+    <ion-menu side="end" contentId="main" class="mobileMenu">
+      <ion-header class="ion-no-border">
         <ion-toolbar>
-          <ion-title>DC Portal</ion-title>
+          <ion-buttons slot="primary">
+            <ion-button color="">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list>
-          <ion-item button routerLink='dccommunity' routerLinkActive="active-link" detail="false">
-            <ion-text>Community</ion-text>
+        <ion-list lines="none">
+          <ion-item button routerLink='dc/feed' detail="false">
+            <ion-text>Home</ion-text>
           </ion-item>
-          <ion-item button routerLink='dcevent' routerLinkActive="active-link" detail="false">
+          <ion-item button routerLink='dc/events' detail="false">
             <ion-text>
               Events
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='dccourses' routerLinkActive="active-link" detail="false">
+          <ion-item button routerLink='dc/courses' detail="false">
             <ion-text>
               Courses
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='dcpodcast' routerLinkActive="active-link" detail="false">
+          <ion-item button routerLink='dc/podcast' detail="false">
             <ion-text>
               Podcast
             </ion-text>
           </ion-item>
-          <ion-item button routerLink='dcbooks' routerLinkActive="active-link" detail="false">
+          <ion-item button routerLink='dc/books' detail="false">
             <ion-text>
               Books
             </ion-text>
+          </ion-item>
+          <ion-item detail="false">
+            <ion-buttons class="menuButtons">
+              <ion-button color="" class="login_btn toHideonMobile" routerLink='/login' [hidden]="isAuthenticated">
+                Login
+              </ion-button>
+              <!-- user types -->
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/sophomore'
+                *ngIf="isAuthenticated && userType == 'LEARN'">
+                <ion-text>Profile</ion-text>
+              </ion-button>
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/cp'
+                *ngIf="isAuthenticated && userType == 'CONTENT PROVIDER'">
+                <ion-text>Profile</ion-text>
+              </ion-button>
+              <ion-button color="" class="large_button toHideonMobile" routerLink='/employer'
+                *ngIf="isAuthenticated && userType == 'EMPLOYER'">
+                <ion-text>Dashboard</ion-text>
+              </ion-button>
+
+              <ion-button color="" class="login_btn toHideonMobile" (click)="logout()" [hidden]="!isAuthenticated">
+                Logout
+              </ion-button>
+            </ion-buttons>
           </ion-item>
         </ion-list>
       </ion-content>
 
       <ion-footer>
         <ion-toolbar>
-          <ion-buttons class="menuButtons">
-            <ion-button color="" class="login_btn toHideonMobile" (click)="logout()">
-              Logout
+          <ion-buttons slot="primary" collapse="true" class="social_icon_ align_center">
+            <ion-button href="https://www.facebook.com/Dreams-Connect-281825192711588/" target="_blank">
+              <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+            </ion-button>
+            <ion-button href="https://twitter.com/dreams_connect" target=_blank>
+              <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
+            </ion-button>
+            <ion-button href="https://www.instagram.com/dreamsconnect2/" target=_blank>
+              <ion-icon slot="icon-only" name="logo-youtube"></ion-icon>
+            </ion-button>
+            <ion-button href="mailto:dreams2connect@gmail.com?body=Hi%20there%2C">
+              <ion-icon slot="icon-only" name="mail-open"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-footer>
     </ion-menu>
+  </ion-menu-toggle>
 
-    <!-- </ion-menu-toggle> -->
-
-
-
-    <ion-router-outlet id="main"></ion-router-outlet>
-
-  </ion-split-pane>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

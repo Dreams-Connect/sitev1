@@ -119,47 +119,47 @@ const routes: Routes = [
   {
     path: 'portal',
     loadChildren: () => import('./portal/portal.module').then(m => m.PortalPageModule),
-    canLoad: [PortalGuard]
+    
   },
   {
     path: 'access',
     loadChildren: () => import('./portal/auth/auth/auth.module').then(m => m.AuthPageModule)
   },
-  {
-    path: 'dccommunity',
-    loadChildren: () => import('./dccommunity/dccommunity.module').then(m => m.DccommunityPageModule),
-    canLoad: [PortalGuard]
-  },
-  {
-    path: 'dcevent',
-    loadChildren: () => import('./dcevent/dcevent.module').then(m => m.DceventPageModule),
-    canLoad: [PortalGuard]
-  },
-  {
-    path: 'dccourses',
-    loadChildren: () => import('./dccourses/dccourses.module').then(m => m.DccoursesPageModule),
-    canLoad: [PortalGuard]
-  },
-  {
-    path: 'dcpodcast',
-    loadChildren: () => import('./dcpodcast/dcpodcast.module').then(m => m.DcpodcastPageModule),
-    canLoad: [PortalGuard]
-  },
-  {
-    path: 'dcbooks',
-    loadChildren: () => import('./dcbooks/dcbooks.module').then(m => m.DcbooksPageModule),
-    canLoad: [PortalGuard]
-  },
-  {
-    path: 'updateform',
-    children: [
-      {
-        path: ':id',
-        loadChildren: () => import('./updateform/updateform.module').then(m => m.UpdateformPageModule),
-        canLoad: [PortalGuard]
-      }
-    ]
-  },
+  // {
+  //   path: 'dccommunity',
+  //   loadChildren: () => import('./dccommunity/dccommunity.module').then(m => m.DccommunityPageModule),
+  //   canLoad: [PortalGuard]
+  // },
+  // {
+  //   path: 'dcevent',
+  //   loadChildren: () => import('./dcevent/dcevent.module').then(m => m.DceventPageModule),
+  //   canLoad: [PortalGuard]
+  // },
+  // {
+  //   path: 'dccourses',
+  //   loadChildren: () => import('./dccourses/dccourses.module').then(m => m.DccoursesPageModule),
+  //   canLoad: [PortalGuard]
+  // },
+  // {
+  //   path: 'dcpodcast',
+  //   loadChildren: () => import('./dcpodcast/dcpodcast.module').then(m => m.DcpodcastPageModule),
+  //   canLoad: [PortalGuard]
+  // },
+  // {
+  //   path: 'dcbooks',
+  //   loadChildren: () => import('./dcbooks/dcbooks.module').then(m => m.DcbooksPageModule),
+  //   canLoad: [PortalGuard]
+  // },
+  // {
+  //   path: 'updateform',
+  //   children: [
+  //     {
+  //       path: ':id',
+  //       loadChildren: () => import('./updateform/updateform.module').then(m => m.UpdateformPageModule),
+  //       canLoad: [PortalGuard]
+  //     }
+  //   ]
+  // },
 ];
 
 @NgModule({
