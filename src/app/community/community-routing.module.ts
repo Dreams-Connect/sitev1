@@ -7,6 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: CommunityPage
+  },
+  {
+    path: 'feed',
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./feed/feed.module').then(m => m.FeedPageModule),
+
+      }
+    ]
   }
 ];
 
@@ -14,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CommunityPageRoutingModule {}
+export class CommunityPageRoutingModule { }

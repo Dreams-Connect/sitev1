@@ -103,13 +103,13 @@ export class AuthService {
           this.authenticationSubJect.next(this._userIsAuthenticated)
           // redirect user based on type LEARN | CONTENT PROVIDER | EMPLOYER
           if (user.usertype === "LEARN") { // redesign this to be api driven
-            this.router.navigateByUrl('/feed')
+            this.router.navigateByUrl('/dc/feed')
           }
           if (user.usertype === "CONTENT PROVIDER") {
-            this.router.navigateByUrl('/cp')
+            this.router.navigateByUrl('/dc/cp')
           }
           if (user.usertype === "EMPLOYER") {
-            this.router.navigateByUrl('/employer')
+            this.router.navigateByUrl('/dc/employer')
           }
           // save to localStorage
           localStorage.setItem('dcUser', JSON.stringify(resp.user.providerData))

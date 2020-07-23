@@ -53,6 +53,9 @@ export class AuthPage implements OnInit {
     },
     {
       title: 'MEDIA'
+    },
+    {
+      title: 'LEADERSHIP'
     }
   ]
 
@@ -137,8 +140,8 @@ export class AuthPage implements OnInit {
   onCatSelect(category) {
     this.pCategoryIsSelected = category;
   }
-  // add user selected community to list
-  onComSelect(selected) {
+  // add user selected community to list to check and uncheck selection
+  onComSelect(selected: string) {
     if (!this.communitySelectedList.includes(selected)) {
       this.communitySelectedList.push(selected)
     } else {

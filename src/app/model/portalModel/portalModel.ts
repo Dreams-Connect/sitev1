@@ -4,6 +4,9 @@ export class Community {
         public title: string,
         public description: string,
         public route: string,
+        public bgcolor: string,
+        public txtcolor: string,
+
     ) { }
 }
 

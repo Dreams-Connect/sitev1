@@ -1,4 +1,3 @@
-import { Community } from 'src/app/model/portalModel/portalModel';
 import { LoadingController } from '@ionic/angular';
 import { Community } from './../../model/portalModel/portalModel';
 import { Injectable } from '@angular/core';
@@ -40,12 +39,14 @@ export class PortalService {
       id,
       community.title,
       community.description,
-      community.route
+      community.route,
+      community.bgcolor,
+      community.txtcolor
     )
     this.afs.collection<Community>('community').doc(id).set(JSON.parse(JSON.stringify(newCommunity)))
       .then(async resp => {
         (await this.presentToast(community.title)).present()
-        this.route.navigateByUrl('dccommunity')
+        this.route.navigateByUrl('portal/dccommunity')
         this.spinner.dismiss()
       })
       .catch(async err => {
