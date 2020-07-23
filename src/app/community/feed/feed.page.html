@@ -1,9 +1,97 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>feed</ion-title>
+    <ion-title class="largeTopicText " slot="start">Technology</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button class="profile_icon" routerLink="/profilesettings">
+        <img
+          src="https://images.pexels.com/photos/4674175/pexels-photo-4674175.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- tabs -->
+  <ion-toolbar>
+    <ion-segment mode="md" [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="0">
+        <ion-label>Talks</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Events</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label>Media</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
+  (ionScrollEnd)="logScrollEnd()">
+
+  <ion-slides #slides pager="false" [options]="sliderOptions" (ionSlideDidChange)="slidesChanged(slides)"
+    class="sectionSlide" (ionSlidesDidLoad)="slidesChanged(slides)">
+    <ion-slide class="innerSlider">
+      <ion-list>
+        <ion-item-group>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img
+                src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+            </ion-avatar>
+            <ion-label>
+              <h2>Ebom Vuxbom</h2>
+              <p>5 hours ago</p>
+            </ion-label> <br>
+          </ion-item>
+          <!-- Text placed here-->
+          <ion-item>
+            <ion-label>
+              <p>Thanks again to the team at IFFZA - International Free Fun Zone Authority - for keeping all of our
+                clients
+                so happy. Top work from a great authority.</p>
+            </ion-label>
+          </ion-item>
+
+          <!-- add media to slide -->
+
+          <ion-slides pager="true" [options]="slideOpts" class="mediaSlider">
+            <ion-slide>
+              <img
+                src="https://images.pexels.com/photos/3278763/pexels-photo-3278763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+            </ion-slide>
+
+            <ion-slide>
+              <!-- autoplay when in viewport -->
+              <video class="player" (click)="play()" controls="false" type="video/mp4">
+                <source type="video/mp4" src="../../../assets/sample/video.mp4">
+              </video>
+            </ion-slide>
+
+          </ion-slides>
+
+          <!-- comments and stats -->
+          <ion-item class="cta_Start">
+            <ion-buttons>
+              <ion-button>
+                <ion-icon name="heart-outline"></ion-icon> 1234
+              </ion-button>
+
+              <ion-button [routerLink]="['/', 'feeditem', 'id']">
+                <ion-icon name="chatbox-outline"></ion-icon> 1234
+              </ion-button>
+
+              <ion-button>
+                <ion-icon name="share-social-outline"></ion-icon> 1234
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide class="sectionSlide">
+      2
+    </ion-slide>
+  </ion-slides>
+
 
 </ion-content>
