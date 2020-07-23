@@ -1,0 +1,28 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="primary" fill="solid" [disabled]="!post.valid"> Post </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- post form-->
+  <form #post="ngForm" (ngSubmit)="onSubmit(post.value)">
+    <!-- media details -->
+    <ion-list>
+      <ion-item class="ion-padding">
+        <ion-label position="stacked"></ion-label>
+        <ion-textarea type="text" ngModel name="post" #post="ngModel" required
+          placeholder="Today Something great is 'gon happen">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <!-- add media -->
+
+  </form>
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title class="largeTopicText " slot="start">Technology</ion-title>
+    <ion-title class="largeTopicText " slot="start">{{communityName}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button class="profile_icon" routerLink="/profilesettings">
         <img
@@ -52,8 +52,7 @@
           </ion-item>
 
           <!-- add media to slide -->
-
-          <ion-slides pager="true" [options]="slideOpts" class="mediaSlider">
+          <ion-slides pager="true" [options]="slideOpts" class="mediaSlider" (ionSlidesDidLoad)="showMedia()">
             <ion-slide>
               <img
                 src="https://images.pexels.com/photos/3278763/pexels-photo-3278763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
@@ -61,7 +60,7 @@
 
             <ion-slide>
               <!-- autoplay when in viewport -->
-              <video class="player" (click)="play()" controls="false" type="video/mp4">
+              <video class="player" #player (click)="onPlay(player)" controls="false" type="video/mp4">
                 <source type="video/mp4" src="../../../assets/sample/video.mp4">
               </video>
             </ion-slide>
@@ -88,10 +87,35 @@
       </ion-list>
     </ion-slide>
 
-    <ion-slide class="sectionSlide">
-      2
+    <ion-slide class="innerSlider">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h2>Event Title</h2>
+            <p>Tue, Jun 16, 2020</p>
+            <p>Dubai Marina, First Tower, floor 20</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-slide>
   </ion-slides>
 
+  <!-- create post -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/','community','createpost',communityName]">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26.758" height="26.757" viewBox="0 0 26.758 26.757">
+        <g id="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(1.5 1.5)">
+          <path id="Path_99" data-name="Path 99"
+            d="M13.626,6H5.361A2.361,2.361,0,0,0,3,8.361v16.53a2.361,2.361,0,0,0,2.361,2.361h16.53a2.361,2.361,0,0,0,2.361-2.361V16.626"
+            transform="translate(-3.001 -3.495)" fill="none" stroke="#fff" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="3" />
+          <path id="Path_100" data-name="Path 100"
+            d="M24.4,3.552a2.5,2.5,0,0,1,3.542,3.542L16.723,18.31,12,19.491l1.181-4.723Z"
+            transform="translate(-4.917 -2.818)" fill="none" stroke="#fff" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="3" />
+        </g>
+      </svg>
 
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

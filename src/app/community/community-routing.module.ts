@@ -17,6 +17,15 @@ const routes: Routes = [
 
       }
     ]
+  },
+  {
+    path: 'createpost',
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./createpost/createpost.module').then(m => m.CreatepostPageModule)
+      }
+    ]
   }
 ];
 

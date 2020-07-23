@@ -166,6 +166,10 @@ ion-card {
 
     .innerSlider {
         align-items: flex-start;
+
+        ion-list {
+            width: 100%;
+        }
     }
 }
 

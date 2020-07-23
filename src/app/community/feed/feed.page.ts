@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import videojs from 'video.js';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.page.html',
   styleUrls: ['./feed.page.scss'],
 })
-export class FeedPage implements OnInit {
-  constructor() { }
+export class FeedPage implements OnInit, OnDestroy {
+  constructor(private elementRef: ElementRef, private acRoute: ActivatedRoute,
+    private navCtrl: NavController,) { }
+
+  communityName;
 
   scrollYPosition = 0;
   scrollObserver: IntersectionObserver;
+
+  @ViewChildren('player') videoPlayers: QueryList<any>;
   player: videojs.Player; //init player
 
 
@@ -31,29 +37,17 @@ export class FeedPage implements OnInit {
   segment = 0;
 
   ngOnInit() {
-    /// auto play video on interception
-    this.scrollObserver = new IntersectionObserver(entries => {
-      this.player = videojs(entries[0].target, {
-        sources: [{
-          type: 'video/mp4'
-        }],
-        preload: "auto", controls: false, fill: true,
-      })
-      if (entries[0].isIntersecting) {
-        this.player.play();
-      }
-      else {
-        this.player.pause();
-      }
-    }, {
-      threshold: 1
-    });
+  }
 
-    // get players
-    const players = document.querySelectorAll('video');
-    for (let i = 0; i < players.length; i++) {
-      this.scrollObserver.observe(players[i])
-    }
+  ionViewWillEnter() {
+    // get community name from route
+    this.acRoute.paramMap.subscribe(paramMap => {
+      if (!paramMap.has('id')) {
+        this.navCtrl.back;
+        return;
+      }
+      this.communityName = paramMap.get('id')
+    })
   }
 
 
@@ -65,22 +59,73 @@ export class FeedPage implements OnInit {
 
   logScrollEnd() { }
 
-  play() {
+  onPlay(player) {
+    // const play: videojs.Player = player; //init player
+
+    // this.player = videojs(player, {
+    //   sources: [{
+    //     type: 'video/mp4'
+    //   }],
+    //   preload: "auto", controls: false, fill: true,
+    // })
     this.player.play();
   }
 
-
-
- async segmentChanged(ev) {
+  async segmentChanged(ev) {
     await this.selectedSlide.slideTo(this.segment)
   }
 
- async slidesChanged(slides: IonSlides) {
+  async slidesChanged(slides: IonSlides) {
     this.selectedSlide = slides;
-    slides.getActiveIndex().then(selectedIndex =>{
+    slides.getActiveIndex().then(selectedIndex => {
       this.segment = selectedIndex
     })
   }
 
+  showMedia() {
+    /// auto play video on interception
+    this.scrollObserver = new IntersectionObserver(entries => {
 
+
+      const player: videojs.Player = entries[0].target; //init player
+
+      this.player = videojs(player, {
+        sources: [{
+          type: 'video/mp4'
+        }],
+        preload: "auto", controls: false, fill: true,
+      })
+
+      if (entries[0].isIntersecting) {
+        this.player.play();
+        player.play()
+      }
+      else {
+        this.player.pause();
+      }
+    }, {
+      threshold: 1
+    });
+
+    // get players
+    const players = document.querySelectorAll('video');
+
+    // for (let i = 0; i < players.length; i++) {
+    //   this.scrollObserver.observe(players[i])
+    // }
+
+    this.videoPlayers.forEach(player => {
+      this.scrollObserver.observe(player.nativeElement)
+    })
+
+  }
+
+
+
+  ngOnDestroy() {
+    // destroy player
+    if (this.player) {
+      this.player.dispose();
+    }
+  }
 }
