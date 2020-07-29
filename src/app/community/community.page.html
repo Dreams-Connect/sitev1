@@ -96,19 +96,19 @@
     </ion-item>
     <ion-row>
       <ion-col size="6" *ngFor="let community of communityList">
-        <ion-card style="background-color: {{community.bgcolor}}">
+        <ion-card [style.background-color]="community.bgcolor">
           <ion-card-header>
-            <ion-card-title style="color: {{community.txtcolor}}">
+            <ion-card-title [style.color]="community.txtcolor">
               {{community.title}}
             </ion-card-title>
-            <ion-card-subtitle style="color: {{community.txtcolor}}">
+            <ion-card-subtitle [style.color]="community.txtcolor">
               {{community.description}}
             </ion-card-subtitle>
           </ion-card-header>
           <!-- CTA -->
           <ion-buttons>
             <ion-button (click)="onAddCommunity(community.title)">
-              <ion-icon name="add-circle" style="color: {{community.txtcolor}}"></ion-icon>
+              <ion-icon name="add-circle" [style.color]="community.txtcolor"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-card>

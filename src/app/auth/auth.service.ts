@@ -16,11 +16,11 @@ export class AuthService {
   constructor(
     public loadingController: LoadingController,
     public alertController: AlertController,
-    public auth: AngularFireAuth, 
-    private afs: AngularFirestore, 
+    public auth: AngularFireAuth,
+    private afs: AngularFirestore,
     private router: Router
-    
-    ) {
+
+  ) {
     this.userCollection = afs.collection<User>('users');
 
     // check user login status
@@ -85,6 +85,8 @@ export class AuthService {
     this._userIsAuthenticated = false;
     this.authenticationSubJect.next(this._userIsAuthenticated)
     this.currentUserSubject.next(this.currentUser)
+
+    this.router.navigateByUrl('/home')
   }
 
   async register_With_Email_Password(user: User) {
@@ -93,7 +95,6 @@ export class AuthService {
 
     this.auth.createUserWithEmailAndPassword(newUser.email, newUser.password).then(
       resp => {
-
         // get user UID
         this.userUID = resp.user.uid;
         localStorage.setItem('dcUserUID', this.userUID)

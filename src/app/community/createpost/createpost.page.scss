@@ -2,3 +2,26 @@ ion-header,
 ion-content {
     background-color: #ffffff;
 }
+
+.previewMedia {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    ion-item {
+        --inner-padding-end: 0;
+    }
+    img,
+    video {
+        max-width: 300px;
+    }
+
+    ion-buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: #fff;
+        box-shadow: 0px 0px 17px 2px #0b0b0ba1;
+        border: 1px solid #dddddd;
+    }
+}

@@ -1,28 +1,52 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button color="primary" fill="solid" [disabled]="!post.valid"> Post </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <!-- post form-->
   <form #post="ngForm" (ngSubmit)="onSubmit(post.value)">
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+          <ion-button color="primary" fill="solid" [disabled]="!post.valid" type="submit"> Post </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
     <!-- media details -->
-    <ion-list>
-      <ion-item class="ion-padding">
+    <ion-list class="ion-padding">
+      <ion-item class="">
         <ion-label position="stacked"></ion-label>
         <ion-textarea autoGrow="true" type="text" ngModel name="post" #post="ngModel" required
           placeholder="Today Something great is 'gon happen">
         </ion-textarea>
       </ion-item>
+
+      <!-- add media -->
+      <ion-item class="addMedia" lines="none">
+        <ion-buttons>
+          <ion-button (click)="file.click()">
+            <ion-icon name="image-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <input type="file" [multiple]="true" (change)="onFileInput($event)" #file style="display:none"
+          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/quicktime,video/webm">
+      </ion-item>
+
     </ion-list>
-
-    <!-- add media -->
-
+    <!-- selected media -->
+    <ion-list>
+      <div class="previewMedia">
+        <ion-item *ngFor="let media of previewSelectedMedia">
+          <img [src]="media.data" *ngIf="media.html == 'image'">
+          <video *ngIf="media.html == 'video'" preload="none" controls>
+            <source [src]="media.data">
+          </video>
+          <ion-buttons slot="end">
+            <ion-button (click)="removeMedia(media.index)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </ion-list>
   </form>
 </ion-content>
