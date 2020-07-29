@@ -1,3 +1,4 @@
+import { PostService } from './../../services/community/post.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -12,10 +13,11 @@ import { currentUser } from 'src/app/model/user';
 })
 export class CreatepostPage implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private postService: PostService
+  ) { }
 
   currentCommunity;
-  mediaList;
 
   selectedMedia: any[] = [];
   previewSelectedMedia: any[] = [];
@@ -31,7 +33,7 @@ export class CreatepostPage implements OnInit, OnDestroy {
   }
 
   onSubmit(post) {
-    
+    this.postService.createPost(post, this.currentCommunity, this.previewSelectedMedia);
   }
 
   // on media select? display media media types [images, video, music/audio]
@@ -56,9 +58,10 @@ export class CreatepostPage implements OnInit, OnDestroy {
           reader.readAsDataURL(this.selectedMedia[i]);
           reader.onload = (_event) => {
             this.previewSelectedMedia.push({
-              'html': 'image',
+              'type': 'image',
               'data': reader.result,
-              'index': index + i
+              'index': index + i,
+              'file': this.selectedMedia[i],
             })
           }
         }
@@ -68,9 +71,10 @@ export class CreatepostPage implements OnInit, OnDestroy {
           reader.readAsDataURL(this.selectedMedia[i]);
           reader.onload = (_event) => {
             this.previewSelectedMedia.push({
-              'html': 'video',
+              'type': 'video',
               'data': reader.result,
-              'index': index + i
+              'index': index + i,
+              'file': this.selectedMedia[i],
             })
           }
         }
@@ -79,9 +83,8 @@ export class CreatepostPage implements OnInit, OnDestroy {
   }
 
   removeMedia(index) {
-    this.selectedMedia = [...this.selectedMedia].filter(media => [...this.selectedMedia].indexOf(media) !== index);
     this.previewSelectedMedia = this.previewSelectedMedia.filter(media => media.index !== index)
-
+    console.log(this.selectedMedia)
   }
 
   ngOnDestroy(): void {

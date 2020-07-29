@@ -1,13 +1,23 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dc/community/feed/{{currentCommunity}}"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <!-- post form-->
-  <form #post="ngForm" (ngSubmit)="onSubmit(post.value)">
+  <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm.value)">
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-          <ion-button color="primary" fill="solid" [disabled]="!post.valid" type="submit"> Post </ion-button>
+          <ion-button color="primary" fill="solid" [disabled]="postForm.value.post == '' && selectedMedia.length ===0"
+            type="submit"> Post
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -36,8 +46,8 @@
     <ion-list>
       <div class="previewMedia">
         <ion-item *ngFor="let media of previewSelectedMedia">
-          <img [src]="media.data" *ngIf="media.html == 'image'">
-          <video *ngIf="media.html == 'video'" preload="none" controls>
+          <img [src]="media.data" *ngIf="media.type == 'image'">
+          <video *ngIf="media.type == 'video'" preload="none" controls>
             <source [src]="media.data">
           </video>
           <ion-buttons slot="end">
