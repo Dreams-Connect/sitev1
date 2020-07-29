@@ -17,6 +17,9 @@ export class CreatepostPage implements OnInit, OnDestroy {
     private postService: PostService
   ) { }
 
+  uploadPercentage;
+  percentageSubscription: Subscription;
+
   currentCommunity;
 
   selectedMedia: any[] = [];
@@ -29,6 +32,11 @@ export class CreatepostPage implements OnInit, OnDestroy {
         return;
       }
       this.currentCommunity = param.get('id')
+    })
+
+    this.percentageSubscription = this.postService.downloadPercentageSubject.subscribe(percent => {
+      this.uploadPercentage = percent;
+      this.uploadPercentage = this.uploadPercentage / 100;
     })
   }
 
@@ -88,6 +96,6 @@ export class CreatepostPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.percentageSubscription.unsubscribe();
   }
 }

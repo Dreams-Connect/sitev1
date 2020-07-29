@@ -1,3 +1,4 @@
+import { PostService } from './services/community/post.service';
 import { PortalService } from './portal/services/portal.service';
 import { Component, OnDestroy } from '@angular/core';
 
@@ -21,6 +22,7 @@ export class AppComponent implements OnDestroy {
     private statusBar: StatusBar,
     private authServices: AuthService,
     private portal: PortalService,
+    private postService: PostService
   ) {
     this.initializeApp();
   }
@@ -33,6 +35,7 @@ export class AppComponent implements OnDestroy {
       this.platformIsReady = true
     });
   }
+
 
 
   // user authenticated
@@ -55,11 +58,16 @@ export class AppComponent implements OnDestroy {
     })
     this.authServices.fetchCurrentUser();
     // this.authServices.getCurrentUser();
+
+    
   }
 
   logout() {
     this.authServices.logout();
   }
+
+
+
 
   ngOnDestroy() {
     this.currentUserSub.unsubscribe()

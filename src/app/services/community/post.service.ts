@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService implements OnDestroy {
+export class PostService {
   constructor(
     private afs: AngularFirestore,
     private afstorage: AngularFireStorage,
@@ -25,6 +25,8 @@ export class PostService implements OnDestroy {
   downloadPercentage;
 
   createPost(form, community, mediaList) {
+
+
     let mediaFiles: any[] = [];
 
     // loop through mediaList
@@ -69,19 +71,21 @@ export class PostService implements OnDestroy {
                     mediaList: mediaFiles,
                     createdAt: Date.now()
                   }
-            
+
                   // add post to collection
                   this.afs.collection<Post>('post').doc(community).update({
                     posts: firebase.firestore.FieldValue.arrayUnion(newPost) // merge in context community
                   })
                     .then(resp => {
-                      this.router.navigateByUrl('dc/community/feed/' + community)
+                      this.router.navigateByUrl('dc/community/feed/' + community);
+                      this.postToast()
                     })
                     .catch(err => {
                       this.afs.collection<Post>('post').doc(community).set({
                         posts: firebase.firestore.FieldValue.arrayUnion(newPost) // merge in context community
                       }).then(resp => {
-                        this.router.navigateByUrl('dc/community/feed/' + community)
+                        this.router.navigateByUrl('dc/community/feed/' + community);
+                        this.postToast()
                       })
                     })
                 }
@@ -116,22 +120,31 @@ export class PostService implements OnDestroy {
         posts: firebase.firestore.FieldValue.arrayUnion(newPost) // merge in context community
       })
         .then(resp => {
-          this.router.navigateByUrl('dc/community/feed/' + community)
+          this.router.navigateByUrl('dc/community/feed/' + community);
+          this.postToast()
         })
         .catch(err => {
           this.afs.collection<Post>('post').doc(community).set({
             posts: firebase.firestore.FieldValue.arrayUnion(newPost) // merge in context community
           }).then(resp => {
-            this.router.navigateByUrl('dc/community/feed/' + community)
+            this.router.navigateByUrl('dc/community/feed/' + community);
+            this.postToast()
           })
         })
     }
+  }
 
-
-
+  async postToast() {
+    const toast = await this.toastController.create({
+      duration: 3000,
+      message: 'Post added to timeline',
+      position: 'top',
+    });
+    toast.present();
   }
 
 
-  ngOnDestroy(): void {
-  }
+
+
+
 } 

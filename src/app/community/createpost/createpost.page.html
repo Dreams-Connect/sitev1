@@ -4,6 +4,11 @@
       <ion-back-button defaultHref="dc/community/feed/{{currentCommunity}}"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-toolbar *ngIf="uploadPercentage">
+    <!-- Default Progressbar with 50 percent -->
+    <ion-progress-bar [value]="uploadPercentage"></ion-progress-bar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
