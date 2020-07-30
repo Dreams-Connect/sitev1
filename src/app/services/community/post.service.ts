@@ -134,7 +134,7 @@ export class PostService implements OnDestroy {
         post: form.post,
         community: community,
         mediaList: mediaFiles,
-        createdAt: Date.now()
+        createdAt: new Date().toLocaleString()
       }
 
       // add post to collection
