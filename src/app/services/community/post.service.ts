@@ -1,9 +1,11 @@
+import { currentUser } from 'src/app/model/user';
+import { SharedService } from './../shared.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Post } from 'src/app/model/post';
-import { Observable, Subject } from 'rxjs';
-import { finalize, take } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { finalize, take, map } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
@@ -11,22 +13,38 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class PostService implements OnDestroy {
   constructor(
     private afs: AngularFirestore,
     private afstorage: AngularFireStorage,
     private toastController: ToastController,
     private router: Router,
-  ) { }
+    private sharedService: SharedService
+  ) {
+
+
+    this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
+      this.currentUser = user
+    })
+    this.sharedService.fetchUser();
+  }
+
+
+  ngOnDestroy(): void {
+    this.currentUserSub.unsubscribe();
+  }
+
+
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
   downloadPercentageSubject = new Subject<any>();
   downloadPercentage;
 
+  currentUserSub: Subscription;
+  currentUser: currentUser;
+
   createPost(form, community, mediaList) {
-
-
     let mediaFiles: any[] = [];
 
     // loop through mediaList
@@ -66,6 +84,8 @@ export class PostService {
                   const newPost = {
                     id: id,
                     userUID: userUID,
+                    name: this.currentUser.firstname + ' ' + this.currentUser.lastname,
+                    photoURL: '',
                     post: form.post,
                     community: community,
                     mediaList: mediaFiles,
@@ -109,6 +129,8 @@ export class PostService {
       const newPost = {
         id: id,
         userUID: userUID,
+        name: this.currentUser.firstname + ' ' + this.currentUser.lastname,
+        photoURL: '',
         post: form.post,
         community: community,
         mediaList: mediaFiles,
@@ -134,6 +156,18 @@ export class PostService {
     }
   }
 
+  // fetch user timeline or home feed
+  // contains every post from all communities the current user opted in
+
+  fetchUserFeeds() {
+    // user uid
+    const userUID = localStorage.getItem('dcUserUID');
+    // fetch post
+    return this.afs.collection<any>('post').valueChanges();
+  }
+
+
+  // post toast controller
   async postToast() {
     const toast = await this.toastController.create({
       duration: 3000,
@@ -142,9 +176,4 @@ export class PostService {
     });
     toast.present();
   }
-
-
-
-
-
 } 

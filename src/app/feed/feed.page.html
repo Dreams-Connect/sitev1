@@ -74,22 +74,20 @@
   (ionScrollEnd)="logScrollEnd()">
 
   <ion-list>
-    <ion-item-group>
-      <ion-item lines="none"> 
+    <ion-item-group *ngFor="let post of filteredFeed">
+      <ion-item lines="none">
         <ion-avatar slot="start">
-          <img
-            src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+          <img [src]="post.photoURL">
         </ion-avatar>
         <ion-label>
-          <h2>Ebom Vuxbom</h2>
-          <p>5 hours ago</p>
+          <h2>{{post.name}}</h2>
+          <p>{{post.createdAt | amTimeAgo}}</p>
         </ion-label> <br>
       </ion-item>
       <!-- Text placed here-->
       <ion-item>
         <ion-label>
-          <p>Thanks again to the team at IFFZA - International Free Fun Zone Authority - for keeping all of our clients
-            so happy. Top work from a great authority.</p>
+          <p>{{post.post}}</p>
         </ion-label>
       </ion-item>
 
