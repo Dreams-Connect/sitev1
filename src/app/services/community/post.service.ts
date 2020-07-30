@@ -3,7 +3,7 @@ import { SharedService } from './../shared.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Post } from 'src/app/model/post';
+import { Post, likesCounter } from 'src/app/model/post';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { finalize, take, map } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
@@ -22,19 +22,15 @@ export class PostService implements OnDestroy {
     private sharedService: SharedService
   ) {
 
-
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.currentUser = user
     })
     this.sharedService.fetchUser();
   }
 
-
   ngOnDestroy(): void {
     this.currentUserSub.unsubscribe();
   }
-
-
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
@@ -117,8 +113,6 @@ export class PostService implements OnDestroy {
           this.downloadPercentageSubject.next(this.downloadPercentage)
         })
       }
-
-
     }
 
     // if mediaList upload complete?
@@ -134,7 +128,7 @@ export class PostService implements OnDestroy {
         post: form.post,
         community: community,
         mediaList: mediaFiles,
-        createdAt: new Date().toLocaleString()
+        createdAt: Date.now()
       }
 
       // add post to collection
@@ -146,6 +140,7 @@ export class PostService implements OnDestroy {
           this.postToast()
         })
         .catch(err => {
+          // modify or remove the <Post> type
           this.afs.collection<Post>('post').doc(community).set({
             posts: firebase.firestore.FieldValue.arrayUnion(newPost) // merge in context community
           }).then(resp => {
@@ -165,6 +160,45 @@ export class PostService implements OnDestroy {
     // fetch post
     return this.afs.collection<any>('post').valueChanges();
   }
+
+  // comment on post
+  postComment(community, postId, comment, photoUrl, name) {
+    // get post deep in community
+    // merge the comment array with new comment
+    this.afs.collection('post').doc(community).update({
+
+    })
+  }
+
+  // like post
+  onPostLike(postid) {
+    this.afs.collection('likesCounter').doc(postid).update({
+      postId: postid,
+      userUID: localStorage.getItem('dcUserUID'),
+      likes: firebase.firestore.FieldValue.increment(1)
+    }).catch(err => {
+      this.afs.collection('likesCounter').doc(postid).set({
+        postId: postid,
+        userUID: localStorage.getItem('dcUserUID'),
+        likes: firebase.firestore.FieldValue.increment(1)
+      })
+    })
+  }
+
+
+  // fetch post Likes
+  fetchPostLikes() {
+    return this.afs.collection<likesCounter>('likesCounter').valueChanges();
+  }
+
+
+
+
+
+
+
+
+
 
 
   // post toast controller

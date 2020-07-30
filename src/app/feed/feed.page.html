@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-avatar class="dc_logo_avatar " slot="start" *ngIf="scrollYPosition == 0">
+    <ion-avatar class="dc_logo_avatar " slot="start">
       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54">
         <path _ngcontent-pde-c134=""
           d="M-3944,294a26.831,26.831,0,0,1-10.51-2.122,26.914,26.914,0,0,1-8.583-5.786,26.909,26.909,0,0,1-5.786-8.582A26.829,26.829,0,0,1-3971,267a26.831,26.831,0,0,1,2.122-10.51,26.914,26.914,0,0,1,5.786-8.582,26.914,26.914,0,0,1,8.583-5.786A26.831,26.831,0,0,1-3944,240a26.83,26.83,0,0,1,10.51,2.122,26.91,26.91,0,0,1,8.582,5.786,26.915,26.915,0,0,1,5.786,8.582A26.836,26.836,0,0,1-3917,267a26.834,26.834,0,0,1-2.122,10.509,26.913,26.913,0,0,1-5.786,8.582,26.91,26.91,0,0,1-8.582,5.786A26.83,26.83,0,0,1-3944,294Zm-15.6-34.007h0V281h7.441a11.314,11.314,0,0,0,8.137-2.929,9.981,9.981,0,0,0,2.992-6.478,12.2,12.2,0,0,0,4.482.773,13.919,13.919,0,0,0,6.006-1.113v-4.321a9.884,9.884,0,0,1-5.068,1.347,6.079,6.079,0,0,1-4.614-1.809,6.8,6.8,0,0,1-1.715-4.855,6.932,6.932,0,0,1,1.818-5.04,6.4,6.4,0,0,1,4.774-1.86,9.237,9.237,0,0,1,4.805,1.259v-4.555a15.189,15.189,0,0,0-5.186-.776,10.938,10.938,0,0,0-8.078,3.135,10.8,10.8,0,0,0-3.068,6.982,16.362,16.362,0,0,0-5.285-.766Zm7.075,17.169h-2.344V263.846h2.314a6.651,6.651,0,0,1,4.871,1.722,6.378,6.378,0,0,1,1.736,4.724,7.027,7.027,0,0,1-1.751,5.024A6.359,6.359,0,0,1-3952.523,277.163Z"
@@ -8,7 +8,7 @@
       </svg>
     </ion-avatar>
 
-    <ion-title class="largeTopicText " slot="start" *ngIf="scrollYPosition > 10">Discover</ion-title>
+    <!-- <ion-title class="largeTopicText " slot="start">Discover</ion-title> -->
 
     <ion-buttons slot="primary">
       <ion-button routerLink="/podcast">
@@ -65,14 +65,13 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar *ngIf="scrollYPosition == 0">
-    <ion-title class="largeTopicText ">Discover</ion-title>
-  </ion-toolbar>
 </ion-header>
+
+
+
 
 <ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
   (ionScrollEnd)="logScrollEnd()">
-
   <ion-list>
     <ion-item-group *ngFor="let post of filteredFeed">
       <ion-item lines="none">
@@ -93,43 +92,31 @@
 
       <!-- add media to slide -->
       <ion-slides pager="true" [options]="slideOpts">
-        <ion-slide>
-          <img
-            src="https://images.pexels.com/photos/3278763/pexels-photo-3278763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-        </ion-slide>
-        <ion-slide>
-          <!-- autoplay when in viewport -->
-          <video class="player" (click)="play()" controls="false">
-            <source
-              src="https://vod-progressive.akamaized.net/exp=1595308216~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4819%2F16%2F424099997%2F1835640002.mp4~hmac=b58ca0633a070e94488b36b5167c4e033f52e767c1dc7de3acf11af8889f5ed0/vimeo-prod-skyfire-std-us/01/4819/16/424099997/1835640002.mp4">
+        <ion-slide *ngFor="let media of post.mediaList">
+          <img [src]="media.url" *ngIf="media.type =='image'">
+          <video class="player" (click)="play()" controls="false" *ngIf="media.type =='video'">
+            <source [src]="media.url">
           </video>
         </ion-slide>
       </ion-slides>
       <!-- comments and stats -->
       <ion-item class="cta_Start">
         <ion-buttons>
-          <ion-button>
-            <ion-icon name="heart-outline"></ion-icon> 1234
+          <ion-button (click)="onLike(post.id)">
+            <ion-icon name="heart-outline"></ion-icon>
           </ion-button>
 
-          <ion-button [routerLink]="['/', 'feeditem', 'id']">
+          <ion-button [routerLink]="['/', 'feeditem', post.id]">
             <ion-icon name="chatbox-outline"></ion-icon> 1234
-          </ion-button>
-
-          <ion-button>
-            <ion-icon name="share-social-outline"></ion-icon> 1234
           </ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
           <ion-button slot="primary" routerLink="/community">
-            TECH<ion-icon name="return-up-forward-outline"></ion-icon>
+            {{post.community}}<ion-icon name="return-up-forward-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-item>
     </ion-item-group>
-
-
-
   </ion-list>
 </ion-content>

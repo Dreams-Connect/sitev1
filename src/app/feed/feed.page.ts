@@ -1,8 +1,8 @@
 import { SharedService } from './../services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import videojs from 'video.js';
 import { Subscription } from 'rxjs';
-import { Post } from '../model/post';
+import { Post, likesCounter } from '../model/post';
 import { PostService } from '../services/community/post.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { PostService } from '../services/community/post.service';
   templateUrl: './feed.page.html',
   styleUrls: ['./feed.page.scss'],
 })
-export class FeedPage implements OnInit {
+export class FeedPage implements OnInit, OnDestroy {
   constructor(private postService: PostService,
     private sharedService: SharedService
   ) { }
@@ -32,7 +32,15 @@ export class FeedPage implements OnInit {
   currentUserSub: Subscription;
   userCommunities: any[] = [];
 
+  likesCounterSub: Subscription;
+  likes: likesCounter[] = [];
+
   ngOnInit() {
+    // fetch likes
+    this.likesCounterSub = this.postService.fetchPostLikes().subscribe(likes => {
+      this.likes = likes;
+      console.log(this.likes)
+    })
     // get community feed
     this.sharedService.fetchUser();
     // get user communities
@@ -46,7 +54,7 @@ export class FeedPage implements OnInit {
         communities.filter(community => {
           this.feedList.push(community)
         })
-        
+
         // filter list
         this.feedList = this.feedList.filter(feed => {
           feed.posts.filter(item => {
@@ -82,6 +90,7 @@ export class FeedPage implements OnInit {
 
   logScrolling(event) {
     this.scrollYPosition = event.detail.scrollTop;
+    console.log(this.scrollYPosition)
   }
 
   logScrollEnd() { }
@@ -89,4 +98,16 @@ export class FeedPage implements OnInit {
   play() {
     this.player.play();
   }
+
+
+  onLike(postid) {
+    this.postService.onPostLike(postid)
+  }
+
+  fetch
+
+  ngOnDestroy(): void {
+    this.likesCounterSub.unsubscribe();
+  }
+
 }

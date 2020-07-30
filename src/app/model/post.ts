@@ -13,3 +13,28 @@ export class Post {
     }
 }
 
+export class Comment {
+    constructor(
+        public id: string,
+        public userUID: string,
+        public name: string,
+        public photoURL: any,
+        public comment: string,
+        public community: string,
+        public postID: string,
+        public likes: number
+    ) {
+
+    }
+}
+
+export class likesCounter {
+    constructor(
+        public postId:string,
+        public userUID: string,
+        public likes: number
+    ) {
+
+    }
+}
+

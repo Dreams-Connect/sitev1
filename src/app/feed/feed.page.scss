@@ -77,14 +77,15 @@ ion-item-group {
 }
 
 ion-slide {
+    height: auto;
     img,
     video {
         width: 100%;
-        max-height: 490px;
+        // max-height: 490px;
         object-fit: cover;
     }
 }
 
 ion-slides {
-    background: rgba(221, 221, 221, 0.867);
+    // background: rgba(221, 221, 221, 0.867);
 }

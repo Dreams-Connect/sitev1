@@ -15,10 +15,11 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { LikesPipe } from './pipes/likes.pipe';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LikesPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(),
     AppRoutingModule,
