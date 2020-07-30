@@ -103,7 +103,7 @@
       <ion-item class="cta_Start">
         <ion-buttons>
           <ion-button (click)="onLike(post.id)">
-            <ion-icon name="heart-outline"></ion-icon>
+            <ion-icon name="heart-outline"></ion-icon>{{post.id | likes}}
           </ion-button>
 
           <ion-button [routerLink]="['/', 'feeditem', post.id]">

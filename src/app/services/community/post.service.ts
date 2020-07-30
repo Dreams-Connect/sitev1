@@ -26,6 +26,9 @@ export class PostService implements OnDestroy {
       this.currentUser = user
     })
     this.sharedService.fetchUser();
+
+
+    this.fetchPostLikes();
   }
 
   ngOnDestroy(): void {
@@ -181,18 +184,29 @@ export class PostService implements OnDestroy {
         postId: postid,
         userUID: localStorage.getItem('dcUserUID'),
         likes: firebase.firestore.FieldValue.increment(1)
+      }).then(res => {
+       
       })
     })
+
   }
 
+  communitylikesCounterSubject = new Subject<likesCounter[]>();
+  communitylikesCounter: likesCounter[] = [];
 
-  // fetch post Likes
+  // fetch all post Likes
   fetchPostLikes() {
-    return this.afs.collection<likesCounter>('likesCounter').valueChanges();
+    this.afs.collection<any>('likesCounter').valueChanges().subscribe(
+      commLikes => {
+        this.communitylikesCounter = commLikes;
+        this.communitylikesCounterSubject.next(this.communitylikesCounter)
+      }
+    );
   }
 
-
-
+  getPostLikes(id) {
+    return this.communitylikesCounter.filter(e => e.postId === id)
+  }
 
 
 

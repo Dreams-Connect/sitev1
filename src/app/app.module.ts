@@ -19,7 +19,7 @@ import { LikesPipe } from './pipes/likes.pipe';
 
 
 @NgModule({
-  declarations: [AppComponent, LikesPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(),
     AppRoutingModule,

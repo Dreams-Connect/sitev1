@@ -10,7 +10,7 @@ import { PostService } from '../services/community/post.service';
   templateUrl: './feed.page.html',
   styleUrls: ['./feed.page.scss'],
 })
-export class FeedPage implements OnInit, OnDestroy {
+export class FeedPage implements OnInit {
   constructor(private postService: PostService,
     private sharedService: SharedService
   ) { }
@@ -32,15 +32,7 @@ export class FeedPage implements OnInit, OnDestroy {
   currentUserSub: Subscription;
   userCommunities: any[] = [];
 
-  likesCounterSub: Subscription;
-  likes: likesCounter[] = [];
-
   ngOnInit() {
-    // fetch likes
-    this.likesCounterSub = this.postService.fetchPostLikes().subscribe(likes => {
-      this.likes = likes;
-      console.log(this.likes)
-    })
     // get community feed
     this.sharedService.fetchUser();
     // get user communities
@@ -64,7 +56,6 @@ export class FeedPage implements OnInit, OnDestroy {
       }
     )
 
-
     /// auto play video on interception
     this.scrollObserver = new IntersectionObserver(entries => {
       this.player = videojs(entries[0].target, { preload: "auto", controls: false, fill: true })
@@ -85,12 +76,11 @@ export class FeedPage implements OnInit, OnDestroy {
     }
   }
 
-
   logScrollStart() { }
 
   logScrolling(event) {
     this.scrollYPosition = event.detail.scrollTop;
-    console.log(this.scrollYPosition)
+    //console.log(this.scrollYPosition)
   }
 
   logScrollEnd() { }
@@ -99,15 +89,7 @@ export class FeedPage implements OnInit, OnDestroy {
     this.player.play();
   }
 
-
   onLike(postid) {
     this.postService.onPostLike(postid)
   }
-
-  fetch
-
-  ngOnDestroy(): void {
-    this.likesCounterSub.unsubscribe();
-  }
-
 }
