@@ -50,9 +50,16 @@ export class FeedPage implements OnInit {
         // filter list
         this.feedList = this.feedList.filter(feed => {
           feed.posts.filter(item => {
-            this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : ''
+            this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
+
+            // append 
           })
         })
+
+        // sort list by post time
+        this.filteredFeed.sort((a, b) => {
+          return b.createdAt - a.createdAt
+        });
       }
     )
 

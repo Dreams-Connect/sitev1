@@ -21,15 +21,19 @@ export class PostService implements OnDestroy {
     private router: Router,
     private sharedService: SharedService
   ) {
-
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.currentUser = user
     })
     this.sharedService.fetchUser();
 
-
     this.fetchPostLikes();
+
+    // fetch post likes counter
+    this.fetchLikesCounters();
   }
+
+  postLikesSubject = new Subject<any>();
+  postLikes: any[] = [];
 
   ngOnDestroy(): void {
     this.currentUserSub.unsubscribe();
@@ -173,21 +177,90 @@ export class PostService implements OnDestroy {
     })
   }
 
+  fetchLikesCounters() {
+    this.afs.collection('likesCounter').valueChanges().subscribe(postLikes => {
+      this.postLikes = postLikes;
+      this.postLikesSubject.next(this.postLikes);
+
+      console.log(this.postLikes)
+    })
+  }
+
+  // like post
+  // toggle post like
+  likesSub = new Subject<any>();
+  postIsLiked = false;
+
+  // check if user liked the post
+  isPostLike(postid, userUID) {
+    this.postLikesSubject.next(this.postLikes);
+    var resp;
+    this.postLikes.forEach(posts => {
+      if (posts.userUID.includes(userUID)) {
+        resp = true
+        return true;
+      }
+      else {
+        resp = false
+        return false
+      }
+    })
+    return resp;
+  }
+
+
+  // check if post exist
+  postExitSub = new Subject<any>();
+  postExit = false;
+
+  isPostExist(postid) {
+    this.postLikesSubject.next(this.postLikes);
+    var resp;
+    this.postLikes.forEach(posts => {
+      console.log(posts)
+      if (posts.postId == postid) {
+        resp = true
+        return true;
+      }
+      else {
+        resp = false
+        return false
+      }
+    })
+    return resp;
+  }
+
   // like post
   onPostLike(postid) {
-    this.afs.collection('likesCounter').doc(postid).update({
-      postId: postid,
-      userUID: localStorage.getItem('dcUserUID'),
-      likes: firebase.firestore.FieldValue.increment(1)
-    }).catch(err => {
+    // post exist
+    if (this.isPostExist(postid) === true) {
+      // check if user already like post
+      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) === true) {
+        console.log('has liked')
+        this.afs.collection('likesCounter').doc(postid).update({
+          likes: firebase.firestore.FieldValue.increment(-1),
+          userUID: firebase.firestore.FieldValue.arrayRemove(localStorage.getItem('dcUserUID'))
+        })
+      }
+      // user has not liked post
+      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) === false) {
+        console.log('not liked')
+        this.afs.collection('likesCounter').doc(postid).update({
+          likes: firebase.firestore.FieldValue.increment(1),
+          userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
+        })
+      }
+    }
+    // post does not exist
+    if (this.isPostExist(postid) === false) {
+      console.log('Post does not exit')
       this.afs.collection('likesCounter').doc(postid).set({
         postId: postid,
-        userUID: localStorage.getItem('dcUserUID'),
-        likes: firebase.firestore.FieldValue.increment(1)
-      }).then(res => {
-       
+        likes: firebase.firestore.FieldValue.increment(1),
+        userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
       })
-    })
+    }
+
 
   }
 
@@ -207,13 +280,6 @@ export class PostService implements OnDestroy {
   getPostLikes(id) {
     return this.communitylikesCounter.filter(e => e.postId === id)
   }
-
-
-
-
-
-
-
 
   // post toast controller
   async postToast() {
