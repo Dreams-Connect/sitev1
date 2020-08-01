@@ -103,11 +103,11 @@
       <ion-item class="cta_Start">
         <ion-buttons>
           <ion-button (click)="onLike(post.id)">
-            <ion-icon name="heart-outline"></ion-icon>{{post.id | likes}}
+            <ion-icon name="heart-outline"></ion-icon>{{post.likes}}
           </ion-button>
 
           <ion-button [routerLink]="['/', 'feeditem', post.id]">
-            <ion-icon name="chatbox-outline"></ion-icon> 1234
+            <ion-icon name="chatbox-outline"></ion-icon> {{post.comments}}
           </ion-button>
         </ion-buttons>
 

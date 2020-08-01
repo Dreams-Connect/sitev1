@@ -2,7 +2,7 @@ import { SharedService } from './../services/shared.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import videojs from 'video.js';
 import { Subscription } from 'rxjs';
-import { Post, likesCounter } from '../model/post';
+import { Post, likesCounter, FeedPost } from '../model/post';
 import { PostService } from '../services/community/post.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class FeedPage implements OnInit {
   // user feeds
   userFeedsSub: Subscription;
   feedList: any[] = [];
-  filteredFeed: Post[] = [];
+  filteredFeed: FeedPost[] = [];
 
   currentUserSub: Subscription;
   userCommunities: any[] = [];
@@ -50,9 +50,8 @@ export class FeedPage implements OnInit {
         // filter list
         this.feedList = this.feedList.filter(feed => {
           feed.posts.filter(item => {
-            this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
 
-            // append 
+            this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
           })
         })
 
@@ -60,6 +59,14 @@ export class FeedPage implements OnInit {
         this.filteredFeed.sort((a, b) => {
           return b.createdAt - a.createdAt
         });
+
+        // append likes and comments
+        this.filteredFeed.map(feed => {
+          if (this.postService.getPost(feed.id)[0] != undefined) {
+            feed.likes = this.postService.getPost(feed.id)[0].likes
+            console.log(feed.likes.likes)
+          }
+        })
       }
     )
 

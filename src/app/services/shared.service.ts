@@ -14,20 +14,22 @@ export class SharedService {
 
   fetchUser() {
     const userID = localStorage.getItem('dcUserUID')
-    this.afs.collection<currentUser>('users').doc<currentUser>(userID).valueChanges().subscribe(
-      user => {
-        this.currentUser = new currentUser(
-          user.firstname,
-          user.lastname,
-          user.phone,
-          user.email,
-          user.usertype,
-          user.community,
-          user.companyname,
-          user.vision
-        )
-        this.currentUserSubject.next(this.currentUser)
-      }
-    )
+    if (userID != null || userID != undefined) {
+      this.afs.collection<currentUser>('users').doc<currentUser>(userID).valueChanges().subscribe(
+        user => {
+          this.currentUser = new currentUser(
+            user.firstname,
+            user.lastname,
+            user.phone,
+            user.email,
+            user.usertype,
+            user.community,
+            user.companyname,
+            user.vision
+          )
+          this.currentUserSubject.next(this.currentUser)
+        }
+      )
+    }
   }
 }
