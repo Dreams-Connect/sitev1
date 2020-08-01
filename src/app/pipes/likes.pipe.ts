@@ -16,23 +16,10 @@ export class LikesPipe implements PipeTransform, OnInit, OnDestroy {
 
   }
 
-  likesCounterSub: Subscription;
-  likes: likesCounter;
-  likesCount: number;
-
   transform(postid: string) {
-    // this.likes = this.postService.getPostLikes(postid)[0]
-    // if (this.likes != undefined) {
-    //   return this.likes.likes
-    // }
-    this.postService.fetchPostLikes();
-    this.likesCounterSub = this.postService.communitylikesCounterSubject.subscribe(commLikes => {
-      this.likesCount = commLikes.filter(likes => likes.postId === postid)[0].likes
-      console.log(this.likesCount)
-    })
   }
 
   ngOnDestroy(): void {
-    this.likesCounterSub.unsubscribe();
+   
   }
 }

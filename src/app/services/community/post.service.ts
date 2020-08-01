@@ -193,49 +193,56 @@ export class PostService implements OnDestroy {
 
   // check if user liked the post
   isPostLike(postid, userUID) {
-    this.postLikesSubject.next(this.postLikes);
-    var resp;
-    this.postLikes.forEach(posts => {
-      if (posts.userUID.includes(userUID)) {
-        resp = true
+    let post = this.getPost(postid)[0];
+    if (post != undefined) {
+      if (post.userUID.includes(userUID)) {
+        console.log(true)
         return true;
       }
       else {
-        resp = false
-        return false
+        console.log(false)
+        return false;
       }
-    })
-    return resp;
+    }
+    else {
+      console.log(false)
+      return false;
+    }
   }
 
-
+  // get post
+  getPost(postid) {
+    return { ...this.postLikes.filter(post => post.postId === postid) }
+  }
   // check if post exist
   postExitSub = new Subject<any>();
   postExit = false;
 
   isPostExist(postid) {
-    this.postLikesSubject.next(this.postLikes);
-    var resp;
-    this.postLikes.forEach(posts => {
-      console.log(posts)
-      if (posts.postId == postid) {
-        resp = true
+    let post = this.getPost(postid)[0];
+    if (post != undefined) {
+      if (post.postId == postid) {
+        console.log(true)
         return true;
       }
       else {
-        resp = false
-        return false
+        console.log(false)
+        return false;
       }
-    })
-    return resp;
+    }
+    else {
+      console.log(false)
+      return false;
+    }
   }
 
   // like post
   onPostLike(postid) {
     // post exist
-    if (this.isPostExist(postid) === true) {
+    if (this.isPostExist(postid) == true) {
+      console.log('post exit')
       // check if user already like post
-      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) === true) {
+      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) == true) {
         console.log('has liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(-1),
@@ -243,7 +250,7 @@ export class PostService implements OnDestroy {
         })
       }
       // user has not liked post
-      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) === false) {
+      if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) == false || this.isPostLike(postid, localStorage.getItem('dcUserUID')) == undefined) {
         console.log('not liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(1),
@@ -252,7 +259,7 @@ export class PostService implements OnDestroy {
       }
     }
     // post does not exist
-    if (this.isPostExist(postid) === false) {
+    if (this.isPostExist(postid) == undefined || this.isPostExist(postid) == false) {
       console.log('Post does not exit')
       this.afs.collection('likesCounter').doc(postid).set({
         postId: postid,
@@ -260,8 +267,6 @@ export class PostService implements OnDestroy {
         userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
       })
     }
-
-
   }
 
   communitylikesCounterSubject = new Subject<likesCounter[]>();
