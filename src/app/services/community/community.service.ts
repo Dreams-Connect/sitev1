@@ -26,6 +26,6 @@ export class CommunityService {
   }
 
   fetchCommunityFeed(community){
-    return this.afs.collection<any>('community').doc<any>(community).valueChanges();
+    return this.afs.collection<any>('post').doc<any>(community).valueChanges();
   }
 }

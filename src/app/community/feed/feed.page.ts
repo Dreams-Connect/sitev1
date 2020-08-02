@@ -5,6 +5,7 @@ import videojs from 'video.js';
 import { IonSlides, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FeedPost } from 'src/app/model/post';
+import { PostService } from 'src/app/services/community/post.service';
 
 @Component({
   selector: 'app-feed',
@@ -14,7 +15,8 @@ import { FeedPost } from 'src/app/model/post';
 export class FeedPage implements OnInit, OnDestroy {
   constructor(private elementRef: ElementRef, private acRoute: ActivatedRoute,
     private navCtrl: NavController,
-    private communityService: CommunityService
+    private communityService: CommunityService,
+    private postService: PostService,
   ) { }
 
   communityName;
@@ -44,7 +46,11 @@ export class FeedPage implements OnInit, OnDestroy {
   filteredFeed: FeedPost[] = []
   communityFeedSub: Subscription;
 
+  userUID;
+  likesSub: Subscription;
+
   ngOnInit() {
+    this.userUID = localStorage.getItem('dcUserUID')
     // get community name from route
     this.acRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {
@@ -54,17 +60,39 @@ export class FeedPage implements OnInit, OnDestroy {
       this.communityName = paramMap.get('id')
       console.log(this.communityName)
     });
-
-
   }
 
   ionViewWillEnter() {
     // fetch community feed
-    this.communityFeedSub = this.communityService.fetchCommunityFeed('TECHNOLOGY').subscribe(feeds => {
-      this.filteredFeed = feeds;
-      console.log(feeds)
-      console.log(this.communityName)
-    })
+    this.communityFeedSub = this.communityService.fetchCommunityFeed(this.communityName).subscribe(
+      post => {
+        this.filteredFeed = post.posts;
+
+        // sort list by post time
+        this.filteredFeed.sort((a, b) => {
+          return b.createdAt - a.createdAt
+        });
+
+        // append likes and comments
+        this.filteredFeed.map(feed => {
+          if (this.postService.getPost(feed.id)[0] != undefined) {
+            feed.likes = this.postService.getPost(feed.id)[0]
+            console.log(feed.likes.likes)
+          }
+        })
+      }
+    )
+
+       // append likes and comments
+       this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
+        this.filteredFeed.map(feed => {
+          if (this.postService.getPost(feed.id)[0] != undefined) {
+            feed.likes = this.postService.getPost(feed.id)[0]
+            console.log(feed.likes.likes)
+          }
+        })
+      })
+  
   }
 
 
@@ -137,9 +165,17 @@ export class FeedPage implements OnInit, OnDestroy {
 
   }
 
+  play() {
+    this.player.play();
+  }
 
+  onLike(postid) {
+    this.postService.onPostLike(postid)
+  }
 
   ngOnDestroy() {
+    this.communityFeedSub.unsubscribe();
+    this.likesSub.unsubscribe();
     // destroy player
     if (this.player) {
       this.player.dispose();

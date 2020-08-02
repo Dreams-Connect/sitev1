@@ -8,12 +8,15 @@ import { FeedPageRoutingModule } from './feed-routing.module';
 
 import { FeedPage } from './feed.page';
 
+import { MomentModule } from 'ngx-moment';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FeedPageRoutingModule
+    FeedPageRoutingModule,
+    MomentModule
   ],
   declarations: [FeedPage]
 })
