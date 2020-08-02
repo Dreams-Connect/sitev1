@@ -1,7 +1,10 @@
+import { CommunityService } from './../../services/community/community.service';
+import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import videojs from 'video.js';
 import { IonSlides, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { FeedPost } from 'src/app/model/post';
 
 @Component({
   selector: 'app-feed',
@@ -10,7 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FeedPage implements OnInit, OnDestroy {
   constructor(private elementRef: ElementRef, private acRoute: ActivatedRoute,
-    private navCtrl: NavController,) { }
+    private navCtrl: NavController,
+    private communityService: CommunityService
+  ) { }
 
   communityName;
 
@@ -36,10 +41,10 @@ export class FeedPage implements OnInit, OnDestroy {
 
   segment = 0;
 
-  ngOnInit() {
-  }
+  filteredFeed: FeedPost[] = []
+  communityFeedSub: Subscription;
 
-  ionViewWillEnter() {
+  ngOnInit() {
     // get community name from route
     this.acRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('id')) {
@@ -47,6 +52,18 @@ export class FeedPage implements OnInit, OnDestroy {
         return;
       }
       this.communityName = paramMap.get('id')
+      console.log(this.communityName)
+    });
+
+
+  }
+
+  ionViewWillEnter() {
+    // fetch community feed
+    this.communityFeedSub = this.communityService.fetchCommunityFeed('TECHNOLOGY').subscribe(feeds => {
+      this.filteredFeed = feeds;
+      console.log(feeds)
+      console.log(this.communityName)
     })
   }
 

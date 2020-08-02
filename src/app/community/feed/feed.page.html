@@ -30,62 +30,64 @@
   <ion-slides #slides pager="false" [options]="sliderOptions" (ionSlideDidChange)="slidesChanged(slides)"
     class="sectionSlide" (ionSlidesDidLoad)="slidesChanged(slides)">
     <ion-slide class="innerSlider">
+
       <ion-list>
-        <ion-item-group>
+        <ion-item-group *ngFor="let post of filteredFeed">
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <img
-                src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+              <img [src]="post.photoURL">
             </ion-avatar>
             <ion-label>
-              <h2>Ebom Vuxbom</h2>
-              <p>5 hours ago</p>
+              <h2>{{post.name}}</h2>
+              <p>{{post.createdAt | amTimeAgo}}</p>
             </ion-label> <br>
           </ion-item>
           <!-- Text placed here-->
           <ion-item>
             <ion-label>
-              <p>Thanks again to the team at IFFZA - International Free Fun Zone Authority - for keeping all of our
-                clients
-                so happy. Top work from a great authority.</p>
+              <p>{{post.post}}</p>
             </ion-label>
           </ion-item>
 
           <!-- add media to slide -->
-          <ion-slides pager="true" [options]="slideOpts" class="mediaSlider" (ionSlidesDidLoad)="showMedia()">
-            <ion-slide>
-              <img
-                src="https://images.pexels.com/photos/3278763/pexels-photo-3278763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-            </ion-slide>
-
-            <ion-slide>
-              <!-- autoplay when in viewport -->
-              <video class="player" #player (click)="onPlay(player)" controls="false" type="video/mp4">
-                <source type="video/mp4" src="../../../assets/sample/video.mp4">
+          <ion-slides pager="true" [options]="slideOpts">
+            <ion-slide *ngFor="let media of post.mediaList">
+              <img [src]="media.url" *ngIf="media.type =='image'">
+              <video class="player" (click)="play()" controls="false" *ngIf="media.type =='video'">
+                <source [src]="media.url">
               </video>
             </ion-slide>
-
           </ion-slides>
-
           <!-- comments and stats -->
           <ion-item class="cta_Start">
             <ion-buttons>
-              <ion-button>
-                <ion-icon name="heart-outline"></ion-icon> 1234
+              <ion-button (click)="onLike(post.id)">
+                <ion-icon name="heart" [hidden]="post.likes.userUID.includes(userUID) === false"></ion-icon>
+                <ion-icon name="heart-outline" *ngIf="post.likes.userUID.includes(userUID) == false"></ion-icon>
+                {{post.likes.likes == 0 ? '' : post.likes.likes }}
               </ion-button>
 
-              <ion-button [routerLink]="['/', 'feeditem', 'id']">
-                <ion-icon name="chatbox-outline"></ion-icon> 1234
+              <ion-button [routerLink]="['/', 'feeditem', post.id]">
+                <ion-icon name="chatbox-outline"></ion-icon> {{post.comments}}
               </ion-button>
+            </ion-buttons>
 
-              <ion-button>
-                <ion-icon name="share-social-outline"></ion-icon> 1234
+            <ion-buttons slot="end">
+              <ion-button slot="primary" routerLink="/community">
+                {{post.community}}<ion-icon name="return-up-forward-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
           </ion-item>
         </ion-item-group>
       </ion-list>
+
     </ion-slide>
+
+
+
+
+
+
 
     <ion-slide class="innerSlider">
       <ion-list>
