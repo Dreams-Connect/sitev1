@@ -27,7 +27,6 @@ export class FeedPage implements OnInit, OnDestroy {
   @ViewChildren('player') videoPlayers: QueryList<any>;
   player: videojs.Player; //init player
 
-
   // slide options
   slideOpts = {
     speed: 400

@@ -5,7 +5,7 @@ import { PortalGuard } from './portal/auth/portal.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dc/feed',
     pathMatch: 'full'
   },
   {
@@ -67,7 +67,7 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
-    path: 'feeditem',
+    path: 'feeditem/:id',
     children: [
       {
         path: ':id',

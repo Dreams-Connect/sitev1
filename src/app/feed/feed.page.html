@@ -108,7 +108,7 @@
             {{post.likes.likes == 0 ? '' : post.likes.likes }}
           </ion-button>
 
-          <ion-button [routerLink]="['/', 'feeditem', post.id]">
+          <ion-button [routerLink]="['/', 'feeditem', post.community, post.id]">
             <ion-icon name="chatbox-outline"></ion-icon> {{post.comments}}
           </ion-button>
         </ion-buttons>

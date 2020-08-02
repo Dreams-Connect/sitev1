@@ -1,3 +1,4 @@
+import { SharedService } from './../../services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import videojs from 'video.js';
 
@@ -10,9 +11,13 @@ export class FeeditemPage implements OnInit {
   constructor() { }
 
   player: videojs.Player; //init player
-  ngOnInit() {
-  }
 
+  ngOnInit() {
+
+  }
+  ionViewWillEnter(){
+    // get all 
+  }
 
   onplay() {
     this.player = videojs(document.querySelector('video'), { preload: "auto", controls: false, fill: true })

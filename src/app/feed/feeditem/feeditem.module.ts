@@ -8,13 +8,16 @@ import { FeeditemPageRoutingModule } from './feeditem-routing.module';
 
 import { FeeditemPage } from './feeditem.page';
 
+import { MomentModule } from 'ngx-moment';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FeeditemPageRoutingModule
+    FeeditemPageRoutingModule,
+    MomentModule
   ],
   declarations: [FeeditemPage]
 })
-export class FeeditemPageModule {}
+export class FeeditemPageModule { }
