@@ -10,7 +10,7 @@ import { PostService } from '../services/community/post.service';
   templateUrl: './feed.page.html',
   styleUrls: ['./feed.page.scss'],
 })
-export class FeedPage implements OnInit {
+export class FeedPage implements OnInit, OnDestroy {
   constructor(private postService: PostService,
     private sharedService: SharedService
   ) { }
@@ -24,6 +24,8 @@ export class FeedPage implements OnInit {
     speed: 400
   };
 
+  userUID;
+
   // user feeds
   userFeedsSub: Subscription;
   feedList: any[] = [];
@@ -32,14 +34,17 @@ export class FeedPage implements OnInit {
   currentUserSub: Subscription;
   userCommunities: any[] = [];
 
+  likesSub: Subscription;
+
   ngOnInit() {
+    // get user uid
+    this.userUID = localStorage.getItem('dcUserUID')
     // get community feed
     this.sharedService.fetchUser();
     // get user communities
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.userCommunities = user.community
     })
-
     // get community feed
     this.userFeedsSub = this.postService.fetchUserFeeds().subscribe(
       communities => {
@@ -50,8 +55,15 @@ export class FeedPage implements OnInit {
         // filter list
         this.feedList = this.feedList.filter(feed => {
           feed.posts.filter(item => {
-
             this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
+          })
+
+          // append likes and comments
+          this.filteredFeed.map(feed => {
+            if (this.postService.getPost(feed.id)[0] != undefined) {
+              feed.likes = this.postService.getPost(feed.id)[0]
+              console.log(feed.likes.likes)
+            }
           })
         })
 
@@ -59,16 +71,19 @@ export class FeedPage implements OnInit {
         this.filteredFeed.sort((a, b) => {
           return b.createdAt - a.createdAt
         });
-
-        // append likes and comments
-        this.filteredFeed.map(feed => {
-          if (this.postService.getPost(feed.id)[0] != undefined) {
-            feed.likes = this.postService.getPost(feed.id)[0].likes
-            console.log(feed.likes.likes)
-          }
-        })
       }
     )
+
+    // append likes and comments
+    this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
+      this.filteredFeed.map(feed => {
+        if (this.postService.getPost(feed.id)[0] != undefined) {
+          feed.likes = this.postService.getPost(feed.id)[0]
+          console.log(feed.likes.likes)
+        }
+      })
+    })
+
 
     /// auto play video on interception
     this.scrollObserver = new IntersectionObserver(entries => {
@@ -106,4 +121,12 @@ export class FeedPage implements OnInit {
   onLike(postid) {
     this.postService.onPostLike(postid)
   }
+
+  ngOnDestroy(): void {
+    this.likesSub.unsubscribe();
+    this.scrollObserver.disconnect();
+    this.userFeedsSub.unsubscribe();
+    this.currentUserSub.unsubscribe();
+  }
+
 }

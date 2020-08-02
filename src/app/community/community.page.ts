@@ -54,5 +54,4 @@ export class CommunityPage implements OnInit, OnDestroy {
   onAddCommunity(community) {
     this.communityService.addCommunity(community)
   }
-
 }

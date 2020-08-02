@@ -214,6 +214,13 @@ export class PostService implements OnDestroy {
   getPost(postid) {
     return { ...this.postLikes.filter(post => post.postId === postid) }
   }
+
+  // likes changes
+  onLikesChanges() {
+    return this.afs.collection('likesCounter').valueChanges();
+  }
+
+
   // check if post exist
   postExitSub = new Subject<any>();
   postExit = false;
