@@ -28,4 +28,8 @@ export class CommunityService {
   fetchCommunityFeed(community){
     return this.afs.collection<any>('post').doc<any>(community).valueChanges();
   }
+
+  fetchPost(community){
+    return this.afs.collection('post').doc<any>(community).valueChanges();
+  }
 }

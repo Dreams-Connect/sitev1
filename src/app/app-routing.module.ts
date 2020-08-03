@@ -67,7 +67,7 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
-    path: 'feeditem/:id',
+    path: 'feeditem/:id:id',
     children: [
       {
         path: ':id',

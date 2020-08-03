@@ -4,6 +4,7 @@ import videojs from 'video.js';
 import { Subscription } from 'rxjs';
 import { Post, likesCounter, FeedPost } from '../model/post';
 import { PostService } from '../services/community/post.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feed',
@@ -24,7 +25,7 @@ export class FeedPage implements OnInit, OnDestroy {
     speed: 400
   };
 
-  userUID;
+  userUID: any;
 
   // user feeds
   userFeedsSub: Subscription;
@@ -46,40 +47,47 @@ export class FeedPage implements OnInit, OnDestroy {
       this.userCommunities = user.community
     })
     // get community feed
-    this.userFeedsSub = this.postService.fetchUserFeeds().subscribe(
-      communities => {
-        communities.filter(community => {
-          this.feedList.push(community)
-        })
-
-        // filter list
-        this.feedList = this.feedList.filter(feed => {
-          feed.posts.filter(item => {
-            this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
+    this.userFeedsSub = this.postService.fetchUserFeeds()
+      .pipe(take(1))
+      .subscribe(
+        communities => {
+          communities.filter(community => {
+            console.log(communities)
+            this.feedList.push(community.posts)
+            console.log(this.feedList)
           })
 
-          // append likes and comments
-          this.filteredFeed.map(feed => {
-            if (this.postService.getPost(feed.id)[0] != undefined) {
-              feed.likes = this.postService.getPost(feed.id)[0]
-              console.log(feed.likes.likes)
-            }
-          })
-        })
+          // filter list
+          this.feedList = this.feedList.filter(feed => {
+            feed.filter(item => {
+              // this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
+              if (this.userCommunities.includes(item.community)) {
+                this.filteredFeed.push(item)
+              }
+            })
 
-        // sort list by post time
-        this.filteredFeed.sort((a, b) => {
-          return b.createdAt - a.createdAt
-        });
-      }
-    )
+            // append likes and comments
+            this.filteredFeed.map(feed => {
+              if (this.postService.getPost(feed.id)[0] != undefined) {
+                feed.likes = this.postService.getPost(feed.id)[0]
+                console.log(feed.likes.likes)
+              }
+            })
+          })
+
+          // sort list by post time
+          this.filteredFeed.sort((a, b) => {
+            return b.createdAt - a.createdAt
+          });
+        }
+      )
 
     // append likes and comments
     this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
       this.filteredFeed.map(feed => {
         if (this.postService.getPost(feed.id)[0] != undefined) {
           feed.likes = this.postService.getPost(feed.id)[0]
-          console.log(feed.likes.likes)
+          // console.log(feed.likes.likes)
         }
       })
     })

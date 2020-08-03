@@ -57,9 +57,6 @@ export class PostService implements OnDestroy {
         let file = mediaList[i].file;
         let filePath = `${mediaList[i].type}/${id}`  // seperate path for audio & video
 
-        // console.log(filePath)
-        // console.log(file)
-
         let fileRef = this.afstorage.ref(filePath);
 
         // upload files
@@ -80,14 +77,14 @@ export class PostService implements OnDestroy {
                   'url': url,
                   'type': mediaList[i].type
                 })
-                console.log(mediaFiles)
+              //  console.log(mediaFiles)
                 if (mediaFiles.length === mediaList.length) {
                   let userUID = localStorage.getItem('dcUserUID');
                   let id = this.afs.createId(); // generate id
                   const newPost = {
                     id: id,
                     userUID: userUID,
-                    name: this.currentUser.firstname + ' ' + this.currentUser.lastname,
+                    name: this.currentUser.firstname + '' + this.currentUser.lastname,
                     photoURL: '',
                     post: form.post,
                     community: community,
@@ -163,7 +160,7 @@ export class PostService implements OnDestroy {
 
   fetchUserFeeds() {
     // user uid
-    const userUID = localStorage.getItem('dcUserUID');
+  //  const userUID = localStorage.getItem('dcUserUID');
     // fetch post
     return this.afs.collection<any>('post').valueChanges();
   }
@@ -173,7 +170,6 @@ export class PostService implements OnDestroy {
     // get post deep in community
     // merge the comment array with new comment
     this.afs.collection('post').doc(community).update({
-
     })
   }
 
@@ -181,8 +177,6 @@ export class PostService implements OnDestroy {
     this.afs.collection('likesCounter').valueChanges().subscribe(postLikes => {
       this.postLikes = postLikes;
       this.postLikesSubject.next(this.postLikes);
-
-      console.log(this.postLikes)
     })
   }
 
@@ -196,16 +190,16 @@ export class PostService implements OnDestroy {
     let post = this.getPost(postid)[0];
     if (post != undefined) {
       if (post.userUID.includes(userUID)) {
-        console.log(true)
+        // console.log(true)
         return true;
       }
       else {
-        console.log(false)
+        //  console.log(false)
         return false;
       }
     }
     else {
-      console.log(false)
+      // console.log(false)
       return false;
     }
   }
@@ -217,9 +211,8 @@ export class PostService implements OnDestroy {
 
   // likes changes
   onLikesChanges() {
-    return this.afs.collection('likesCounter').valueChanges();
+    return this.afs.collection<any>('likesCounter').valueChanges();
   }
-
 
   // check if post exist
   postExitSub = new Subject<any>();
@@ -229,16 +222,16 @@ export class PostService implements OnDestroy {
     let post = this.getPost(postid)[0];
     if (post != undefined) {
       if (post.postId == postid) {
-        console.log(true)
+        //  console.log(true)
         return true;
       }
       else {
-        console.log(false)
+        // console.log(false)
         return false;
       }
     }
     else {
-      console.log(false)
+      // console.log(false)
       return false;
     }
   }
@@ -247,10 +240,10 @@ export class PostService implements OnDestroy {
   onPostLike(postid) {
     // post exist
     if (this.isPostExist(postid) == true) {
-      console.log('post exit')
+      //  console.log('post exit')
       // check if user already like post
       if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) == true) {
-        console.log('has liked')
+        // console.log('has liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(-1),
           userUID: firebase.firestore.FieldValue.arrayRemove(localStorage.getItem('dcUserUID'))
@@ -258,7 +251,7 @@ export class PostService implements OnDestroy {
       }
       // user has not liked post
       if (this.isPostLike(postid, localStorage.getItem('dcUserUID')) == false || this.isPostLike(postid, localStorage.getItem('dcUserUID')) == undefined) {
-        console.log('not liked')
+        //  console.log('not liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(1),
           userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
@@ -267,7 +260,7 @@ export class PostService implements OnDestroy {
     }
     // post does not exist
     if (this.isPostExist(postid) == undefined || this.isPostExist(postid) == false) {
-      console.log('Post does not exit')
+   //   console.log('Post does not exit')
       this.afs.collection('likesCounter').doc(postid).set({
         postId: postid,
         likes: firebase.firestore.FieldValue.increment(1),

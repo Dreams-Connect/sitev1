@@ -57,11 +57,9 @@ export class FeedPage implements OnInit, OnDestroy {
         return;
       }
       this.communityName = paramMap.get('id')
-      console.log(this.communityName)
+     // console.log(this.communityName)
     });
-  }
 
-  ionViewWillEnter() {
     // fetch community feed
     this.communityFeedSub = this.communityService.fetchCommunityFeed(this.communityName).subscribe(
       post => {
@@ -76,7 +74,7 @@ export class FeedPage implements OnInit, OnDestroy {
         this.filteredFeed.map(feed => {
           if (this.postService.getPost(feed.id)[0] != undefined) {
             feed.likes = this.postService.getPost(feed.id)[0]
-            console.log(feed.likes.likes)
+          //  console.log(feed.likes.likes)
           }
         })
       }
@@ -87,12 +85,11 @@ export class FeedPage implements OnInit, OnDestroy {
         this.filteredFeed.map(feed => {
           if (this.postService.getPost(feed.id)[0] != undefined) {
             feed.likes = this.postService.getPost(feed.id)[0]
-            console.log(feed.likes.likes)
+            // console.log(feed.likes.likes)
           }
         })
       })
-  
-  }
+    }
 
 
   logScrollStart() { }

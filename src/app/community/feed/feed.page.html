@@ -43,7 +43,7 @@
             </ion-label> <br>
           </ion-item>
           <!-- Text placed here-->
-          <ion-item>
+          <ion-item *ngIf="post.post">
             <ion-label>
               <p>{{post.post}}</p>
             </ion-label>
@@ -62,12 +62,14 @@
           <ion-item class="cta_Start">
             <ion-buttons>
               <ion-button (click)="onLike(post.id)">
-                <ion-icon name="heart" [hidden]="post.likes.userUID.includes(userUID) === false"></ion-icon>
-                <ion-icon name="heart-outline" *ngIf="post.likes.userUID.includes(userUID) == false"></ion-icon>
-                {{post.likes.likes == 0 ? '' : post.likes.likes }}
+                <ion-icon name="heart" *ngIf="post.likes && post.likes.userUID.includes(userUID)"></ion-icon>
+                <ion-icon name="heart-outline"
+                  *ngIf="post.likes == undefined || post.likes.userUID.includes(userUID) == false"></ion-icon>
+
+                <ion-text *ngIf="post.likes"> {{post.likes.likes == 0 ? '' : post.likes.likes }}</ion-text>
               </ion-button>
 
-              <ion-button [routerLink]="['/', 'feeditem',post.community,post.id]">
+              <ion-button [routerLink]="['/', 'feeditem',post.community, post.id]">
                 <ion-icon name="chatbox-outline"></ion-icon> {{post.comments}}
               </ion-button>
             </ion-buttons>
