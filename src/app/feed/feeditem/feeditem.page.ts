@@ -1,7 +1,9 @@
-import { Post } from './../../model/post';
+import { PostService } from 'src/app/services/community/post.service';
+import { Subscription } from 'rxjs';
+import { Post, likesCounter } from './../../model/post';
 import { CommunityService } from './../../services/community/community.service';
 import { SharedService } from './../../services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import videojs from 'video.js';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,10 +12,17 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './feeditem.page.html',
   styleUrls: ['./feeditem.page.scss'],
 })
-export class FeeditemPage implements OnInit {
+export class FeeditemPage implements OnInit, OnDestroy {
   constructor(
     private acRoute: ActivatedRoute,
-    private communityService: CommunityService) { }
+    private communityService: CommunityService,
+    private postService: PostService) { }
+
+  // slide options
+  slideOpts = {
+    speed: 400
+  };
+  userUID;
 
   player: videojs.Player; //init player
 
@@ -22,7 +31,16 @@ export class FeeditemPage implements OnInit {
 
   post: Post;
 
-  ngOnInit() { }
+  likeCounterSub: Subscription;
+  commentSub: Subscription;
+
+  likes: likesCounter;
+  comments;
+
+  ngOnInit() {
+    // get user uid
+    this.userUID = localStorage.getItem('dcUserUID')
+  }
 
   ionViewWillEnter() {
     // get community name and post id from activated route
@@ -36,20 +54,42 @@ export class FeeditemPage implements OnInit {
       // get post 
       this.communityService.fetchPost(this.communityName).subscribe(
         community => {
-          console.log(community)
+          // console.log(community)
           this.post = { ...community.posts.filter(post => post.id == this.postID)[0] }
           console.log(this.post)
         }
       )
 
+      // get likes counter
+      this.likeCounterSub = this.postService.onLikesChanges().subscribe(changes => {
+        this.likes = this.postService.getPost(this.postID)[0]
+        console.log(this.postService.getPost(this.postID)[0])
+      })
+
+      // post comments
+      // get comments
+      // get comment counter
+
+
+
     })
+  }
 
+  onLike(postid) {
+    this.postService.onPostLike(postid)
+  }
 
-
+  play() {
+    this.player.play();
   }
 
   onplay() {
     this.player = videojs(document.querySelector('video'), { preload: "auto", controls: false, fill: true })
     this.player.play();
+  }
+
+  ngOnDestroy(): void {
+    this.likeCounterSub.unsubscribe();
+    this.commentSub.unsubscribe();
   }
 }
