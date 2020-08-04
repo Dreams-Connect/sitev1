@@ -68,17 +68,19 @@ export class FeeditemPage implements OnInit, OnDestroy {
         this.likes = this.postService.getPost(this.postID)[0]
         // console.log(this.postService.getPost(this.postID)[0])
       })
-
-
-      // fetch comments
-      this.commentSub = this.postService.fetctFeedItemComment(this.postID).subscribe(
-        comments => {
-          this.comments = comments.comments;
-          this.comments.sort((a:any, b:any) => {
-            return b.createdAt - a.createdAt
-          })
-        })
     })
+
+    // fetch comments
+    this.commentSub = this.postService.fetctFeedItemComment(this.postID).subscribe(
+      comments => {
+        if (comments != undefined) {
+          this.comments = comments.comments;
+        }
+        
+        this.comments.sort((a: any, b: any) => {
+          return b.createdAt - a.createdAt
+        })
+      })
   }
 
   onLike(postid) {
@@ -95,7 +97,8 @@ export class FeeditemPage implements OnInit, OnDestroy {
   }
 
   onComment(postid) {
-    this.postService.postComment(this.communityName, postid, this.userComment)
+    this.postService.postComment(this.communityName, postid, this.userComment);
+    this.userComment = ''
   }
 
   ngOnDestroy(): void {
