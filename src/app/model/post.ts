@@ -27,20 +27,19 @@ export class FeedPost {
         public likes: any,
         public comments: number,
     ) {
-
     }
 }
 
-export class Comment {
+export class Comments {
     constructor(
-        public id: string,
+        public commentId: any,
         public userUID: string,
-        public name: string,
         public photoURL: any,
-        public comment: string,
-        public community: string,
+        public name: string,
+        public comment: any,
+        public createdAt: string,
         public postID: string,
-        public likes: number
+        public community: string,
     ) {
 
     }

@@ -1,6 +1,6 @@
 import { PostService } from 'src/app/services/community/post.service';
 import { Subscription } from 'rxjs';
-import { Post, likesCounter } from './../../model/post';
+import { Post, likesCounter, Comments } from './../../model/post';
 import { CommunityService } from './../../services/community/community.service';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -35,11 +35,14 @@ export class FeeditemPage implements OnInit, OnDestroy {
   commentSub: Subscription;
 
   likes: likesCounter;
-  comments;
+  comments: Comments[] = [];
+
+
+  userComment = '';
 
   ngOnInit() {
     // get user uid
-    this.userUID = localStorage.getItem('dcUserUID')
+    this.userUID = localStorage.getItem('dcUserUID');
   }
 
   ionViewWillEnter() {
@@ -56,22 +59,25 @@ export class FeeditemPage implements OnInit, OnDestroy {
         community => {
           // console.log(community)
           this.post = { ...community.posts.filter(post => post.id == this.postID)[0] }
-          console.log(this.post)
+          // console.log(this.post)
         }
       )
 
       // get likes counter
       this.likeCounterSub = this.postService.onLikesChanges().subscribe(changes => {
         this.likes = this.postService.getPost(this.postID)[0]
-        console.log(this.postService.getPost(this.postID)[0])
+        // console.log(this.postService.getPost(this.postID)[0])
       })
 
-      // post comments
-      // get comments
-      // get comment counter
 
-
-
+      // fetch comments
+      this.commentSub = this.postService.fetctFeedItemComment(this.postID).subscribe(
+        comments => {
+          this.comments = comments.comments;
+          this.comments.sort((a:any, b:any) => {
+            return b.createdAt - a.createdAt
+          })
+        })
     })
   }
 
@@ -86,6 +92,10 @@ export class FeeditemPage implements OnInit, OnDestroy {
   onplay() {
     this.player = videojs(document.querySelector('video'), { preload: "auto", controls: false, fill: true })
     this.player.play();
+  }
+
+  onComment(postid) {
+    this.postService.postComment(this.communityName, postid, this.userComment)
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,7 @@ import { SharedService } from './../shared.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Post, likesCounter } from 'src/app/model/post';
+import { Post, likesCounter, Comments } from 'src/app/model/post';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { finalize, take, map } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
@@ -77,7 +77,7 @@ export class PostService implements OnDestroy {
                   'url': url,
                   'type': mediaList[i].type
                 })
-              //  console.log(mediaFiles)
+                //  console.log(mediaFiles)
                 if (mediaFiles.length === mediaList.length) {
                   let userUID = localStorage.getItem('dcUserUID');
                   let id = this.afs.createId(); // generate id
@@ -160,19 +160,42 @@ export class PostService implements OnDestroy {
 
   fetchUserFeeds() {
     // user uid
-  //  const userUID = localStorage.getItem('dcUserUID');
+    //  const userUID = localStorage.getItem('dcUserUID');
     // fetch post
     return this.afs.collection<any>('post').valueChanges();
   }
 
   // comment on post
-  postComment(community, postId, comment, photoUrl, name) {
-    // get post deep in community
-    // merge the comment array with new comment
-    this.afs.collection('post').doc(community).update({
-    })
+  postComment(community, postId, comment) {
+    let newComment = {
+      commentId: this.afs.createId(),
+      userUID: localStorage.getItem('dcUserUID'),
+      photoURL: '',
+      name: this.currentUser.firstname + '  ' + this.currentUser.lastname,
+      comment: comment,
+      createdAt: Date.now(),
+      postID: postId,
+      community: community
+    }
+
+    this.afs.collection('comment').doc(postId).update({
+      comments: firebase.firestore.FieldValue.arrayUnion(newComment)
+    }).catch(
+      err => {
+        this.afs.collection('comment').doc(postId).set({
+          comments: firebase.firestore.FieldValue.arrayUnion(newComment)
+        })
+      }
+    )
+
   }
 
+  // fetch comments
+  fetctFeedItemComment(postId) {
+    return this.afs.collection<any>('comment').doc<any>(postId).valueChanges();
+  }
+
+  // fetch like counters
   fetchLikesCounters() {
     this.afs.collection('likesCounter').valueChanges().subscribe(postLikes => {
       this.postLikes = postLikes;
@@ -260,7 +283,7 @@ export class PostService implements OnDestroy {
     }
     // post does not exist
     if (this.isPostExist(postid) == undefined || this.isPostExist(postid) == false) {
-   //   console.log('Post does not exit')
+      //   console.log('Post does not exit')
       this.afs.collection('likesCounter').doc(postid).set({
         postId: postid,
         likes: firebase.firestore.FieldValue.increment(1),
