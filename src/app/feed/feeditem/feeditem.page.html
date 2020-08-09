@@ -4,13 +4,13 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-item>
+    <ion-item lines="none">
       <ion-avatar slot="start">
         <img
           src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
       </ion-avatar>
       <ion-label *ngIf="post">
-        <h2>{{post.name}}</h2>
+        <h2><strong>{{post.name}}</strong></h2>
         <p>{{post.createdAt | amTimeAgo}}</p>
       </ion-label> <br>
     </ion-item>
@@ -19,9 +19,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-group *ngIf="post">
+    <ion-item-group *ngIf="post" >
       <!-- Text placed here-->
-      <ion-item *ngIf="post.post">
+      <ion-item *ngIf="post.post" lines="none">
         <ion-label>
           <p>{{post.post}}</p>
         </ion-label>
@@ -68,23 +68,31 @@
 
       </ion-avatar>
       <ion-label>
-        <h2>{{comment.name}}</h2>
+        <h3><strong>{{comment.name}}</strong></h3>
         <!-- <p>{{comment.createdAt  | amTimeAgo}}</p> -->
         <h3>{{comment.comment}}</h3>
+        <ion-buttons class="feedItemComment">
+          <ion-button>
+            <ion-icon name="heart-outline"></ion-icon>
+          </ion-button>
+          <ion-button>
+            <ion-icon name="chatbox-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-label>
     </ion-item>
   </ion-list>
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-item>
-        <ion-input placeholder="Write a comment" [(ngModel)]="userComment"></ion-input>
-        <ion-buttons slot="end">
-          <ion-button (click)="onComment(post.id)" [disabled]="userComment==''">
-            <ion-icon name="send"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item>
+      <ion-input placeholder="Write a comment" [(ngModel)]="userComment"></ion-input>
+      <ion-buttons slot="end">
+        <ion-button (click)="onComment(post.id)" [disabled]="userComment==''">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
