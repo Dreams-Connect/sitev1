@@ -108,7 +108,8 @@
           </ion-button>
 
           <ion-button [routerLink]="['/', 'feeditem',post.community,  post.id]">
-            <ion-icon name="chatbox-outline"></ion-icon> {{post.comments}}
+            <ion-icon name="chatbox-outline"></ion-icon>
+            <ion-text *ngIf="post.comments">{{post.comments == 0 ? '' :post.comments}}</ion-text>
           </ion-button>
         </ion-buttons>
 

@@ -36,6 +36,7 @@ export class FeedPage implements OnInit, OnDestroy {
   userCommunities: any[] = [];
 
   likesSub: Subscription;
+  commentSub: Subscription;
 
   ngOnInit() {
     // get user uid
@@ -52,9 +53,9 @@ export class FeedPage implements OnInit, OnDestroy {
       .subscribe(
         communities => {
           communities.filter(community => {
-            console.log(communities)
+            //  console.log(communities)
             this.feedList.push(community.posts)
-            console.log(this.feedList)
+            //  console.log(this.feedList)
           })
 
           // filter list
@@ -70,7 +71,7 @@ export class FeedPage implements OnInit, OnDestroy {
             this.filteredFeed.map(feed => {
               if (this.postService.getPost(feed.id)[0] != undefined) {
                 feed.likes = this.postService.getPost(feed.id)[0]
-                console.log(feed.likes.likes)
+                //  console.log(feed.likes.likes)
               }
             })
           })
@@ -82,7 +83,7 @@ export class FeedPage implements OnInit, OnDestroy {
         }
       )
 
-    // append likes and comments
+    // append likes
     this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
       this.filteredFeed.map(feed => {
         if (this.postService.getPost(feed.id)[0] != undefined) {
@@ -90,7 +91,20 @@ export class FeedPage implements OnInit, OnDestroy {
           // console.log(feed.likes.likes)
         }
       })
-    })
+    });
+
+    // append comment counter
+    this.commentSub = this.postService.onCommentChanges().subscribe(changes => {
+      this.filteredFeed.map(feed => {
+        this.postService.getCommentCount(feed.id).subscribe(
+          comment => {
+            if (comment != undefined && comment.comments.length != undefined) {
+              feed.comments = comment.comments.length
+            }
+          }
+        )
+      })
+    });
 
 
     /// auto play video on interception
@@ -132,6 +146,7 @@ export class FeedPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.likesSub.unsubscribe();
+    this.commentSub.unsubscribe();
     this.scrollObserver.disconnect();
     this.userFeedsSub.unsubscribe();
     this.currentUserSub.unsubscribe();

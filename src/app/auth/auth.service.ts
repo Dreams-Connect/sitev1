@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,11 @@ export class AuthService {
     // check user login status
     localStorage.getItem('dcUser') != null ? this._userIsAuthenticated = true : this._userIsAuthenticated = false;
     this.authenticationSubJect.next(this._userIsAuthenticated)
+
+    this.checkAuthState();
   }
+
+
 
   private userCollection: AngularFirestoreCollection<User>;
   _userIsAuthenticated = false;
@@ -37,6 +42,24 @@ export class AuthService {
 
   // spinner
   spinner = this.loadingController.create({ keyboardClose: true, message: 'One sec' })
+
+  // auto login
+  isLoggedIn() {
+    return this.auth.authState.pipe(first()).toPromise();
+  }
+
+  async checkAuthState() {
+    const user = await this.isLoggedIn()
+    if (user) {
+     
+    } else {
+      // not authenticated
+      // redirect to login
+      this.router.navigateByUrl('/login')
+      // create a way to remember user password
+      // change this to redirect to a page with user's username then prompt user to enter password
+    }
+  }
 
   async login_With_Email_Password(email, password) {
     (await this.spinner).present();

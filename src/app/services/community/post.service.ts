@@ -237,6 +237,15 @@ export class PostService implements OnDestroy {
     return this.afs.collection<any>('likesCounter').valueChanges();
   }
 
+  // likes changes
+  onCommentChanges() {
+    return this.afs.collection<any>('comment').valueChanges();
+  }
+
+  // get comment counter
+  getCommentCount(postid) {
+   return this.afs.collection<any>('comment').doc<any>(postid).valueChanges()
+  }
   // check if post exist
   postExitSub = new Subject<any>();
   postExit = false;
