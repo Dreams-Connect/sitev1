@@ -26,6 +26,18 @@ ion-header {
 
 ion-content {
     background: #ffffff;
+
+    ion-icon {
+        color: #000000;
+    }
+
+    ion-text {
+        color: #000000;
+    }
+
+    ion-button {
+        color: #000000;
+    }
 }
 
 .largeTopicText {
@@ -102,5 +114,10 @@ ion-footer {
 .feedItemComment {
     ion-icon {
         font-size: 15px;
+    }
+
+    ion-text {
+        font-size: 14px;
+        letter-spacing: -1px;
     }
 }

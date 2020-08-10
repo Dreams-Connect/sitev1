@@ -40,7 +40,10 @@ export class FeeditemPage implements OnInit, OnDestroy {
 
   userComment = '';
 
+  today;
+
   ngOnInit() {
+    this.today = new Date();
     // get user uid
     this.userUID = localStorage.getItem('dcUserUID');
   }

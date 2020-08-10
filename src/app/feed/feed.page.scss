@@ -1,4 +1,10 @@
 ion-header {
+    ion-buttons {
+        svg {
+            height: 24px;
+            width: 24px;
+        }
+    }
     ion-toolbar {
     }
     background: #ffffff;
@@ -26,6 +32,12 @@ ion-header {
 
 ion-content {
     background: #ffffff;
+
+    ion-button,
+    ion-text,
+    ion-icon {
+        color: #000000;
+    }
 }
 
 .largeTopicText {
@@ -77,7 +89,6 @@ ion-item-group {
 }
 
 ion-slide {
- 
     img,
     video {
         width: 100%;

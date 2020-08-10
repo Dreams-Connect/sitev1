@@ -11,7 +11,7 @@
       </ion-avatar>
       <ion-label *ngIf="post">
         <h2><strong>{{post.name}}</strong></h2>
-        <p>{{post.createdAt | amTimeAgo}}</p>
+        <p>{{post.createdAt | amTimeAgo:true | shorttimeage}}</p>
       </ion-label> <br>
     </ion-item>
   </ion-toolbar>
@@ -19,7 +19,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-group *ngIf="post" >
+    <ion-item-group *ngIf="post">
       <!-- Text placed here-->
       <ion-item *ngIf="post.post" lines="none">
         <ion-label>
@@ -72,6 +72,9 @@
         <!-- <p>{{comment.createdAt  | amTimeAgo}}</p> -->
         <h3>{{comment.comment}}</h3>
         <ion-buttons class="feedItemComment">
+          <ion-text>
+            {{comment.createdAt | amTimeAgo:true | shorttimeage}}
+          </ion-text>
           <ion-button>
             <ion-icon name="heart-outline"></ion-icon>
           </ion-button>

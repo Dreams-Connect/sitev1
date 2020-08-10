@@ -77,11 +77,11 @@
         </ion-avatar>
         <ion-label>
           <h2>{{post.name}}</h2>
-          <p>{{post.createdAt | amTimeAgo}}</p>
+          <p>{{post.createdAt | amTimeAgo:true | shorttimeage}}</p>
         </ion-label> <br>
       </ion-item>
       <!-- Text placed here-->
-      <ion-item *ngIf="post.post">
+      <ion-item *ngIf="post.post" lines="none">
         <ion-label>
           <p>{{post.post}}</p>
         </ion-label>
