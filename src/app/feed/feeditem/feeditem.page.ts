@@ -68,7 +68,6 @@ export class FeeditemPage implements OnInit, OnDestroy {
           this.post = { ...community.posts.filter(post => post.id == this.postID)[0] }
           // console.log(this.post)
           this.postPhotoURL = this.post.photoURL;
-          console.log(this.postPhotoURL)
         }
       )
 
