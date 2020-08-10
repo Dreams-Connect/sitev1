@@ -42,7 +42,11 @@ export class FeeditemPage implements OnInit, OnDestroy {
 
   today;
 
+  postPhotoURL='';
+
+
   ngOnInit() {
+
     this.today = new Date();
     // get user uid
     this.userUID = localStorage.getItem('dcUserUID');
@@ -63,6 +67,8 @@ export class FeeditemPage implements OnInit, OnDestroy {
           // console.log(community)
           this.post = { ...community.posts.filter(post => post.id == this.postID)[0] }
           // console.log(this.post)
+          this.postPhotoURL = this.post.photoURL;
+          console.log(this.postPhotoURL)
         }
       )
 
@@ -79,7 +85,7 @@ export class FeeditemPage implements OnInit, OnDestroy {
         if (comments != undefined) {
           this.comments = comments.comments;
         }
-        
+
         this.comments.sort((a: any, b: any) => {
           return b.createdAt - a.createdAt
         })

@@ -6,8 +6,7 @@
 
     <ion-item lines="none">
       <ion-avatar slot="start">
-        <img
-          src="https://images.pexels.com/photos/2937623/pexels-photo-2937623.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+        <img src="{{postPhotoURL == '' ? '../../../assets/icon/tempAvatar.png' : postPhotoURL}}">
       </ion-avatar>
       <ion-label *ngIf="post">
         <h2><strong>{{post.name}}</strong></h2>
@@ -64,8 +63,7 @@
     <!--- comments -->
     <ion-item *ngFor="let comment of comments">
       <ion-avatar slot="start">
-        <img [src]="comment.photoURL">
-
+        <img [src]="comment.photoURL == '' ? '../../../assets/icon/tempAvatar.png' : comment.photoURL">
       </ion-avatar>
       <ion-label>
         <h3><strong>{{comment.name}}</strong></h3>

@@ -187,7 +187,32 @@ export class PostService implements OnDestroy {
         })
       }
     )
+  }
 
+  // reply to comment on post
+  replypToComment(community, postId, comment, replyToUserName, replyToUserUID) {
+    let newComment = {
+      commentId: this.afs.createId(),
+      userUID: localStorage.getItem('dcUserUID'),
+      photoURL: '',
+      name: this.currentUser.firstname + '  ' + this.currentUser.lastname,
+      comment: comment,
+      createdAt: Date.now(),
+      postID: postId,
+      community: community,
+      replyToUserName: replyToUserUID,
+      replyToUserUID: replyToUserUID,
+    }
+
+    this.afs.collection('comment').doc(postId).update({
+      comments: firebase.firestore.FieldValue.arrayUnion(newComment)
+    }).catch(
+      err => {
+        this.afs.collection('comment').doc(postId).set({
+          comments: firebase.firestore.FieldValue.arrayUnion(newComment)
+        })
+      }
+    )
   }
 
   // fetch comments
@@ -244,7 +269,7 @@ export class PostService implements OnDestroy {
 
   // get comment counter
   getCommentCount(postid) {
-   return this.afs.collection<any>('comment').doc<any>(postid).valueChanges()
+    return this.afs.collection<any>('comment').doc<any>(postid).valueChanges()
   }
   // check if post exist
   postExitSub = new Subject<any>();

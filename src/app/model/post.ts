@@ -40,6 +40,8 @@ export class Comments {
         public createdAt: string,
         public postID: string,
         public community: string,
+        public replyToUserName:string,
+        public replyToUserUID: string,
     ) {
 
     }
