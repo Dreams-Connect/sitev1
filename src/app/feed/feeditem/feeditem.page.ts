@@ -99,11 +99,13 @@ export class FeeditemPage implements OnInit, OnDestroy {
         // fetch nested comment
         this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
           res => {
-            // console.log(res.comments)
             // filter nested comment for this comment
             this.comments.map(comment => {
               comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
-              //console.log(comment.nestedComments)
+              // sort
+              comment.nestedComments.sort((a, b) => {
+                return b.createdAt - a.createdAt
+              })
             })
           }
         )
@@ -112,11 +114,13 @@ export class FeeditemPage implements OnInit, OnDestroy {
     // fetch nested comment
     this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
       res => {
-        //  console.log(res.comments)
         // filter nested comment for this comment
         this.comments.map(comment => {
           comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
-          // console.log(comment.nestedComments)
+          // sort
+          comment.nestedComments.sort((a, b) => {
+            return b.createdAt - a.createdAt
+          })
         })
       }
     )

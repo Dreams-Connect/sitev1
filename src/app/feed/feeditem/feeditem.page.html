@@ -82,7 +82,7 @@
         </ion-buttons>
 
         <!-- nested comment -->
-        <ion-item *ngFor="let nestedComment of comment.nestedComments" lines="none">
+        <ion-item *ngFor="let nestedComment of comment.nestedComments" lines="none" class="nestedCommentItem">
           <ion-avatar slot="start">
             <img [src]="nestedComment.photoURL == '' ? '../../../assets/icon/tempAvatar.png' : nestedComment.photoURL">
           </ion-avatar>
@@ -98,8 +98,8 @@
                 <ion-icon name="heart-outline"></ion-icon>
               </ion-button>
               <ion-button
-                (click)="onReplyToCommentDetails(nestedComment.name, nestedComment.userUID, nestedComment.commentId)">
-                <ion-icon name="chatbox-outline"></ion-icon>
+                (click)="onReplyToCommentDetails(nestedComment.name, nestedComment.userUID, comment.commentId)">
+                <ion-text>Reply</ion-text>
               </ion-button>
             </ion-buttons>
           </ion-label>
