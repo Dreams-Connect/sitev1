@@ -63,7 +63,7 @@ export class FeedPage implements OnInit, OnDestroy {
     // fetch community feed
     this.communityFeedSub = this.communityService.fetchCommunityFeed(this.communityName).subscribe(
       post => {
-      //  if (post.posts != undefined) {
+        if (post != undefined) {
           this.filteredFeed = post.posts;
 
           // sort list by post time
@@ -78,7 +78,7 @@ export class FeedPage implements OnInit, OnDestroy {
               //  console.log(feed.likes.likes)
             }
           })
-       // }
+        }
       }
     )
 

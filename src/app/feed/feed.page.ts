@@ -50,39 +50,46 @@ export class FeedPage implements OnInit, OnDestroy {
       this.userCommunities = user.community
     })
     // get community feed for each community
-    this.userFeedsSub = this.postService.fetchUserFeeds()
-      .subscribe(
-        communities => {
-          communities.filter(community => {
-             console.log(communities)
-            this.feedList.push(community.posts)
-            //  console.log(this.feedList)
+    this.userFeedsSub = this.postService.fetchUserFeeds().subscribe(
+      communities => {
+        // empty list 
+        this.filteredFeed = []
+        communities.map(community => {
+          community.posts.map(feed => {
+            if (this.userCommunities.includes(feed.community)) {
+              this.filteredFeed.push(feed)
+              console.log(this.feedList)
+            }
           })
+        })
 
-          // filter list
-          this.feedList = this.feedList.filter(feed => {
-            feed.filter(item => {
-              // this.userCommunities.includes(item.community) === true ? this.filteredFeed.push(item) : '';
-              if (this.userCommunities.includes(item.community)) {
-                this.filteredFeed.push(item)
-              }
-            })
+        // filter list
+        // this.filteredFeed = this.feedList.filter(feed => !this.userCommunities.includes(feed.community))
+        // this.feedList.map(feed => {
+        //   console.log(feed)
+        //   if (this.userCommunities.includes(feed.community)) {
+        //     this.filteredFeed.push(feed)
+        //   }
 
-            // append likes and comments
-            this.filteredFeed.map(feed => {
-              if (this.postService.getPost(feed.id)[0] != undefined) {
-                feed.likes = this.postService.getPost(feed.id)[0]
-                //  console.log(feed.likes.likes)
-              }
-            })
-          })
+        // append likes and comments
+        this.filteredFeed.map(feed => {
+          if (this.postService.getPost(feed.id)[0] != undefined) {
+            feed.likes = this.postService.getPost(feed.id)[0]
+            //  console.log(feed.likes.likes)
+          }
+        })
 
-          // sort list by post time
-          this.filteredFeed.sort((a, b) => {
-            return b.createdAt - a.createdAt
-          });
-        }
-      )
+        // })
+
+        // sort list by post time
+        this.filteredFeed.sort((a, b) => {
+          return b.createdAt - a.createdAt
+        });
+
+        console.log(this.feedList)
+        console.log(this.filteredFeed)
+      }
+    )
 
     // append likes
     this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
