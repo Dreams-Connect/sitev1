@@ -31,7 +31,14 @@ ion-content {
         color: #000000;
     }
     ion-text {
+        color: #000000 !important;
+    }
+
+    ion-button {
         color: #000000;
+        ion-text {
+            color: #000000;
+        }
     }
 }
 
