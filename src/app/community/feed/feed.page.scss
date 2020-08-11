@@ -1,6 +1,5 @@
 ion-header {
-    ion-toolbar {
-    }
+   
     background: #ffffff;
     .dc_logo_avatar {
         display: flex;
@@ -47,7 +46,7 @@ ion-content {
     font-weight: 800;
     padding: 0;
     padding-left: 16px;
-    text-align: left;
+    // text-align: left;
     white-space: normal;
     color: #0c2c2b;
 }
