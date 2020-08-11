@@ -33,19 +33,25 @@ export class FeeditemPage implements OnInit, OnDestroy {
 
   likeCounterSub: Subscription;
   commentSub: Subscription;
+  nestedCommentSub: Subscription;
 
   likes: likesCounter;
   comments: Comments[] = [];
-
 
   userComment = '';
 
   today;
 
-  postPhotoURL='';
+  postPhotoURL = '';
 
+  commentType; // reply || comment
+
+  replyToUserName = '';
+  replyToUserUID = '';
+  parentCommentId = '';
 
   ngOnInit() {
+    this.commentType = 'comment';
 
     this.today = new Date();
     // get user uid
@@ -88,7 +94,32 @@ export class FeeditemPage implements OnInit, OnDestroy {
         this.comments.sort((a: any, b: any) => {
           return b.createdAt - a.createdAt
         })
+
+        // re fetch nested comment
+        // fetch nested comment
+        this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
+          res => {
+            // console.log(res.comments)
+            // filter nested comment for this comment
+            this.comments.map(comment => {
+              comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+              //console.log(comment.nestedComments)
+            })
+          }
+        )
       })
+
+    // fetch nested comment
+    this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
+      res => {
+        //  console.log(res.comments)
+        // filter nested comment for this comment
+        this.comments.map(comment => {
+          comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+          // console.log(comment.nestedComments)
+        })
+      }
+    )
   }
 
   onLike(postid) {
@@ -107,10 +138,44 @@ export class FeeditemPage implements OnInit, OnDestroy {
   onComment(postid) {
     this.postService.postComment(this.communityName, postid, this.userComment);
     this.userComment = ''
+    this.commentType = 'comment'
+  }
+
+
+
+  onReplyToCommentDetails(replyToUserName, replyToUserUID, parentCommentId) {
+    this.replyToUserName = replyToUserName;
+    this.replyToUserUID = replyToUserUID;
+    this.parentCommentId = parentCommentId;
+    this.commentType = 'reply';
+  }
+
+  onReplyTo() {
+    this.postService.replypToComment(
+      this.communityName,
+      this.postID,
+      this.userComment,
+      this.replyToUserName,
+      this.replyToUserUID,
+      this.parentCommentId
+    )
+    this.commentType = 'comment';
+    this.replyToUserName = '';
+    this.replyToUserUID = '';
+    this.parentCommentId = '';
+    this.userComment = ''
+  }
+
+  cancelReplyingTo() {
+    this.commentType = 'comment'
+    this.replyToUserName = '';
+    this.replyToUserUID = '';
+    this.parentCommentId = '';
   }
 
   ngOnDestroy(): void {
     this.likeCounterSub.unsubscribe();
     this.commentSub.unsubscribe();
+    this.nestedCommentSub.unsubscribe();
   }
 }

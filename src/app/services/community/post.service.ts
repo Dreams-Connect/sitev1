@@ -175,7 +175,8 @@ export class PostService implements OnDestroy {
       comment: comment,
       createdAt: Date.now(),
       postID: postId,
-      community: community
+      community: community,
+      nestedComments: ''
     }
 
     this.afs.collection('comment').doc(postId).update({
@@ -190,7 +191,7 @@ export class PostService implements OnDestroy {
   }
 
   // reply to comment on post
-  replypToComment(community, postId, comment, replyToUserName, replyToUserUID) {
+  replypToComment(community, postId, comment, replyToUserName, replyToUserUID, parentCommentId) {
     let newComment = {
       commentId: this.afs.createId(),
       userUID: localStorage.getItem('dcUserUID'),
@@ -200,21 +201,26 @@ export class PostService implements OnDestroy {
       createdAt: Date.now(),
       postID: postId,
       community: community,
-      replyToUserName: replyToUserUID,
+      replyToUserName: replyToUserName,
       replyToUserUID: replyToUserUID,
+      parentCommentId: parentCommentId
     }
 
-    this.afs.collection('comment').doc(postId).update({
+    this.afs.collection('reply').doc(postId).update({
       comments: firebase.firestore.FieldValue.arrayUnion(newComment)
     }).catch(
       err => {
-        this.afs.collection('comment').doc(postId).set({
+        this.afs.collection('reply').doc(postId).set({
           comments: firebase.firestore.FieldValue.arrayUnion(newComment)
         })
       }
     )
   }
 
+  // get nested comment
+  getNestedComment(postID) {
+    return this.afs.collection('reply').doc<any>(postID).valueChanges();
+  }
   // fetch comments
   fetctFeedItemComment(postId) {
     return this.afs.collection<any>('comment').doc<any>(postId).valueChanges();

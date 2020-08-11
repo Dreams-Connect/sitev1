@@ -38,6 +38,8 @@ export class FeedPage implements OnInit, OnDestroy {
   likesSub: Subscription;
   commentSub: Subscription;
 
+  userPhoto = '';
+
   ngOnInit() {
     // get user uid
     this.userUID = localStorage.getItem('dcUserUID')
@@ -47,13 +49,12 @@ export class FeedPage implements OnInit, OnDestroy {
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.userCommunities = user.community
     })
-    // get community feed
+    // get community feed for each community
     this.userFeedsSub = this.postService.fetchUserFeeds()
-      .pipe(take(1))
       .subscribe(
         communities => {
           communities.filter(community => {
-            //  console.log(communities)
+             console.log(communities)
             this.feedList.push(community.posts)
             //  console.log(this.feedList)
           })

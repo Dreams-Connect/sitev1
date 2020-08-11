@@ -76,10 +76,34 @@
           <ion-button>
             <ion-icon name="heart-outline"></ion-icon>
           </ion-button>
-          <ion-button>
+          <ion-button (click)="onReplyToCommentDetails(comment.name, comment.userUID, comment.commentId)">
             <ion-icon name="chatbox-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
+
+        <!-- nested comment -->
+        <ion-item *ngFor="let nestedComment of comment.nestedComments" lines="none">
+          <ion-avatar slot="start">
+            <img [src]="nestedComment.photoURL == '' ? '../../../assets/icon/tempAvatar.png' : nestedComment.photoURL">
+          </ion-avatar>
+          <ion-label>
+            <h3><strong>{{nestedComment.name}}</strong></h3>
+            <!-- <p>{{comment.createdAt  | amTimeAgo}}</p> -->
+            <h3>{{nestedComment.comment}}</h3>
+            <ion-buttons class="feedItemComment">
+              <ion-text>
+                {{nestedComment.createdAt | amTimeAgo:true | shorttimeage}}
+              </ion-text>
+              <ion-button>
+                <ion-icon name="heart-outline"></ion-icon>
+              </ion-button>
+              <ion-button
+                (click)="onReplyToCommentDetails(nestedComment.name, nestedComment.userUID, nestedComment.commentId)">
+                <ion-icon name="chatbox-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-label>
+        </ion-item>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -87,8 +111,29 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-item>
+    <!-- reply to -->
+    <ion-item *ngIf="commentType =='reply'" lines="none" class="cancelReplyingTo">
+      <ion-label position="stacked">Replying to <strong>{{replyToUserName}}</strong></ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="cancelReplyingTo()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item *ngIf="commentType =='reply'" lines="none">
+      <ion-input placeholder="Write a reply" [(ngModel)]="userComment"></ion-input>
+      <!-- reply to -->
+      <ion-buttons slot="end">
+        <ion-button (click)="onReplyTo()" [disabled]="userComment==''">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <!-- normal comment -->
+    <ion-item *ngIf="commentType =='comment'">
       <ion-input placeholder="Write a comment" [(ngModel)]="userComment"></ion-input>
+      <!-- normal comment -->
       <ion-buttons slot="end">
         <ion-button (click)="onComment(post.id)" [disabled]="userComment==''">
           <ion-icon name="send"></ion-icon>

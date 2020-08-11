@@ -40,8 +40,25 @@ export class Comments {
         public createdAt: string,
         public postID: string,
         public community: string,
-        public replyToUserName:string,
+        public nestedComments: any
+    ) {
+
+    }
+}
+
+export class NestedComments {
+    constructor(
+        public commentId: any,
+        public userUID: string,
+        public photoURL: any,
+        public name: string,
+        public comment: any,
+        public createdAt: string,
+        public postID: string,
+        public community: string,
+        public replyToUserName: string,
         public replyToUserUID: string,
+        public parentCommentId: string
     ) {
 
     }

@@ -38,6 +38,12 @@ ion-content {
     ion-button {
         color: #000000;
     }
+
+    ion-avatar {
+        align-self: flex-start;
+        height: 32px;
+        width: 32px;
+    }
 }
 
 .largeTopicText {
@@ -105,7 +111,8 @@ p {
 }
 
 ion-footer {
-    ion-icon {
+    ion-icon,
+    ion-label {
         color: #29928f;
     }
     background-color: #ffffff;
@@ -118,6 +125,20 @@ ion-footer {
 
     ion-text {
         font-size: 14px;
-        letter-spacing: -1px;
+    }
+}
+
+.cancelReplyingTo {
+    transition: 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) 2s;
+    ion-icon {
+        color: #262626;
+    }
+
+    ion-label {
+        color: #000000;
+
+        strong {
+            color: #29928f;
+        }
     }
 }

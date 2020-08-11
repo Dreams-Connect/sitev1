@@ -57,39 +57,41 @@ export class FeedPage implements OnInit, OnDestroy {
         return;
       }
       this.communityName = paramMap.get('id')
-     // console.log(this.communityName)
+      // console.log(this.communityName)
     });
 
     // fetch community feed
     this.communityFeedSub = this.communityService.fetchCommunityFeed(this.communityName).subscribe(
       post => {
-        this.filteredFeed = post.posts;
+      //  if (post.posts != undefined) {
+          this.filteredFeed = post.posts;
 
-        // sort list by post time
-        this.filteredFeed.sort((a, b) => {
-          return b.createdAt - a.createdAt
-        });
+          // sort list by post time
+          this.filteredFeed.sort((a, b) => {
+            return b.createdAt - a.createdAt
+          });
 
-        // append likes and comments
-        this.filteredFeed.map(feed => {
-          if (this.postService.getPost(feed.id)[0] != undefined) {
-            feed.likes = this.postService.getPost(feed.id)[0]
-          //  console.log(feed.likes.likes)
-          }
-        })
+          // append likes and comments
+          this.filteredFeed.map(feed => {
+            if (this.postService.getPost(feed.id)[0] != undefined) {
+              feed.likes = this.postService.getPost(feed.id)[0]
+              //  console.log(feed.likes.likes)
+            }
+          })
+       // }
       }
     )
 
-       // append likes and comments
-       this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
-        this.filteredFeed.map(feed => {
-          if (this.postService.getPost(feed.id)[0] != undefined) {
-            feed.likes = this.postService.getPost(feed.id)[0]
-            // console.log(feed.likes.likes)
-          }
-        })
+    // append likes and comments
+    this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
+      this.filteredFeed.map(feed => {
+        if (this.postService.getPost(feed.id)[0] != undefined) {
+          feed.likes = this.postService.getPost(feed.id)[0]
+          // console.log(feed.likes.likes)
+        }
       })
-    }
+    })
+  }
 
 
   logScrollStart() { }
