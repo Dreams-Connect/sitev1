@@ -47,6 +47,7 @@ export class FeedPage implements OnInit, OnDestroy {
 
   userUID;
   likesSub: Subscription;
+  commentSub: Subscription;
 
   ngOnInit() {
     this.userUID = localStorage.getItem('dcUserUID')
@@ -71,7 +72,7 @@ export class FeedPage implements OnInit, OnDestroy {
             return b.createdAt - a.createdAt
           });
 
-          // append likes and comments
+          // append likes 
           this.filteredFeed.map(feed => {
             if (this.postService.getPost(feed.id)[0] != undefined) {
               feed.likes = this.postService.getPost(feed.id)[0]
@@ -82,7 +83,7 @@ export class FeedPage implements OnInit, OnDestroy {
       }
     )
 
-    // append likes and comments
+    // append likes
     this.likesSub = this.postService.onLikesChanges().subscribe(changes => {
       this.filteredFeed.map(feed => {
         if (this.postService.getPost(feed.id)[0] != undefined) {
@@ -91,8 +92,20 @@ export class FeedPage implements OnInit, OnDestroy {
         }
       })
     })
-  }
 
+    // append comment counter
+    this.commentSub = this.postService.onCommentChanges().subscribe(changes => {
+      this.filteredFeed.map(feed => {
+        this.postService.getCommentCount(feed.id).subscribe(
+          comment => {
+            if (comment != undefined && comment.comments.length != undefined) {
+              feed.comments = comment.comments.length
+            }
+          }
+        )
+      })
+    });
+  }
 
   logScrollStart() { }
 
@@ -128,8 +141,6 @@ export class FeedPage implements OnInit, OnDestroy {
   showMedia() {
     /// auto play video on interception
     this.scrollObserver = new IntersectionObserver(entries => {
-
-
       const player: videojs.Player = entries[0].target; //init player
 
       this.player = videojs(player, {
@@ -174,6 +185,7 @@ export class FeedPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.communityFeedSub.unsubscribe();
     this.likesSub.unsubscribe();
+    this.commentSub.unsubscribe();
     // destroy player
     if (this.player) {
       this.player.dispose();

@@ -9,6 +9,7 @@ import { FeedPageRoutingModule } from './feed-routing.module';
 import { FeedPage } from './feed.page';
 
 import { MomentModule } from 'ngx-moment';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { MomentModule } from 'ngx-moment';
     FormsModule,
     IonicModule,
     FeedPageRoutingModule,
-    MomentModule
+    MomentModule,
+    SharedModule
   ],
   declarations: [FeedPage]
 })
