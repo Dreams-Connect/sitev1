@@ -28,15 +28,14 @@ export class ProfilesettingsPage implements OnInit, OnDestroy {
     vision: "",
   };
 
-  ngOnInit() { }
-
-  ionViewWillEnter() {
-
+  ngOnInit() {
     this.userSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.user = user
       console.log(this.user)
     })
   }
+
+  ionViewWillEnter() { }
 
   onLogout() {
     this.auth.logout();

@@ -26,6 +26,32 @@
         <ion-button mode="ios">Edit</ion-button>
       </ion-buttons>
     </ion-item>
+
+    <ion-item-divider mode="md"></ion-item-divider>
+    <ion-item class="counters" lines="none">
+      <ion-buttons>
+        <ion-button>
+          <ion-label>
+            <p>10</p>
+            <h3>Posts</h3>
+          </ion-label>
+        </ion-button>
+
+        <ion-button>
+          <ion-label>
+            <p>10</p>
+            <h3>Followers</h3>
+          </ion-label>
+        </ion-button>
+
+        <ion-button>
+          <ion-label>
+            <p>10</p>
+            <h3>Following</h3>
+          </ion-label>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
   </ion-list>
 
   <!--Preferences -->
@@ -40,42 +66,48 @@
           <img src="../../assets/icon/community-icon.png">
         </ion-avatar>
         <ion-label> Communities</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
       <ion-item lines="none" detail>
         <ion-avatar slot="start">
           <img src="../../assets/icon/courses_icon.png">
         </ion-avatar>
         <ion-label> Courses</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
       <ion-item lines="none" detail>
         <ion-avatar slot="start">
           <img src="../../assets/icon/podcast_icon.png">
         </ion-avatar>
         <ion-label> Podcast</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
       <ion-item lines="none" detail>
         <ion-avatar slot="start">
           <img src="../../assets/icon/library_icon.png">
         </ion-avatar>
         <ion-label>Library</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
       <ion-item lines="none" detail>
         <ion-avatar slot="start">
           <img src="../../assets/icon/ticket_icon.png">
         </ion-avatar>
         <ion-label>Tickets</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
       <ion-item lines="none" detail>
         <ion-avatar slot="start">
           <img src="../../assets/icon/job_icon.png">
         </ion-avatar>
         <ion-label>Applied Jobs</ion-label>
+        <ion-badge>2</ion-badge>
       </ion-item>
     </ion-card>
   </ion-list>
 
 
-  <ion-list>
+  <ion-list lines="none">
     <ion-item>
       <ion-buttons>
         <ion-button (click)="onLogout()" fill="solid" color="light">Logout</ion-button>

@@ -25,3 +25,26 @@ ion-list-header {
         object-fit: contain;
     }
 }
+
+.counters {
+    ion-buttons {
+        height: 100%;
+        padding-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        width: 85%;
+        margin: auto;
+        ion-button {
+            height: 40px;
+            ion-label {
+                * {
+                    text-transform: lowercase;
+                }
+            }
+
+            h3 {
+                color: #000000;
+            }
+        }
+    }
+}
