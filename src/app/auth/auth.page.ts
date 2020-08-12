@@ -132,7 +132,9 @@ export class AuthPage implements OnInit {
       this.pCategoryIsSelected,
       this.communitySelectedList,
       this.cname,
-      this.vision)
+      this.vision,
+      ''
+      )
 
     this.authService.register_With_Email_Password(this.newUser)
   }

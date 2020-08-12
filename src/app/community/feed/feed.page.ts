@@ -3,9 +3,12 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import videojs from 'video.js';
 import { IonSlides, NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FeedPost } from 'src/app/model/post';
 import { PostService } from 'src/app/services/community/post.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { ActionSheetController } from '@ionic/angular';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feed',
@@ -17,6 +20,9 @@ export class FeedPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private communityService: CommunityService,
     private postService: PostService,
+    private sharedService: SharedService,
+    private actionSheetController: ActionSheetController,
+    private router: Router
   ) { }
 
   communityName;
@@ -48,8 +54,40 @@ export class FeedPage implements OnInit, OnDestroy {
   userUID;
   likesSub: Subscription;
   commentSub: Subscription;
+  currentUserSub: Subscription;
+
+  userPhoto;
+
+  userCommunities: any[];
+  actionSheetCommunities: any[] = [
+    {
+      text: 'Close',
+      icon: 'close',
+      role: 'cancel',
+    }
+  ];
 
   ngOnInit() {
+
+    this.sharedService.fetchUser();
+    // get user 
+    this.currentUserSub = this.sharedService.currentUserSubject.pipe(take(1)).subscribe(user => {
+      this.userPhoto = user.photoURL;
+      this.userCommunities = user.community;
+      console.log(this.userCommunities)
+      // create community action sheet
+      this.userCommunities.map(com => {
+        // build button
+        let button = {
+          text: com,
+          handler: () => {
+            this.router.navigateByUrl(`dc/community/feed/${com}`)
+          }
+        }
+        this.actionSheetCommunities.push(button)
+      })
+    })
+
     this.userUID = localStorage.getItem('dcUserUID')
     // get community name from route
     this.acRoute.paramMap.subscribe(paramMap => {
@@ -105,6 +143,17 @@ export class FeedPage implements OnInit, OnDestroy {
         )
       })
     });
+  }
+
+  // drop quick community navigate
+  async presentUserCommunites() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Your Communities',
+      animated: true,
+
+      buttons: this.actionSheetCommunities
+    });
+    await actionSheet.present();
   }
 
   logScrollStart() { }
@@ -183,6 +232,7 @@ export class FeedPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.currentUserSub.unsubscribe();
     this.communityFeedSub.unsubscribe();
     this.likesSub.unsubscribe();
     this.commentSub.unsubscribe();

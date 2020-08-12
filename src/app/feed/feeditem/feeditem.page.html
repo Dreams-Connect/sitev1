@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="dc/community/feed/{{communityName}}"></ion-back-button>
     </ion-buttons>
 
     <ion-item lines="none">
@@ -62,7 +62,7 @@
 
     <!--- comments -->
     <ion-item *ngFor="let comment of comments">
-      <ion-avatar slot="start">
+      <ion-avatar slot="start" class="mainAvatar">
         <img [src]="comment.photoURL == '' ? '../../../assets/icon/tempAvatar.png' : comment.photoURL">
       </ion-avatar>
       <ion-label>

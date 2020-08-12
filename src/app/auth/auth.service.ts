@@ -51,7 +51,7 @@ export class AuthService {
   async checkAuthState() {
     const user = await this.isLoggedIn()
     if (user) {
-     
+
     } else {
       // not authenticated
       // redirect to login
@@ -171,7 +171,9 @@ export class AuthService {
           user.usertype,
           user.community,
           user.companyname,
-          user.vision)
+          user.vision,
+          user.photoURL
+        )
         this.currentUserSubject.next(this.currentUser);
       })
     }
@@ -192,7 +194,9 @@ export class AuthService {
           user.usertype,
           user.community,
           user.companyname,
-          user.vision)
+          user.vision,
+          user.photoURL
+        )
         this.currentUserSubject.next(this.currentUser);
 
         // routes

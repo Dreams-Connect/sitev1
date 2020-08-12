@@ -22,10 +22,12 @@ export class CommunityPage implements OnInit, OnDestroy {
 
   joinedCommunity: any[];
 
+  userPhoto ;
 
   ngOnInit() {
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(
       user => {
+        this.userPhoto = user.photoURL
         this.joinedCommunity = user.community;
         // filter community
         this.comSub = this.communityService.fetchCommunities()

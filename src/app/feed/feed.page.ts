@@ -38,7 +38,7 @@ export class FeedPage implements OnInit, OnDestroy {
   likesSub: Subscription;
   commentSub: Subscription;
 
-  userPhoto = '';
+  userPhoto;
 
   ngOnInit() {
     // get user uid
@@ -48,6 +48,8 @@ export class FeedPage implements OnInit, OnDestroy {
     // get user communities
     this.currentUserSub = this.sharedService.currentUserSubject.subscribe(user => {
       this.userCommunities = user.community
+      this.userPhoto = user.photoURL
+     
     })
 
     // get community feed for each community

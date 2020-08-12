@@ -25,11 +25,14 @@ export class SharedService {
             user.usertype,
             user.community,
             user.companyname,
-            user.vision
+            user.vision,
+            user.photoURL
           )
           this.currentUserSubject.next(this.currentUser)
         }
       )
     }
   }
+
+  
 }

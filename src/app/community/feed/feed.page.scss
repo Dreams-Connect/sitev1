@@ -1,5 +1,6 @@
 ion-header {
-   
+    ion-buttons {
+    }
     background: #ffffff;
     .dc_logo_avatar {
         display: flex;
@@ -15,8 +16,8 @@ ion-header {
         height: 100%;
         width: 100%;
         img {
-            width: 35px;
-            height: 35px;
+            height: 24px;
+            width: 24px;
             object-fit: cover;
             border-radius: 100%;
         }
@@ -190,4 +191,35 @@ ion-card {
     ion-slide {
         width: 100% !important;
     }
+}
+
+ion-fab-button {
+    --background: #7a90a6;
+}
+
+.middleDropdown {
+    ion-button {
+        width: 100%;
+        ion-title {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+
+            ion-icon {
+                font-size: 14px;
+                margin-left: 6px;
+            }
+        }
+    }
+}
+
+.actionSheet {
+    background-color: #ffffff;
+    .action-sheet-group {
+        background-color: #ffffff;
+    }
+}
+
+.action-sheet-group.sc-ion-action-sheet-md:first-child {
+    background-color: #ffffff;
 }

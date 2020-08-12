@@ -1,13 +1,20 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="dc/community"></ion-back-button>
     </ion-buttons>
-    <ion-title slot="" class="">{{communityName}}</ion-title>
+    <ion-buttons class="middleDropdown">
+      <ion-button (click)="presentUserCommunites()">
+        <ion-title slot="" class="">
+          <ion-text>{{communityName}}</ion-text>
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-title>
+
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button class="profile_icon" routerLink="/profilesettings">
-        <img
-          src="https://images.pexels.com/photos/4674175/pexels-photo-4674175.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+        <img src="{{userPhoto == '' || userPhoto == undefined ? '../../../assets/icon/tempAvatar3.png' : userPhoto}}">
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -38,7 +45,7 @@
         <ion-item-group *ngFor="let post of filteredFeed">
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <img [src]="post.photoURL">
+              <img [src]="post.photoURL =='' ? '../../../assets/icon/tempAvatar.png' : post.photoURL">
             </ion-avatar>
             <ion-label>
               <h2>{{post.name}}</h2>

@@ -66,3 +66,11 @@ body {
     font-size: 25px !important;
 }
 
+ion-icon[name="heart"] {
+    color: #fd2060 !important;
+}
+
+.action-sheet-group.sc-ion-action-sheet-md:first-child,
+.action-sheet-group.sc-ion-action-sheet-md:last-child {
+    background-color: #fff;
+}

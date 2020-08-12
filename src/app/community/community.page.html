@@ -60,8 +60,7 @@
         </svg>
       </ion-button>
       <ion-button class="profile_icon" routerLink="/profilesettings">
-        <img
-          src="https://images.pexels.com/photos/4674175/pexels-photo-4674175.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+        <img src="{{userPhoto == '' || userPhoto == undefined ? '../../../assets/icon/tempAvatar3.png' : userPhoto}}">
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
