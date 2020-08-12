@@ -1,0 +1,27 @@
+ion-header,
+ion-content {
+    background-color: #ffffff;
+}
+
+.personaldescription {
+    ion-buttons {
+        ion-button {
+            text-transform: capitalize;
+        }
+    }
+}
+
+ion-list-header {
+    color: #7a90a6;
+}
+
+.pref_card {
+    ion-avatar {
+        height: 24px;
+        width: 24px;
+        --border-radius: 0;
+    }
+    img {
+        object-fit: contain;
+    }
+}

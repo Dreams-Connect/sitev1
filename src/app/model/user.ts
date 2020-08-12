@@ -8,8 +8,8 @@ export class User {
         public usertype: string,
         public community: any,
         public companyname: string,
-        public vision: string,
-        public photoURL: string
+        public vision: string, // will description for normal users
+        public photoURL: string,
     ) {
 
     }
@@ -24,7 +24,7 @@ export class currentUser {
         public usertype: string,
         public community: any,
         public companyname: string,
-        public vision: string,
+        public vision: string, // will description for normal users
         public photoURL: string
     ) {
 

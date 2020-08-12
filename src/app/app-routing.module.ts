@@ -125,6 +125,10 @@ const routes: Routes = [
     path: 'access',
     loadChildren: () => import('./portal/auth/auth/auth.module').then(m => m.AuthPageModule)
   },
+  {
+    path: 'publicprofile',
+    loadChildren: () => import('./profile/publicprofile/publicprofile.module').then( m => m.PublicprofilePageModule)
+  },
   // {
   //   path: 'dccommunity',
   //   loadChildren: () => import('./dccommunity/dccommunity.module').then(m => m.DccommunityPageModule),

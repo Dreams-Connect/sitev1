@@ -14,7 +14,7 @@
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button class="profile_icon" routerLink="/profilesettings">
-        <img src="{{userPhoto == '' || userPhoto == undefined ? '../../../assets/icon/tempAvatar3.png' : userPhoto}}">
+        <img src="{{userPhoto == '' || userPhoto == undefined ? '../../../assets/icon/tempAvatar4.png' : userPhoto}}">
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -45,7 +45,7 @@
         <ion-item-group *ngFor="let post of filteredFeed">
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <img [src]="post.photoURL =='' ? '../../../assets/icon/tempAvatar.png' : post.photoURL">
+              <img [src]="post.photoURL =='' ? '../../../assets/icon/tempAvatar4.png' : post.photoURL">
             </ion-avatar>
             <ion-label>
               <h2>{{post.name}}</h2>
