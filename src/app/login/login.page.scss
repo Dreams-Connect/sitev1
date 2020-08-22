@@ -75,3 +75,21 @@ ion-footer {
         color: #ffffff;
     }
 }
+
+.alternate_Auth {
+    padding-left: 8px;
+
+    ion-text {
+        margin-left: 6px;
+
+        &::before {
+            content: "";
+            height: 5px;
+            width: 100%;
+            background: #29928f82;
+            position: absolute;
+            bottom: 9px;
+            z-index: -1;
+        }
+    }
+}

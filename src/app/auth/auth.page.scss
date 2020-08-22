@@ -2,6 +2,15 @@
     position: absolute;
     z-index: 999999999;
     background-color: #ffffff;
+
+    ion-buttons {
+        position: absolute;
+    }
+
+    ion-title {
+        width: 100%;
+        text-align: center;
+    }
 }
 .mainHeader {
     ion-title {
@@ -71,5 +80,25 @@ ion-footer {
     background: #000000;
     * {
         color: #ffffff;
+    }
+}
+
+
+
+.alternate_Auth {
+    padding-left: 8px;
+
+    ion-text {
+        margin-left: 6px;
+
+        &::before {
+            content: "";
+            height: 5px;
+            width: 100%;
+            background: #29928f82;
+            position: absolute;
+            bottom: 9px;
+            z-index: -1;
+        }
     }
 }

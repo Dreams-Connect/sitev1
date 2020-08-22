@@ -21,7 +21,7 @@
     </ion-label>
   </ion-item>
 
-  <form #loginInformation="ngForm" (ngSubmit)="onSubmit(loginInformation)">
+  <form #loginInformation="ngForm" (ngSubmit)="onSubmit(loginInformation)" (ionFocus)="onFocus()" (mouseleave)="onMouseLeave()">
     <ion-grid>
       <ion-row>
         <ion-col size="12" size-lg="8">
@@ -40,7 +40,6 @@
               </ion-label>
               <ion-input type="password" ngModel name="password" #lname="ngModel" required></ion-input>
             </ion-item>
-
           </ion-list>
         </ion-col>
 
@@ -54,15 +53,12 @@
       </ion-row>
     </ion-grid>
   </form>
-</ion-content>
 
-
-<ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="alternate_Auth">
     <ion-buttons>
       <ion-button routerLink="/auth">
-        Are you a new user? Register
+        Are you a new user? <ion-text> Register</ion-text>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>
+</ion-content>

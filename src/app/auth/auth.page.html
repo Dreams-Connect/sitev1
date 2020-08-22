@@ -1,15 +1,17 @@
 <ion-header class="ion-no-border backHeader">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
+
+    <ion-title>Registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header class="ion-no-border mainHeader">
     <ion-toolbar>
-      <ion-title>Registration</ion-title>
+
     </ion-toolbar>
   </ion-header>
 
@@ -211,15 +213,13 @@
       </ion-row>
     </ion-grid>
   </form>
-</ion-content>
 
 
-<ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="alternate_Auth">
     <ion-buttons>
       <ion-button routerLink="/login">
-        Already have an account? Login
+        Already have an account? <ion-text>Login</ion-text>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-footer>
+</ion-content>
