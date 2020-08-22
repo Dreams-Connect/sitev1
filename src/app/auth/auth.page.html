@@ -5,6 +5,10 @@
     </ion-buttons>
 
     <ion-title>Registration</ion-title>
+
+    <ion-buttons slot="primary" [hidden]="FNAME==''">
+      <ion-button (click)="onPrevious()">Start Over</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +21,7 @@
 
   <!-- Collect Personal information -->
   <ion-item detail="false" lines="none" *ngIf="forms?.personalInformation">
-    <ion-label>
+    <ion-label class="formInfoCTA">
       <h1 class="reg_h1">Hi!</h1>
       <h2 class="reg_h2">Let's get to know you better. </h2>
     </ion-label>
@@ -34,7 +38,7 @@
               <ion-label position="stacked">
                 FIRST NAME
               </ion-label>
-              <ion-input type="text" ngModel name="FNAME" #fname="ngModel" required></ion-input>
+              <ion-input type="text" ngModel name="FNAME" #fname="ngModel" required autocomplete="on"></ion-input>
             </ion-item>
             <!-- lName -->
             <ion-item>
@@ -62,7 +66,7 @@
 
   <!-- Login details -->
   <ion-item detail="false" lines="none" *ngIf="forms?.loginInformation">
-    <ion-label>
+    <ion-label class="formInfoCTA">
       <h1 class="reg_h1">Just Chill a likkle!</h1>
       <h2 class="reg_h2">Set your login details.</h2>
     </ion-label>
@@ -100,7 +104,7 @@
 
   <!-- Get persona -->
   <ion-item detail="false" lines="none" *ngIf="forms?.personaInformation">
-    <ion-label>
+    <ion-label class="formInfoCTA">
       <h1 class="reg_h1"> Almost there!</h1>
       <h2 class="reg_h2">What category do you belong?</h2>
     </ion-label>
@@ -138,7 +142,7 @@
 
   <!-- Get interest communities -->
   <ion-item detail="false" lines="none" *ngIf="forms?.communityInformation">
-    <ion-label>
+    <ion-label class="formInfoCTA">
       <h1 class="reg_h1">You're all set up!</h1>
       <h2 class="reg_h2">What communities interest you more? <br> You may select more than one</h2>
     </ion-label>
@@ -176,7 +180,7 @@
 
   <!-- Company details -->
   <ion-item detail="false" lines="none" *ngIf="forms?.precompanyInformation">
-    <ion-label>
+    <ion-label class="formInfoCTA">
       <h1 class="reg_h1">Yay, That's it!</h1>
       <h2 class="reg_h2">Finally, Let's understand your passion</h2>
     </ion-label>

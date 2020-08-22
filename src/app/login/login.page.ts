@@ -13,18 +13,15 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  formIsFocused = false;
+  showPassword = false;
 
   onSubmit(event) {
     this.authService.login_With_Email_Password(event.value.email,
       event.value.password)
   }
 
-  // onFocus() {
-  //   this.formIsFocused = true;
-  // }
-
-  // onMouseLeave() {
-  //   this.formIsFocused = false;
-  // }
+  onToggle(value) {
+    this.showPassword = value;
+    console.log(value)
+  }
 }

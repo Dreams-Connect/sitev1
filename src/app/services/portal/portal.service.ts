@@ -27,7 +27,6 @@ export class PortalService {
 
     // books
 
-
   }
 
   // update community list

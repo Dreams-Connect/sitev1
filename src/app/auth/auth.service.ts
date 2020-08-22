@@ -20,18 +20,16 @@ export class AuthService {
     public auth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
-
   ) {
-    this.userCollection = afs.collection<User>('users');
 
+    this.userCollection = afs.collection<User>('users');
     // check user login status
     localStorage.getItem('dcUser') != null ? this._userIsAuthenticated = true : this._userIsAuthenticated = false;
     this.authenticationSubJect.next(this._userIsAuthenticated)
 
+    // check authentication state
     this.checkAuthState();
   }
-
-
 
   private userCollection: AngularFirestoreCollection<User>;
   _userIsAuthenticated = false;
@@ -98,7 +96,6 @@ export class AuthService {
     });
     (await alert).present()
   }
-
 
   logout() {
     this.auth.signOut();

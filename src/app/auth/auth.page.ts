@@ -134,11 +134,11 @@ export class AuthPage implements OnInit {
       this.cname,
       this.vision,
       ''
-      )
+    )
 
     this.authService.register_With_Email_Password(this.newUser)
   }
-  // sace user category
+  // save user category
   onCatSelect(category) {
     this.pCategoryIsSelected = category;
   }
@@ -149,5 +149,13 @@ export class AuthPage implements OnInit {
     } else {
       this.communitySelectedList = this.communitySelectedList.filter(el => el !== selected)
     }
+  }
+
+  onPrevious() {
+    let keys = Object.keys(this.forms)
+    // hide all form
+    Object.keys(this.forms).map(key => this.forms[key] = false)
+    // show first form
+    this.forms.personalInformation = true;
   }
 }

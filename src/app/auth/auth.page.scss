@@ -4,7 +4,9 @@
     background-color: #ffffff;
 
     ion-buttons {
-        position: absolute;
+        &:first-child {
+            position: absolute;
+        }
     }
 
     ion-title {
@@ -27,7 +29,16 @@ ion-content {
     justify-content: flex-end;
 
     ion-icon {
-        font-size: 50px;
+        font-size: 40px;
+    }
+
+    ion-button {
+        height: 70px;
+
+        ion-icon {
+            background-color: #29928f;
+            border-radius: 100%;
+        }
     }
 }
 
@@ -83,8 +94,6 @@ ion-footer {
     }
 }
 
-
-
 .alternate_Auth {
     padding-left: 8px;
 
@@ -101,4 +110,41 @@ ion-footer {
             z-index: -1;
         }
     }
+}
+
+.formInfoCTA {
+    h1 {
+        animation: revealUp cubic-bezier(0.77, 0, 0.175, 1) 1s;
+    }
+    h2 {
+        animation: revealUp cubic-bezier(0.77, 0, 0.175, 1) 2s;
+    }
+}
+
+@keyframes revealUp {
+    0% {
+        transform: translate(0, 100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes revealDown {
+    0% {
+        transform: translate(0, -100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+* {
+    transition: 0.2s ease-in-out;
 }

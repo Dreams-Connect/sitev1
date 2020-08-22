@@ -10,9 +10,7 @@ export class User {
         public companyname: string,
         public vision: string, // will description for normal users
         public photoURL: string,
-    ) {
-
-    }
+    ) { }
 }
 
 export class currentUser {
@@ -26,9 +24,7 @@ export class currentUser {
         public companyname: string,
         public vision: string, // will description for normal users
         public photoURL: string
-    ) {
-
-    }
+    ) { }
 }
 
 
@@ -41,9 +37,7 @@ export class adminUser {
         public phone: string,
         public email: string,
         public permissions: any,
-    ) {
-
-    }
+    ) { }
 }
 
 export class currentAdmin {
@@ -53,7 +47,5 @@ export class currentAdmin {
         public phone: string,
         public email: string,
         public permissions: any,
-    ) {
-
-    }
+    ) { }
 }
