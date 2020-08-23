@@ -68,6 +68,7 @@
 
 <ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
   (ionScrollEnd)="logScrollEnd()">
+
   <ion-list>
     <ion-item-group *ngFor="let post of filteredFeed">
       <ion-item lines="none">
@@ -120,4 +121,13 @@
       </ion-item>
     </ion-item-group>
   </ion-list>
+
+  <!-- no post -->
+  <div class="noPost" [hidden]="filteredFeed.length">
+    <img src="../../assets/UI-Assets/nopost.gif">
+    <span>
+      <h1>Can't see any post?</h1>
+      <p>You are not alone. Go to <ion-text routerLink="/dc/community">Community</ion-text> to create a post</p>
+    </span>
+  </div>
 </ion-content>

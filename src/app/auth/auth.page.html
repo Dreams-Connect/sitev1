@@ -82,12 +82,24 @@
             <ion-label position="stacked">EMAIL</ion-label>
             <ion-input type="email" ngModel name="email" #phone="ngModel" autocomplete='off' required></ion-input>
           </ion-item>
+
           <ion-list>
             <!-- password-->
             <ion-item>
               <ion-label position="stacked">PASSWORD</ion-label>
-              <ion-input type="password" ngModel name="password" #phone="ngModel" required autocomplete='off'>
+              <ion-input [type]="showPassword == true ? 'text' : 'password'" ngModel name="password" #phone="ngModel"
+                required autocomplete='off'>
               </ion-input>
+
+              <!-- hide / show password -->
+              <ion-buttons class="passwordToggle" slot="end" [hidden]="phone.value == ''">
+                <ion-button (click)="onToggle(false)" [hidden]="showPassword !== true">
+                  <ion-icon name="eye-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="onToggle(true)" [hidden]="showPassword !== false">
+                  <ion-icon name="eye-off-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
             </ion-item>
           </ion-list>
         </ion-col>

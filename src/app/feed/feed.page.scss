@@ -100,3 +100,31 @@ ion-slide {
 ion-slides {
     // background: rgba(221, 221, 221, 0.867);
 }
+
+.noPost {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 700px;
+    margin: auto;
+    img {
+        height: 100%;
+        width: 100%;
+        max-width: 640px;
+        max-height: 640px;
+    }
+    span {
+        text-align: center;
+    }
+
+    ion-text {
+        font-weight: 700;
+        cursor: pointer;
+        color: rgb(219, 53, 52);
+
+        &:hover {
+            color: rgb(71, 65, 201);
+        }
+    }
+}

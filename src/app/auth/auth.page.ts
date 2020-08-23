@@ -9,6 +9,9 @@ import { User } from '../model/user';
 })
 export class AuthPage implements OnInit {
   constructor(private authService: AuthService) { }
+
+  showPassword = false;
+
   // user details
   FNAME = ''
   LNAME = ''
@@ -157,5 +160,10 @@ export class AuthPage implements OnInit {
     Object.keys(this.forms).map(key => this.forms[key] = false)
     // show first form
     this.forms.personalInformation = true;
+  }
+
+  onToggle(value) {
+    this.showPassword = value;
+    console.log(value)
   }
 }
