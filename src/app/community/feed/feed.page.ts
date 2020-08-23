@@ -74,7 +74,7 @@ export class FeedPage implements OnInit, OnDestroy {
     this.currentUserSub = this.sharedService.currentUserSubject.pipe(take(1)).subscribe(user => {
       this.userPhoto = user.photoURL;
       this.userCommunities = user.community;
-      console.log(this.userCommunities)
+      //console.log(this.userCommunities)
       // create community action sheet
       this.userCommunities.map(com => {
         // build button

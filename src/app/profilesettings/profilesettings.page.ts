@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 import { AuthService } from './../auth/auth.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { currentUser } from '../model/user';
 
 @Component({
@@ -12,8 +12,12 @@ import { currentUser } from '../model/user';
 export class ProfilesettingsPage implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private ngZone: NgZone
   ) { }
+
+  uploadPercentage;
+  percentageSubscription: Subscription;
 
   userSub: Subscription;
   user: currentUser = {
@@ -29,9 +33,14 @@ export class ProfilesettingsPage implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
+    this.sharedService.fetchUser();
     this.userSub = this.sharedService.currentUserSubject.subscribe(user => {
-      this.user = user
-      console.log(this.user)
+      this.user = user;
+    });
+
+    this.percentageSubscription = this.sharedService.downloadPercentageSubject.subscribe(percent => {
+      this.uploadPercentage = percent;
+      this.uploadPercentage = this.uploadPercentage / 100;
     })
   }
 
@@ -41,7 +50,12 @@ export class ProfilesettingsPage implements OnInit, OnDestroy {
     this.auth.logout();
   }
 
+  onPhotoChange(event) {
+    this.sharedService.uploadPhoto(event)
+  }
+
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.percentageSubscription.unsubscribe();
   }
 }
