@@ -99,14 +99,16 @@ export class FeeditemPage implements OnInit, OnDestroy {
         // fetch nested comment
         this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
           res => {
-            // filter nested comment for this comment
-            this.comments.map(comment => {
-              comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
-              // sort
-              comment.nestedComments.sort((a, b) => {
-                return b.createdAt - a.createdAt
+            if (res) {
+              // filter nested comment for this comment
+              this.comments.map(comment => {
+                comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+                // sort
+                comment.nestedComments.sort((a, b) => {
+                  return b.createdAt - a.createdAt
+                })
               })
-            })
+            }
           }
         )
       })
@@ -114,14 +116,16 @@ export class FeeditemPage implements OnInit, OnDestroy {
     // fetch nested comment
     this.nestedCommentSub = this.postService.getNestedComment(this.postID).subscribe(
       res => {
-        // filter nested comment for this comment
-        this.comments.map(comment => {
-          comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
-          // sort
-          comment.nestedComments.sort((a, b) => {
-            return b.createdAt - a.createdAt
+        if (res) {
+          // filter nested comment for this comment
+          this.comments.map(comment => {
+            comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+            // sort
+            comment.nestedComments.sort((a, b) => {
+              return b.createdAt - a.createdAt
+            })
           })
-        })
+        }
       }
     )
   }
