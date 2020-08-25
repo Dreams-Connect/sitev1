@@ -67,7 +67,7 @@ export class NestedComments {
 export class likesCounter {
     constructor(
         public postId: string,
-        public userUID: string,
+        public userUIDs: any,
         public likes: number
     ) {
 

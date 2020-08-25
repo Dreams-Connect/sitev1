@@ -39,8 +39,8 @@
       <ion-item class="cta_Start">
         <ion-buttons>
           <ion-button (click)="onLike(post.id)">
-            <ion-icon name="heart" *ngIf="likes && likes.userUID.includes(userUID)"></ion-icon>
-            <ion-icon name="heart-outline" *ngIf="likes == undefined || likes.userUID.includes(userUID) == false">
+            <ion-icon name="heart" *ngIf="likes && likes.userUIDs.includes(userUID)"></ion-icon>
+            <ion-icon name="heart-outline" *ngIf="likes == undefined || likes.userUIDs.includes(userUID) == false">
             </ion-icon>
 
             <ion-text *ngIf="likes"> {{likes.likes == 0 ? '' : likes.likes }}</ion-text>
