@@ -32,8 +32,14 @@ export class FeeditemPage implements OnInit, OnDestroy {
   post: Post;
 
   likeCounterSub: Subscription;
+  commentLikeCounterSub: Subscription;
+
+  nestedlikeCounterSub: Subscription;
+  nestedCommentLikeCounterSub: Subscription;
+
   commentSub: Subscription;
   nestedCommentSub: Subscription;
+
 
   likes: likesCounter;
   comments: Comments[] = [];
@@ -91,6 +97,13 @@ export class FeeditemPage implements OnInit, OnDestroy {
           this.comments = comments.comments;
         }
 
+        // append likes to comments
+        this.comments.map(comment => {
+          this.postService.getCommentLikesCount(comment.commentId).subscribe(likes => {
+            comment.likes = likes;
+          });
+        })
+
         this.comments.sort((a: any, b: any) => {
           return b.createdAt - a.createdAt
         })
@@ -102,7 +115,13 @@ export class FeeditemPage implements OnInit, OnDestroy {
             if (res) {
               // filter nested comment for this comment
               this.comments.map(comment => {
-                comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+                comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId);
+                // append nested comments likes
+                comment.nestedComments.map(nestedComment => {
+                  this.postService.getCommentLikesCount(nestedComment.commentId).subscribe(likes => {
+                    nestedComment.likes = likes;
+                  })
+                })
                 // sort
                 comment.nestedComments.sort((a, b) => {
                   return b.createdAt - a.createdAt
@@ -119,7 +138,13 @@ export class FeeditemPage implements OnInit, OnDestroy {
         if (res) {
           // filter nested comment for this comment
           this.comments.map(comment => {
-            comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId)
+            comment.nestedComments = res.comments.filter(c => c.parentCommentId == comment.commentId);
+            // append nested comments likes
+            comment.nestedComments.map(nestedComment => {
+              this.postService.getCommentLikesCount(nestedComment.commentId).subscribe(likes => {
+                nestedComment.likes = likes;
+              })
+            })
             // sort
             comment.nestedComments.sort((a, b) => {
               return b.createdAt - a.createdAt
@@ -127,11 +152,41 @@ export class FeeditemPage implements OnInit, OnDestroy {
           })
         }
       }
+    );
+
+    // fetch comments likes
+    this.commentLikeCounterSub = this.postService.onCommentLikesChanges().subscribe(
+      likes => {
+        // append likes to comments
+        this.comments.map(comment => {
+          this.postService.getCommentLikesCount(comment.commentId).subscribe(likes => {
+            comment.likes = likes;
+          });
+          // console.log(comment)
+        })
+      }
+    )
+
+    // fetch nestedComments likes
+    this.nestedlikeCounterSub = this.postService.onCommentLikesChanges().subscribe(
+      likes => {
+        // append likes to nested comments
+
+
+      }
     )
   }
 
   onLike(postid) {
     this.postService.onPostLike(postid)
+  }
+
+  onLikeComment(commentId) {
+    this.postService.likeComment(commentId)
+  }
+
+  unlikeComment(commentId) {
+    this.postService.unlikeComment(commentId)
   }
 
   play() {
@@ -148,7 +203,6 @@ export class FeeditemPage implements OnInit, OnDestroy {
     this.userComment = ''
     this.commentType = 'comment'
   }
-
 
 
   onReplyToCommentDetails(replyToUserName, replyToUserUID, parentCommentId) {

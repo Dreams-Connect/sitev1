@@ -56,9 +56,9 @@ export class SharedService {
     let photoURL;
     const userID = localStorage.getItem('dcUserUID')
 
-    let id = this.afs.createId(); // generate id
+    let id = userID;
     let file = photo.target.files[0];
-    let filePath = `${photo.type}/${id}`  // seperate path for audio & video & other media types
+    let filePath = `profilePhotos/${id}`  // seperate path for audio & video & other media types
 
     let fileRef = this.afstorage.ref(filePath);
 

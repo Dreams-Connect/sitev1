@@ -73,9 +73,18 @@
           <ion-text>
             {{comment.createdAt | amTimeAgo:true | shorttimeage}}
           </ion-text>
-          <ion-button>
-            <ion-icon name="heart-outline"></ion-icon>
+          <!-- Like UnLike CTA-->
+          <!-- unlike comment-->
+          <ion-button (click)="unlikeComment(comment.commentId)"
+            *ngIf="comment.likes && comment.likes.userUIDs.includes(userUID)">
+            <ion-icon name="heart">
+            </ion-icon>
           </ion-button>
+          <!-- like comment-->
+          <ion-button (click)="onLikeComment(comment.commentId)" *ngIf="!comment.likes?.userUIDs?.includes(userUID)">
+            <ion-icon name="heart-outline"> </ion-icon>
+          </ion-button>
+
           <ion-button (click)="onReplyToCommentDetails(comment.name, comment.userUID, comment.commentId)">
             <ion-text>Reply</ion-text>
           </ion-button>
@@ -94,9 +103,19 @@
               <ion-text>
                 {{nestedComment.createdAt | amTimeAgo:true | shorttimeage}}
               </ion-text>
-              <ion-button>
-                <ion-icon name="heart-outline"></ion-icon>
+              <!-- Like UnLike CTA-->
+              <!-- unlike comment-->
+              <ion-button (click)="unlikeComment(nestedComment.commentId)"
+                *ngIf="nestedComment.likes && nestedComment.likes.userUIDs.includes(userUID)">
+                <ion-icon name="heart">
+                </ion-icon>
               </ion-button>
+              <!-- like comment-->
+              <ion-button (click)="onLikeComment(nestedComment.commentId)"
+                *ngIf="!nestedComment.likes?.userUIDs?.includes(userUID)">
+                <ion-icon name="heart-outline"> </ion-icon>
+              </ion-button>
+
               <ion-button
                 (click)="onReplyToCommentDetails(nestedComment.name, nestedComment.userUID, comment.commentId)">
                 <ion-text>Reply</ion-text>

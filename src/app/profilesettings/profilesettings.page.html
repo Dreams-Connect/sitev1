@@ -17,7 +17,6 @@
       <input type="file" (change)="onPhotoChange($event)" #photoInput style="display:none"
         accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/quicktime,video/webm">
 
-
       <ion-avatar slot="start" (click)="photoInput.click()">
         <div *ngIf="user.photoURL == ''">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

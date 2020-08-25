@@ -223,3 +223,10 @@ ion-fab-button {
 .action-sheet-group.sc-ion-action-sheet-md:first-child {
     background-color: #ffffff;
 }
+
+ion-avatar {
+    img {
+        height: 40px;
+        width: 40px;
+    }
+}

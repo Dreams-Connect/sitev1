@@ -40,10 +40,9 @@ export class Comments {
         public createdAt: string,
         public postID: string,
         public community: string,
-        public nestedComments: any
-    ) {
-
-    }
+        public nestedComments: any,
+        public likes: any
+    ) {}
 }
 
 export class NestedComments {
@@ -58,7 +57,8 @@ export class NestedComments {
         public community: string,
         public replyToUserName: string,
         public replyToUserUID: string,
-        public parentCommentId: string
+        public parentCommentId: string,
+        public likes: any
     ) {
 
     }

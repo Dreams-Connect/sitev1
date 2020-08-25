@@ -176,7 +176,8 @@ export class PostService implements OnDestroy {
       createdAt: Date.now(),
       postID: postId,
       community: community,
-      nestedComments: ''
+      nestedComments: '',
+      likes: ''
     }
 
     this.afs.collection('comment').doc(postId).update({
@@ -203,14 +204,15 @@ export class PostService implements OnDestroy {
       community: community,
       replyToUserName: replyToUserName,
       replyToUserUID: replyToUserUID,
-      parentCommentId: parentCommentId
+      parentCommentId: parentCommentId,
+      likes: ''
     }
 
-    this.afs.collection('reply').doc(postId).update({
+    this.afs.collection('nestedComment').doc(postId).update({
       comments: firebase.firestore.FieldValue.arrayUnion(newComment)
     }).catch(
       err => {
-        this.afs.collection('reply').doc(postId).set({
+        this.afs.collection('nestedComment').doc(postId).set({
           comments: firebase.firestore.FieldValue.arrayUnion(newComment)
         })
       }
@@ -219,7 +221,7 @@ export class PostService implements OnDestroy {
 
   // get nested comment
   getNestedComment(postID) {
-    return this.afs.collection('reply').doc<any>(postID).valueChanges();
+    return this.afs.collection('nestedComment').doc<any>(postID).valueChanges();
   }
   // fetch comments
   fetctFeedItemComment(postId) {
@@ -243,7 +245,7 @@ export class PostService implements OnDestroy {
   isPostLike(postid, userUID) {
     let post = this.getPost(postid)[0];
     if (post != undefined) {
-      if (post.userUID.includes(userUID)) {
+      if (post.userUIDs.includes(userUID)) {
         // console.log(true)
         return true;
       }
@@ -268,9 +270,19 @@ export class PostService implements OnDestroy {
     return this.afs.collection<any>('likesCounter').valueChanges();
   }
 
-  // likes changes
+  // comment changes
   onCommentChanges() {
     return this.afs.collection<any>('comment').valueChanges();
+  }
+
+  // comment likes changes
+  onCommentLikesChanges() {
+    return this.afs.collection<any>('commentLikesCounter').valueChanges();
+  }
+
+  // get comment counter
+  getCommentLikesCount(commentId) {
+    return this.afs.collection<any>('commentLikesCounter').doc<any>(commentId).valueChanges()
   }
 
   // get comment counter
@@ -309,7 +321,7 @@ export class PostService implements OnDestroy {
         // console.log('has liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(-1),
-          userUID: firebase.firestore.FieldValue.arrayRemove(localStorage.getItem('dcUserUID'))
+          userUIDs: firebase.firestore.FieldValue.arrayRemove(localStorage.getItem('dcUserUID'))
         })
       }
       // user has not liked post
@@ -317,7 +329,7 @@ export class PostService implements OnDestroy {
         //  console.log('not liked')
         this.afs.collection('likesCounter').doc(postid).update({
           likes: firebase.firestore.FieldValue.increment(1),
-          userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
+          userUIDs: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
         })
       }
     }
@@ -327,9 +339,36 @@ export class PostService implements OnDestroy {
       this.afs.collection('likesCounter').doc(postid).set({
         postId: postid,
         likes: firebase.firestore.FieldValue.increment(1),
-        userUID: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
+        userUIDs: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
       })
     }
+  }
+
+  // list comment 
+  likeComment(commentId) {
+    // like
+    this.afs.collection('commentLikesCounter').doc(commentId).update({
+      likes: firebase.firestore.FieldValue.increment(1),
+      commentId: commentId,
+      userUIDs: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
+    }).catch(e => {
+      // no document to update ===> set it
+      this.afs.collection('commentLikesCounter').doc(commentId).set({
+        likes: firebase.firestore.FieldValue.increment(1),
+        commentId: commentId,
+        userUIDs: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('dcUserUID'))
+      })
+    })
+  }
+
+  // list comment 
+  unlikeComment(commentId) {
+    // like
+    this.afs.collection('commentLikesCounter').doc(commentId).update({
+      likes: firebase.firestore.FieldValue.increment(-1),
+      commentId: commentId,
+      userUIDs: firebase.firestore.FieldValue.arrayRemove(localStorage.getItem('dcUserUID'))
+    })
   }
 
   communitylikesCounterSubject = new Subject<likesCounter[]>();
