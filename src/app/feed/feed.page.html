@@ -100,9 +100,9 @@
       <ion-item class="cta_Start">
         <ion-buttons>
           <ion-button (click)="onLike(post.id)">
-            <ion-icon name="heart" *ngIf="post.likes && post.likes.userUID.includes(userUID)"></ion-icon>
+            <ion-icon name="heart" *ngIf="post.likes && post.likes.userUIDs.includes(userUID)"></ion-icon>
             <ion-icon name="heart-outline"
-              *ngIf="post.likes == undefined || post.likes.userUID.includes(userUID) == false"></ion-icon>
+              *ngIf="post.likes == undefined || post.likes.userUIDs.includes(userUID) == false"></ion-icon>
 
             <ion-text *ngIf="post.likes"> {{post.likes.likes == 0 ? '' : post.likes.likes }}</ion-text>
           </ion-button>
